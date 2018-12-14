@@ -3192,9 +3192,9 @@ input, select, textarea {
 	.wrapper {
 		position: relative;
 	}
-
+		
 		.wrapper > .inner {
-			padding: 5em 5em 3em 5em ;
+			padding: 2em 2em 3em 5em ;
 			max-width: 100%;
 			width: 75em;
 		}
