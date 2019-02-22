@@ -2243,6 +2243,10 @@ input, select, textarea {
 			position: relative;
 		}
 
+			.features_noicn section:only-child {
+				width: 100%;
+			}
+			
 			.features_noicn section:nth-child(-n + 2) {
 				border-top-width: 0;
 			}
@@ -3319,7 +3323,7 @@ input, select, textarea {
 		}
 
 		.wrapper.style3 {
-			background-color: #b74e91;
+			background-color: #93256d;
 		}
 
 		.wrapper.style3-alt {
