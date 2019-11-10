@@ -214,10 +214,10 @@ input, select, textarea {
 		}
 
 			h1.major:after {
-				background-image: -moz-linear-gradient(to right, var(--bg-color-1), var(--accent-color-dark));
-				background-image: -webkit-linear-gradient(to right, var(--bg-color-1), var(--accent-color-dark));
-				background-image: -ms-linear-gradient(to right, var(--bg-color-1), var(--accent-color-dark));
-				background-image: linear-gradient(to right, var(--bg-color-1), var(--accent-color-dark));
+				background-image: -moz-linear-gradient(to right, var(--accent-color-light), var(--accent-color-dark));
+				background-image: -webkit-linear-gradient(to right, var(--accent-color-light), var(--accent-color-dark));
+				background-image: -ms-linear-gradient(to right, var(--accent-color-light), var(--accent-color-dark));
+				background-image: linear-gradient(to right, var(--accent-color-light), var(--accent-color-dark));
 				-moz-transition: max-width 0.2s ease;
 				-webkit-transition: max-width 0.2s ease;
 				-ms-transition: max-width 0.2s ease;
@@ -3845,10 +3845,10 @@ input, select, textarea {
 			}
 
 			#sidebar nav a:after {
-				background-image: -moz-linear-gradient(to right, var(--bg-color-1), var(--accent-color-dark));
-				background-image: -webkit-linear-gradient(to right, var(--bg-color-1), var(--accent-color-dark));
-				background-image: -ms-linear-gradient(to right, var(--bg-color-1), var(--accent-color-dark));
-				background-image: linear-gradient(to right, var(--bg-color-1), var(--accent-color-dark));
+				background-image: -moz-linear-gradient(to right, var(--accent-color-light), var(--accent-color-dark));
+				background-image: -webkit-linear-gradient(to right, var(--accent-color-light), var(--accent-color-dark));
+				background-image: -ms-linear-gradient(to right, var(--accent-color-light), var(--accent-color-dark));
+				background-image: linear-gradient(to right, var(--accent-color-light), var(--accent-color-dark));
 				-moz-transition: max-width 0.2s ease;
 				-webkit-transition: max-width 0.2s ease;
 				-ms-transition: max-width 0.2s ease;
