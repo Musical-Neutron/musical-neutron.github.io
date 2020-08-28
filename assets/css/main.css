@@ -8,19 +8,17 @@
 */
 
 :root {
-	--bg-color-main: #312450; /* Default background and sidebar color */
+	--bg-color-main: #022140; /* Default (CV) background and sidebar color */
 	--wrapper-color-alt: #261c3e; /* Alt wrapper color */
-	--bg-color-1: #5e42a6; /* Wrapper/icon wrapper style 1 */
-	--bg-color-1alt: #493382; /* Wrapper/icon wrapper alt style 1 */
-	--bg-color-2: #5052b5; /* Wrapper/icon style 2 */
+	--bg-color-1: #265077; /* Splash page/contact/CV header Wrapper/icon wrapper style 1 */
+	--bg-color-1alt: var(--bg-color-main); /* Footer Wrapper/icon wrapper alt style 1 */
+	--bg-color-2: #1C4E66; /* About Me background Wrapper/icon style 2 */
 	--bg-color-2alt: #3e4094; /* Wrapper/icon alt style 2 */
-	--bg-color-3: #822c64; /* Wrapper/icon style 3 */
+	--bg-color-3: #1E4258; /* Research background Wrapper/icon style 3 */
 	--bg-color-3alt: #953d75; /* Wrapper/icon alt style 3 */
-	--accent-color-sidebar: #3c2c62; /* Sidebar button color (unselected) */
-	--accent-color-light: var(--bg-color-1); /* High accent for selected sidebar button */
-	--accent-color-dark: #53255C; /* Low accent for selected sidebar button */
-	/* --accent-color-light: #950742; */
-	/* --accent-color-bright: #C3073F; */
+	--accent-color-sidebar: var(--bg-color-3); /* Sidebar button color (unselected) */
+	--accent-color-light: var(--bg-color-main); /* High accent for selected sidebar button */
+	--accent-color-dark: var(--bg-color-1); /* Low accent for selected sidebar button */
 }
 
 html, body, div, span, applet, object,
@@ -3108,7 +3106,8 @@ input, select, textarea {
 				-webkit-transition: opacity 1s ease;
 				-ms-transition: opacity 1s ease;
 				transition: opacity 1s ease;
-				background: rgba(49, 36, 80, 0.9);
+				/* background: rgba(49, 36, 80, 0.9) */
+				background: var(--bg-color-1)E6;
 				content: '';
 				display: block;
 				height: 100%;
@@ -3499,6 +3498,7 @@ input, select, textarea {
 
 						#header > nav > ul > li a:hover {
 							color: rgba(255, 255, 255, 0.55);
+							/* color: (var(--bg-color-3alt) '8C'); */
 						}
 
 						#header > nav > ul > li a.active {
