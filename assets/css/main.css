@@ -16,9 +16,9 @@
 	--bg-color-2alt: #3e4094; /* Wrapper/icon alt style 2 */
 	--bg-color-3: #1E4258; /* Research background Wrapper/icon style 3 */
 	--bg-color-3alt: #953d75; /* Wrapper/icon alt style 3 */
-	--accent-color-sidebar: var(--bg-color-3); /* Sidebar button color (unselected) */
+	--accent-color-sidebar: var(--bg-color-2); /* Sidebar button color (unselected) */
 	--accent-color-light: var(--bg-color-main); /* High accent for selected sidebar button */
-	--accent-color-dark: var(--bg-color-1); /* Low accent for selected sidebar button */
+	--accent-color-dark: var(--bg-color-3); /* Low accent for selected sidebar button */
 }
 
 html, body, div, span, applet, object,
