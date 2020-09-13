@@ -2314,6 +2314,14 @@ input, select, textarea {
 
 		}
 
+		.features_noicn section > .space-between {
+			display: inline-block;
+			padding-right: 2em;
+		}
+		.features_noicn section > .space-between:first-child {
+			padding-left: 0;
+		}
+
 /* Form */
 
 	form {
@@ -2882,6 +2890,7 @@ input, select, textarea {
 		cursor: default;
 		list-style: none;
 		padding-left: 0;
+		margin: 0 0 0 0;
 	}
 
 		ul.icons li {
