@@ -2891,6 +2891,7 @@ input, select, textarea {
 		list-style: none;
 		padding-left: 0;
 		margin: 0 0 0 0;
+		text-decoration: none;
 	}
 
 		ul.icons li {
