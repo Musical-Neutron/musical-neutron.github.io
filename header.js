@@ -13,12 +13,13 @@ document.write(`
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128074602-2"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KNXLD374BC"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-KNXLD374BC');
+        </script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-128074602-2');
-    </script>
 `);
