@@ -3,7 +3,7 @@ document.write(`
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="description"
         content="Postdoctoral researcher interested in the Milky Way's satellite galaxies and the nature of dark matter." />
-    <meta name="copyright" content="&copy; Oliver Newton 2018&ndash;2020" />
+    <meta name="copyright" content="&copy; Oliver Newton 2018&ndash;2023" />
     <meta name="robots" content="index,follow" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
