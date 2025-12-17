@@ -1,5 +1,6 @@
-@import url(font-awesome.min.css);
-@import url(academicons.css);
+@import url(../fontawesome/css/fontawesome.css);
+@import url(../fontawesome/css/brands.css);
+@import url(../academicons/css/academicons.css);
 
 /*
 	Hyperspace by HTML5 UP
