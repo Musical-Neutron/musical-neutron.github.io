@@ -1,5 +1,6 @@
-@import url(font-awesome.min.css);
-@import url(academicons.css);
+@import url(../fontawesome/css/fontawesome.css);
+@import url(../fontawesome/css/brands.css);
+@import url(../academicons/css/academicons.css);
 
 /*
 	Hyperspace by HTML5 UP
@@ -4004,3 +4005,12 @@ input, select, textarea {
 	unicode-bidi: bidi-override;
 	direction: rtl;
 	}
+
+/* EU Flag icon styling */
+.eu-flag {
+    width: 1.6em;
+    height: auto;
+    vertical-align: bottom;
+    margin-right: 0.2em;
+    display: inline-block;
+}
