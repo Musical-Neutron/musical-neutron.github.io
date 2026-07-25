@@ -1,7 +1,6 @@
 site:
   name: Oliver Newton
   site: 'https://oliver-newton.com'
-  base: '/'
   trailingSlash: false
 
   googleSiteVerificationId: false
