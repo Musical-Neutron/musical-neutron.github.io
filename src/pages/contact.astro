@@ -1,0 +1,97 @@
+---
+import { PERSONAL } from 'astrowind:config';
+import ContactUs from '~/components/widgets/Contact.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Contact',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- HeroText Widget ******************* -->
+
+  <!-- <HeroText  title="Contact" /> -->
+
+  <!-- Features2 Widget ************** -->
+
+  <Features2
+    title="Get in touch"
+    subtitle="Please use the details below or the contact form."
+    items={[
+      {
+        title: 'Research & collaboration',
+        description: `New collaborations are warmly welcomed! If you are interested in working on a project please get in touch.`,
+      },
+      {
+        title: 'Public',
+        description: 'Queries from non-specialists and proposals for lecturing/speaking engagements are welcome.',
+      },
+      {
+        title: 'Media enquiries',
+        description:
+          `Most enquiries are handled directly by the <a href="${PERSONAL.universityPress}" >${PERSONAL.university} Press Office</a>. If you are seeking expert comment or wish to follow up on recent research please include them as part of your enquiry.`,
+      },
+      // {
+      //   title: 'Phone',
+      //   description: PERSONAL.contactPhone,
+      //   icon: 'tabler:headset',
+      // },
+      {
+        title: 'Email',
+        description: `<a href="mailto:${PERSONAL.contactEmail}">${PERSONAL.contactEmail}</a>`,
+        icon: 'tabler:mail',
+      },
+      {
+        title: 'Location',
+        description: PERSONAL.contactAddress,
+        icon: 'tabler:map-pin',
+      },
+    ]}
+  >
+    <Fragment slot="bg">
+        <div class="absolute inset-0 page-fade-light"></div>
+    </Fragment>
+  </Features2>
+
+  <ContactUs
+    id="form"
+    title="Contact form"
+    action="https://formspree.io/f/xvoykvgd"
+    recaptchaSiteKey={PERSONAL.recaptchaSiteKey}
+    inputs={[
+      {
+        type: 'text',
+        name: 'name',
+        label: 'Name',
+      },
+      {
+        type: 'email',
+        name: 'email',
+        label: 'Email',
+      },
+      {
+        type: 'text',
+        name: 'subject',
+        label: 'Subject',
+        placeholder: 'Subject',
+      },
+    ]}
+    textarea={{
+      label: 'Message',
+      placeholder: 'Message body',
+    }}
+    disclaimer={{
+      label:
+        'By submitting this contact form you acknowledge and agree to the collection of your personal information.',
+    }}
+    description="I will respond as soon as I can."
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 page-fade-dark"></div>
+    </Fragment>
+  </ContactUs>
+  <!-- Load reCAPTCHA script -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</Layout>

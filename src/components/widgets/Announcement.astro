@@ -1,0 +1,33 @@
+---
+import { ANNOUNCEMENT } from 'astrowind:config';
+const { enabled, text, link, badgeText, expiresAt } = ANNOUNCEMENT;
+
+let isExpired = false;
+if (expiresAt) {
+  const now = new Date();
+  const expiryDate = new Date(expiresAt);
+  if (!Number.isNaN(expiryDate.getTime())) {
+    isExpired = expiryDate <= now;
+  }
+}
+---
+
+{
+  enabled && !isExpired && (
+    // <div class="announcement-bar text-muted  text-sm bg-(--aw-color-page-dark) border-b border-(--aw-color-primary) hidden md:flex gap-1 overflow-hidden px-3 py-2 relative text-ellipsis whitespace-nowrap">
+    <div class="announcement-bar">
+      <div class="hidden md:flex sidebar-offset gap-1 overflow-hidden px-3 py-2 text-sm text-muted relative text-ellipsis whitespace-nowrap bg-(--aw-color-page-dark)">
+        <span class="announcement-badge font-semibold px-1 py-0.5 text-xs mr-0.5 rtl:mr-0 rtl:ml-0.5 inline-block">
+          {badgeText}
+        </span>
+        {link ? (
+          <a href={link} class="text-muted font-medium">
+            {text}
+          </a>
+        ) : (
+          <span class="text-muted font-medium">{text}</span>
+        )}
+      </div>
+    </div>
+  )
+}

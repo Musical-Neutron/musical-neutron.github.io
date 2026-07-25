@@ -1,0 +1,43 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/widgets/Header.astro';
+import SidebarHeader from '~/components/widgets/SidebarHeader.astro';
+import Footer from '~/components/widgets/Footer.astro';
+import Announcement from '~/components/widgets/Announcement.astro';
+
+import { PERSONAL } from 'astrowind:config';
+import { headerData, getFooterData } from '~/navigation';
+
+import type { MetaData } from '~/types';
+
+export interface Props {
+  metadata?: MetaData;
+}
+
+const { metadata } = Astro.props;
+const footerData = getFooterData(PERSONAL);
+---
+
+<Layout metadata={metadata}>
+  <slot name="announcement">
+    <Announcement />
+  </slot>
+  <!-- Header: hamburger on small screens, sidebar on md+ -->
+  <slot name="header">
+    <!-- Mobile / small screens: original horizontal Header with ToggleMenu -->
+    <div class="md:hidden">
+      <Header {...headerData} isSticky showRssFeed showToggleTheme />
+    </div>
+
+    <!-- Desktop / md+ screens: vertical sidebar -->
+    <div class="hidden md:block">
+      <SidebarHeader {...headerData} isSticky showRssFeed showToggleTheme />
+    </div>
+  </slot>
+  <main class="sidebar-offset">
+    <slot />
+  </main>
+  <slot name="footer">
+    <Footer {...footerData} />
+  </slot>
+</Layout>

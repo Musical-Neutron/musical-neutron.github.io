@@ -1,0 +1,424 @@
+---
+import '@fontsource-variable/inter';
+
+// 'DM Sans'
+// Nunito
+// Dosis
+// Outfit
+// Roboto
+// Literata
+// 'IBM Plex Sans'
+// Karla
+// Poppins
+// 'Fira Sans'
+// 'Libre Franklin'
+// Inconsolata
+// Raleway
+// Oswald
+// 'Space Grotesk'
+// Urbanist
+---
+
+<style is:inline>
+  /* :root {
+    --aw-font-sans: 'Inter Variable';
+    --aw-font-serif: 'Inter Variable';
+    --aw-font-heading: 'Inter Variable';
+
+    --aw-color-primary: rgb(1 97 239);
+    --aw-color-secondary: rgb(1 84 207);
+    --aw-color-accent: rgb(109 40 217);
+
+    --aw-color-text-heading: rgb(0 0 0);
+    --aw-color-text-default: rgb(16 16 16);
+    --aw-color-text-muted: rgb(16 16 16 / 66%);
+    --aw-color-bg-page: rgb(255 255 255);
+
+    --aw-color-bg-page-dark: rgb(3 6 32); */
+
+:root {
+  --aw-font-sans: 'Inter Variable';
+  --aw-font-serif: 'Inter Variable';
+  --aw-font-heading: 'Inter Variable';
+
+  --aw-color-primary: hsl(113, 33%, 45%);   /* richer, darker green for links/buttons */
+  --aw-color-secondary: #529c49; /* slightly brighter companion */
+  --aw-color-accent: hsl(40, 97%, 47%);    /* more saturated green for hover/accents */
+
+  --aw-color-text-heading: hsl(118, 16%, 33%);    /* deep green for headings */
+  --aw-color-text-default: hsl(124, 41%, 13%);    /* dark green-grey for body text */
+  /*--aw-color-text-muted: rgba(38, 68, 40, 0.66);
+
+  /*--aw-color-text-heading: rgb(16, 16, 16);       /* deep neutral for headings */
+  /*--aw-color-text-default: rgb(16, 16, 16);       /* your original body text */
+  --aw-color-text-muted: hsl(113, 33%, 23%);
+
+  /* Backgrounds: slightly lighter than before */
+  --aw-color-bg-page: hsl(96, 56%, 98%);        /* main page background (very light greenish) */
+  --aw-color-bg-alt: hsl(120, 24%, 92%);         /* alt section background */
+  --aw-color-bg-page-dark: #c3d8c2;   /* darker strip background (announcement/sidebar) */
+  
+  /* Press highlights: gradient stops tuned to this palette */
+  --press-highlight-1: hsl(96, 45%, 98%);
+  --press-highlight-2: #e7f3e4;
+  --press-highlight-3: #d1e6d0;
+  
+  --aw-color-sidebar-head: hsl(117, 22%, 80%);
+  --aw-color-sidebar-nav: hsl(120, 24%, 82%);         /* alt section background */
+  --aw-color-sidebar-foot: hsl(117, 22%, 80%);
+
+  --aw-sidebar-width: 14rem;
+    
+    ::selection {
+      background-color: rgb(230, 250, 230);
+    }
+  }
+  
+  /* .dark {
+    --aw-font-sans: 'Inter Variable';
+    --aw-font-serif: 'Inter Variable';
+    --aw-font-heading: 'Inter Variable';
+    
+    --aw-color-primary: rgb(1 97 239);
+    --aw-color-secondary: rgb(1 84 207);
+    --aw-color-accent: rgb(109 40 217);
+    
+    --aw-color-text-heading: rgb(247, 248, 248);
+    --aw-color-text-default: rgb(229 236 246);
+    --aw-color-text-muted: rgb(229 236 246 / 66%);
+    --aw-color-bg-page: rgb(3 6 32);
+    
+    ::selection {
+      background-color: black;
+      color: snow;
+      }
+      } */
+      .dark {
+        --aw-font-sans: 'Inter Variable';
+        --aw-font-serif: 'Inter Variable';
+        --aw-font-heading: 'Inter Variable';
+        
+        --aw-color-primary: #31572c;
+        --aw-color-secondary: #4f772d;
+        --aw-color-accent: hsl(40, 94%, 49%);
+        
+        --aw-color-text-heading: rgb(194, 213, 194);
+        --aw-color-text-default: rgb(222, 246, 221);
+        --aw-color-text-muted: rgba(197, 224, 195, 0.66);
+        --aw-color-bg-alt: hsl(118, 23%, 10%);
+        --aw-color-bg-page: hsl(116, 24%, 14%);
+        --aw-color-bg-page-dark: hsl(118, 24%, 9%);
+        
+        --press-highlight-1: hsl(124, 19%, 22%);
+        --press-highlight-2: hsl(120, 23%, 15%);
+        --press-highlight-3: var(--aw-color-bg-alt);
+
+        --aw-color-sidebar-head: hsl(118, 24%, 9%);   /* slightly lighter than bg-page */
+        --aw-color-sidebar-nav: var(--aw-color-bg-alt);
+        --aw-color-sidebar-foot: hsl(118, 24%, 9%);
+
+        --aw-sidebar-width: 14rem;
+    ::selection {
+      background-color: black;
+      color: snow;
+    }
+  }
+
+    /* Typography / prose colours (light mode) */
+  .prose {
+    --tw-prose-body: var(--aw-color-text-default);
+    --tw-prose-headings: var(--aw-color-text-heading);
+    --tw-prose-links: var(--aw-color-primary);
+    --tw-prose-links-hover: color-mix(in srgb, var(--aw-color-primary) 80%, black);
+    --tw-prose-bold: var(--aw-color-text-heading);
+    --tw-prose-bullet: var(--aw-color-primary);
+    --tw-prose-hr: var(--aw-color-bg-alt);
+    --tw-prose-quotes: var(--aw-color-text-muted);
+    --tw-prose-quote-borders: var(--aw-color-primary);
+    --tw-prose-captions: var(--aw-color-text-muted);
+    --tw-prose-code: var(--aw-color-text-heading);
+    --tw-prose-pre-bg: var(--aw-color-bg-alt);
+    --tw-prose-pre-border: var(--aw-color-bg-page-dark);
+  }
+
+  /* Typography / prose colours (dark mode) */
+  .dark .prose {
+    --tw-prose-body: var(--aw-color-text-default);
+    --tw-prose-headings: var(--aw-color-text-heading);
+    --tw-prose-links: var(--aw-color-accent);
+    --tw-prose-links-hover: color-mix(in srgb, var(--aw-color-accent) 80%, black);
+    --tw-prose-bold: var(--aw-color-text-heading);
+    --tw-prose-bullet: var(--aw-color-accent);
+    --tw-prose-hr: var(--aw-color-bg-alt);
+    --tw-prose-quotes: var(--aw-color-text-muted);
+    --tw-prose-quote-borders: var(--aw-color-accent);
+    --tw-prose-captions: var(--aw-color-text-muted);
+    --tw-prose-code: var(--aw-color-text-heading);
+    --tw-prose-pre-bg: var(--aw-color-bg-alt);
+    --tw-prose-pre-border: var(--aw-color-bg-page-dark);
+  }
+.page-fade-light {
+  background: linear-gradient(
+    to bottom,
+    var(--aw-color-bg-page),
+    var(--aw-color-bg-alt)
+  );
+}
+.page-fade-dark {
+  background: linear-gradient(
+    to bottom,
+    var(--aw-color-bg-alt),
+    var(--aw-color-bg-page)
+  );
+}
+
+.announcement-bar {
+  background: linear-gradient(
+    to bottom,
+    var(--aw-color-sidebar-head),
+    var(--aw-color-bg-page-dark)
+  );
+  color: var(--aw-color-text-muted);
+  border-bottom: 1px solid var(--aw-color-primary);
+}
+
+.announcement-badge {
+  background-color: var(--press-highlight-3);
+  color: var(--aw-color-text-default);
+}
+
+.dark .announcement-badge {
+  background-color: var(--press-highlight-1);
+  color: var(--aw-color-text-heading);
+}
+  
+/* Sidebar navigation hover styles */
+.sidebar-panel {
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),   /* subtle outline */
+    8px 0 24px rgba(0, 0, 0, 0.25);  /* strong side shadow */
+}
+.dark .sidebar-panel {
+  box-shadow:
+    0 0 0 1px hsla(0, 0%, 100%, 0.059),   /* subtle outline */
+    8px 0 24px hsla(0, 0%, 100%, 0.030);  /* strong side shadow */
+}
+  .sidebar-head-background {
+    background: linear-gradient(
+      to bottom,
+      var(--aw-color-sidebar-head),
+      var(--aw-color-bg-page)
+    );
+  }
+  .sidebar-foot-background {
+    background: linear-gradient(
+      to bottom,
+      var(--aw-color-sidebar-nav),
+      var(--aw-color-sidebar-foot)
+    );
+  }
+.sidebar-nav-background {
+  background: linear-gradient(
+    to bottom,
+    var(--aw-color-bg-page),
+    var(--aw-color-sidebar-nav)
+    );
+  }
+  
+  .sidebar-nav-link {
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .sidebar-nav-link:hover {
+    /* light mode: soft green highlight */
+    background-color: color-mix(in srgb, var(--aw-color-primary) 15%, transparent);
+    color: var(--aw-color-text-heading);
+  }
+  
+  .dark .sidebar-nav-link:hover {
+    /* dark mode: slightly stronger green overlay */
+    background-color: color-mix(in srgb, var(--aw-color-primary) 25%, transparent);
+    color: var(--aw-color-text-heading);
+  }
+  
+  .sidebar-sub-link {
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .sidebar-sub-link:hover {
+    background-color: color-mix(in srgb, var(--aw-color-primary) 20%, transparent);
+    color: var(--aw-color-text-heading);
+  }
+  
+  .dark .sidebar-sub-link:hover {
+    background-color: color-mix(in srgb, var(--aw-color-primary) 40%, transparent);
+    color: var(--aw-color-text-heading);
+  }
+  
+  .sidebar-icon-btn {
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+  
+  .sidebar-icon-btn:hover {
+    background-color: color-mix(in srgb, var(--aw-color-primary) 15%, transparent);
+  }
+  
+  .dark .sidebar-icon-btn:hover {
+    background-color: color-mix(in srgb, var(--aw-color-primary) 35%, transparent);
+  }
+  /* Global button styles */
+  .btn-primary {
+    display: inline-flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: calc(infinity * 1px);
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+    padding-inline: calc(var(--spacing) * 6);
+    padding-block: calc(var(--spacing) * 3.5);
+    background-color: var(--aw-color-primary);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    text-decoration: none;
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+    --tw-duration: 200ms;
+    transition-duration: 200ms;
+    --tw-ease: var(--ease-in);
+    transition-timing-function: var(--ease-in);
+  }
+  
+  .btn-primary:hover {
+    background-color: color-mix(in srgb, var(--aw-color-primary) 80%, black);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+    transform: translateY(-1px);
+  }
+  
+  .btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--aw-color-primary) 60%, transparent);
+  }
+  
+  .btn-secondary {
+    display: inline-flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: calc(infinity * 1px);
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+    border-color: 1px solid var(--aw-color-primary);
+    background-color: transparent;
+    padding-inline: calc(var(--spacing) * 6);
+    padding-block: calc(var(--spacing) * 3.5);
+    text-align: center;
+    font-size: var(--text-base);
+    line-height: var(--tw-leading, var(--text-base--line-height));
+    --tw-leading: var(--leading-snug);
+    line-height: var(--leading-snug);
+    --tw-font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-medium);
+    color: var(--aw-color-text-page);
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+    --tw-duration: 200ms;
+    transition-duration: 200ms;
+    --tw-ease: var(--ease-in);
+    transition-timing-function: var(--ease-in);
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--aw-color-primary);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+  }
+  
+  .btn-secondary:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--aw-color-primary) 60%, transparent);
+  }
+  
+  .dark .btn-primary {
+    background-color: var(--aw-color-secondary);
+  }
+  
+  .dark .btn-primary:hover {
+    background-color: color-mix(in srgb, var(--aw-color-secondary) 80%, black);
+  }
+  
+  .dark .btn-secondary {
+    border-color: var(--aw-color-secondary);
+    color: var(--aw-color-secondary);
+  }
+  
+  .dark .btn-secondary:hover {
+    background-color: var(--aw-color-secondary);
+    color: #ffffff;
+  }
+  .press-placeholder {
+    background-image: linear-gradient(
+      to bottom right,
+      var(--press-highlight-1),
+      var(--press-highlight-2),
+      var(--press-highlight-3)
+    );
+  }
+
+  .press-card {
+    position: relative;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12),   /* subtle outline */
+    0 10px 25px rgba(0, 0, 0, 0.28);
+  }
+  .press-card::before{
+    content: '';
+    position: absolute;
+    inset: 0;               /* match the card’s box */
+    border-radius: inherit; /* mirror card rounding */
+    border: 2px solid transparent;  /* fully transparent base border */
+    pointer-events: none;  /* don’t block clicks */
+    z-index: 10; 
+  }
+  .press-card:hover::before {
+    border-color: var(--aw-color-primary);
+  }
+  .press-active::before {
+    border-color: rgb(0, 214, 18);
+  }
+  .press-active:hover {
+    border-color: rgb(0, 214, 18)
+  }
+  /* a[href][class*="relative block w-64"]:hover:not(.press-active) {
+    border: 2px solid rgba(148, 163, 184, 0.7);
+    z-index: 1;
+  } */
+
+    .press-gallery-button {
+    /* background-color: color-mix(in srgb, var(--press-highlight-3) 90%, transparent); */
+    color: rgba(255, 255, 255, 0.95);
+    /* border: 1px solid rgba(216, 216, 216, 0.45); */
+    border-radius: calc(infinity * 1px);
+    padding-inline: 0.5rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .press-gallery-button:hover {
+    /* background-color: var(--aw-color-primary); */
+    border-color: rgba(216, 216, 216, 0.8);
+  }
+
+  .dark .press-gallery-button {
+    background-color: color-mix(in srgb, var(--press-highlight-3) 75%, transparent);            /* dark overlay */
+    color: rgba(229, 236, 246, 0.95);
+    /* border-color: rgba(229, 236, 246, 0.35); */
+  }
+
+  .dark .press-gallery-button:hover {
+    /* background-color: var(--aw-color-primary); */
+    border-color: rgba(229, 236, 246, 0.8);
+  }
+</style>

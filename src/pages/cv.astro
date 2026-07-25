@@ -1,0 +1,227 @@
+---
+import { PERSONAL } from 'astrowind:config';
+import Layout from '~/layouts/PageLayout.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import ItemGrid from '~/components/ui/ItemGrid.astro';
+import Content from '~/components/widgets/Content.astro';
+import Features from '~/components/widgets/Features.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import fs from 'node:fs';
+
+const metadata = {
+  title: 'CV | Oliver Newton',
+  description: 'Curriculum Vitae and selected professional information for Oliver Newton.',
+};
+
+// Path to the PDF in the repo; adjust if your path is different
+const cvRelativePath = '../../public/cv/CV.pdf';
+const cvUrl = new URL(cvRelativePath, import.meta.url);
+const stat = fs.statSync(cvUrl);
+
+// Format the last modified time as a human-readable date
+const lastUpdated = stat.mtime.toLocaleDateString('en-GB', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+// Identifier panels
+const identifierItems = [
+  {
+    title: 'ORCID',
+    description: '0000-0002-2769-9507',
+    cssIconClass: 'ai ai-orcid',          // Academicons
+    callToAction: { text: 'View', href: 'https://orcid.org/0000-0002-2769-9507' },
+  },
+  {
+    title: 'ADS public library',
+    description: 'Curated publications and references',
+    cssIconClass: 'ai ai-ads',
+    callToAction: {
+      text: 'Open ADS library',
+      href: 'https://ui.adsabs.harvard.edu/#/public-libraries/RKBqTYouRMyLcpYNf1p10w',
+    },
+  },
+  {
+    title: 'arXiv author page',
+    description: 'Preprints and submitted articles',
+    cssIconClass: 'ai ai-arxiv',
+    callToAction: { text: 'View arXiv', href: 'https://arxiv.org/a/newton_o_1.html' },
+  },
+  {
+    title: 'GitHub',
+    description: 'Code and analysis notebooks',
+    cssIconClass: 'fab fa-github',
+    callToAction: { text: 'View GitHub', href: 'https://github.com/Musical-Neutron' },
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <WidgetWrapper id="cv" containerClass="max-w-7xl mx-auto">
+    <Headline
+      title="Curriculum Vitae"
+      subtitle={`Last updated: ${lastUpdated}`}
+      classes={{
+        container: 'max-w-xl sm:mx-auto lg:max-w-2xl',
+        title: 'text-3xl sm:text-4xl font-bold tracking-tight mb-1',
+        subtitle: 'text-xs text-muted sm:text-center',
+      }}
+    />
+
+    <Content
+    id="cv-intro"
+    >
+    <Fragment slot="content">
+      <div class="mx-auto max-w-7xl p-0 md:px-0 py-0 rich-text text-justify">
+        <!-- Quick summary -->
+        <!-- <section class="rich-text space-y-3 mb-0"> -->
+          <!-- <h2 class="text-xl font-semibold">Summary</h2> -->
+          <p>
+            I am a Marie Sk&lstrok;odowska&ndash;Curie Fellow in the
+            <a href={PERSONAL.institutionURL}>
+              {PERSONAL.institutionGroup}</a>
+            at the
+            <a href="https://www.surrey.ac.uk/">
+              {PERSONAL.university}</a>, UK.
+              My research focuses on dwarf galaxies as probes of dark matter and the cosmic web, combining
+            cosmological simulations with statistical inference from galaxy surveys.
+          </p>
+        <!-- </section> -->
+      </div>
+    </Fragment>
+    </Content>
+
+    <Features
+      id="position-info"
+      columns={2}
+      classes={{description: 'rich-text'}}
+      items={[
+        {title: "Current position",
+          description: `Marie Sk&lstrok;odowska&ndash;Curie Fellow<br />${PERSONAL.institutionGroup}<br />${PERSONAL.university}, UK`,
+        },
+        {title: "Contact",
+          description: `Dr Oliver Newton<br /><a href="mailto:${PERSONAL.contactEmail}">${PERSONAL.contactEmail}</a>`,
+        }
+      ]
+      }
+    >
+      <!-- <Fragment slot="bg">
+        <div class="absolute inset-0 page-fade-light"></div>
+      </Fragment> -->
+    </Features>
+
+    <!-- <Features2
+      id="identifiers"
+      title="Professional identifiers"
+      columns={2}
+      classes={{
+            container: 'gap-y-0',
+            panel: 'max-w-none bg-page-alt border border-(--aw-color-secondary) rounded-lg p-3',
+            title: 'text-sm font-semibold',
+            description: 'text-xs text-muted',
+            action: 'text-xs rich-text',
+            icon: 'rich-text', // text colour for <i> or Icon
+          }}
+      items={identifierItems}
+    > -->
+      <!-- <Fragment slot="bg">
+        <div class="absolute inset-0 page-fade-light"></div>
+      </Fragment> -->
+    <!-- </Features2> -->
+
+      <div class="mx-auto max-w-7xl p-4 md:px-8">
+      <!-- Current position & contact -->
+      <!-- <section class="rich-text grid gap-4 md:grid-cols-2 mb-6">
+        <div>
+          <h2 class="text-xl font-semibold">Current position</h2>
+          <p class="mt-1">
+            Marie Sk&lstrok;odowska&ndash;Curie Fellow<br />
+            Astrophysics Research Group<br />
+            University of Surrey, UK
+          </p>
+        </div>
+        <div>
+          <h2 class="text-xl font-semibold">Contact</h2>
+          <p class="mt-1">
+            Dr Oliver Newton<br />
+            <a href="mailto:o.newton@surrey.ac.uk">o.newton@surrey.ac.uk</a>
+          </p>
+        </div>
+      </section> -->
+
+      <!-- Professional identifiers as AstroWind panels -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold mb-2 rich-text">Professional identifiers</h2>
+        <ItemGrid
+          items={identifierItems}
+          columns={2}
+          defaultIcon="tabler:link"
+          classes={{
+            container: 'gap-y-0',
+            panel: 'max-w-none bg-page-alt border border-(--aw-color-secondary) rounded-lg p-3',
+            title: 'text-sm font-semibold',
+            description: 'text-xs text-muted',
+            action: 'text-xs rich-text',
+            icon: 'rich-text', // text colour for <i> or Icon
+          }}
+        />
+      </section>
+
+      <!-- Selected highlights -->
+      <Content
+        id="research-highlights"
+        classes={{container: "rich-text"}}
+      >
+        <Fragment slot="content">
+          <h2 class="text-3xl font-semibold mb-2">Selected highlights</h2>
+          <ul class="list-disc pl-5 space-y-1">
+          <li>
+            Marie Sk&lstrok;odowska&ndash;Curie Postdoctoral Fellow leading the CWEBDWARFS project connecting dwarf
+            galaxies and the cosmic web.
+          </li>
+          <li>
+            Author of observational and theoretical studies constraining Milky Way satellites in ΛCDM and warm
+            dark matter models.
+          </li>
+          <li>
+            Work on Hermeian haloes and ultra-diffuse galaxies in the Local Group.
+          </li>
+          <li>
+            Experience with large-volume cosmological simulations, substructure modelling, and statistical
+            inference from survey data.
+          </li>
+        </ul>
+        </Fragment>
+      </Content>
+
+      <!-- Download + embedded PDF -->
+      <section class="mb-4">
+        <a
+          href="/cv/CV.pdf"
+          download="Oliver_Newton_CV.pdf"
+          class="btn-secondary"
+        >
+          Download CV (PDF)
+        </a>
+      </section>
+
+      <section class="border border-(--aw-color-secondary) rounded-lg overflow-hidden bg-page-alt">
+        <object
+          data="/cv/CV.pdf"
+          type="application/pdf"
+          class="w-full h-[80vh]"
+        >
+          <p class="p-4 text-sm text-muted">
+            Your browser can't display this PDF. You can
+            <a href="/cv/CV.pdf" class="rich-text">
+              open it in a new tab
+            </a>
+            or download it instead.
+          </p>
+        </object>
+      </section>
+    </div>
+  </WidgetWrapper>
+</Layout>

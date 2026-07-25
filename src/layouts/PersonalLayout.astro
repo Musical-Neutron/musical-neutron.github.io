@@ -1,0 +1,62 @@
+---
+// src/layouts/PersonalLayout.astro
+import '~/assets/styles/tailwind.css';
+const { title = 'Astrophysicist | Oliver Newton' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+
+    <!-- From header.js -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Marie Skłodowska-Curie Fellow interested in low-mass galaxies, the cosmic web, and the nature of dark matter."
+    />
+    <meta name="copyright" content="© Oliver Newton 2018–2026" />
+    <meta name="robots" content="index,follow" />
+
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <noscript>
+      <link rel="stylesheet" href="/assets/css/noscript.css" />
+    </noscript>
+
+    <!-- Google Analytics (from header.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-3JYJ2FCSHN"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-3JYJ2FCSHN');
+    </script>
+  </head>
+
+  <body class="is-preload">
+    <slot />
+
+    <!-- From index.html footer scripts -->
+    <script src="/assets/js/jquery.min.js" is:inline></script>
+    <script src="/assets/js/jquery.scrollex.min.js" is:inline></script>
+    <script src="/assets/js/jquery.scrolly.min.js" is:inline></script>
+    <script src="/assets/js/browser.min.js" is:inline></script>
+    <script src="/assets/js/breakpoints.min.js" is:inline></script>
+    <script src="/assets/js/util.js" is:inline></script>
+    <script src="/assets/js/main.js" is:inline></script>
+    <script src="/assets/js/carousel.js" is:inline></script>
+  </body>
+</html>

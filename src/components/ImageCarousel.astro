@@ -1,0 +1,66 @@
+---
+import Image from '~/components/common/Image.astro';
+
+interface ImageItem {
+  src: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+}
+
+interface Props {
+  images: ImageItem[];
+}
+
+const { images = [] } = Astro.props as Props;
+
+if (images.length === 0) {
+  throw new Error('ImageCarousel requires at least one image.');
+}
+---
+
+<div
+  class="relative mx-auto w-full h-full rounded-lg bg-(aw-color-bg-page-dark) shadow-lg overflow-hidden aspect-[1/1]"
+  data-carousel
+>
+  <div class="overflow-hidden h-full">
+    <div
+      class="flex h-full transition-transform duration-3000 ease-in-out"
+      data-carousel-track
+    >
+      {images.map((image) => (
+        <div class="w-full h-full shrink-0">
+          <Image
+            src={image.src}
+            alt={image.alt ?? ''}
+            class="w-full h-full object-cover rounded-lg"
+            width={image.width ?? 800}
+            height={image.height ?? 600}
+            widths={[400, 768, 1024]}
+            sizes="(max-width: 768px) 100vw, 768px"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Navigation buttons -->
+  <button
+    type="button"
+    class="absolute left-2 top-1/2 -translate-y-1/2 z-10 rounded-full btn-secondary press-gallery-button bg-black/40 p-2 hover:bg-black/60"
+    data-carousel-dir="prev"
+    aria-label="Previous image"
+  >
+    ‹
+  </button>
+  <button
+    type="button"
+    class="absolute right-2 top-1/2 -translate-y-1/2 z-10 rounded-full btn-secondary press-gallery-button bg-black/40 p-2 hover:bg-black/60"
+    data-carousel-dir="next"
+    aria-label="Next image"
+  >
+    ›
+  </button>
+</div>

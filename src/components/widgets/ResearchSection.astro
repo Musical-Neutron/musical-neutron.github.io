@@ -1,0 +1,124 @@
+---
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import type { Widget } from '~/types';
+import { Icon } from 'astro-icon/components';
+
+interface PaperLink {
+  label: string;
+  href: string;
+}
+
+interface Paper {
+  title: string;
+  summary: string;
+  links: PaperLink[];
+  year?: number;
+  date?: string;
+}
+
+interface Props extends Widget {
+  id: string;
+  title: string;
+  description: string;
+  papers: Paper[];
+}
+
+const { id, title, description, papers, isDark = false, bg } = Astro.props as Props;
+
+const iconClassForType = (type?: string) => {
+  switch (type) {
+    case 'arxiv':
+      return 'ai ai-arxiv';
+    case 'ads':
+      return 'ai ai-ads';
+    case 'zenodo':
+      return 'ai ai-zotero';
+    case 'github':
+      return 'fab fa-github';
+    case 'journal':
+      return '';
+    default:
+      return '';
+  }
+};
+
+// Helper: parse publication time (date or year), descending
+const getPubTime = (paper: Paper): number => {
+  if (paper.date) {
+    const t = new Date(paper.date).getTime();
+    return Number.isNaN(t) ? (paper.year ?? 0) : t;
+  }
+  return paper.year ?? 0;
+};
+
+// Helper: extract first author surname from title
+// e.g. "Newton et al., 2018, MNRAS..." -> "Newton"
+//      "Enzi, Murgia, Newton et al., 2021..." -> "Enzi"
+const getFirstAuthorSurname = (title: string): string => {
+  const firstPart = title.split(',')[0];       // "Newton et al." or "Enzi"
+  const surname = firstPart.split(/\s+/)[0];   // "Newton" or "Enzi"
+  return surname.replace(/[^A-Za-z'-]/g, '');  // strip punctuation
+};
+
+// Sort papers: newer date/year first; tie-break by first author surname
+const sortedPapers = papers
+  .slice()
+  .sort((a, b) => {
+    const tb = getPubTime(b);
+    const ta = getPubTime(a);
+    if (tb !== ta) return tb - ta; // descending by publication time
+
+    const nameA = getFirstAuthorSurname(a.title).toLowerCase();
+    const nameB = getFirstAuthorSurname(b.title).toLowerCase();
+    return nameA.localeCompare(nameB);
+  });
+---
+
+<WidgetWrapper
+  id={id}
+  isDark={isDark}
+  containerClass="max-w-7xl mx-auto"
+  bg={bg}
+>
+  <Headline
+    title={title}
+    classes={{
+      container: 'max-w-xl sm:mx-auto lg:max-w-2xl',
+      title: 'text-3xl md:text-4xl font-bold tracking-tight mb-4 font-heading',
+    }}
+  />
+
+  <div class="mx-auto max-w-7xl p-4 md:px-8">
+    <!-- Full-width topic summary -->
+    <div class="rich-text space-y-4 text-justify hyphens-auto mb-6">
+      <p>{description}</p>
+    </div>
+
+    <!-- Two-column grid of papers -->
+    <div class="grid gap-6 md:grid-cols-2 md:grid-flow-row">
+      {sortedPapers.map((paper) => (
+        <div class="border-l-4 border-primary pl-4">
+          <h3 class="text-lg font-semibold mb-1">{paper.title}</h3>
+          <p class="text-sm text-muted mb-2 text-justify">{paper.summary}</p>
+          <div class="flex flex-wrap gap-3 text-sm rich-text">
+            {paper.links.map((link) => {
+              const iconClass = iconClassForType(link.type);
+              return (
+                <a
+                  href={link.href}
+                  class="inline-flex items-center gap-1 highlight"
+                >
+                  {iconClass && (
+                    <i class={iconClass} aria-hidden="true" title={link.label}></i>
+                  )}
+                  <span>{link.label}</span>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</WidgetWrapper>

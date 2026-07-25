@@ -1,0 +1,74 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Content from '~/components/widgets/Content.astro';
+import Features from '~/components/widgets/Features.astro';
+import ItemGrid from '~/components/ui/ItemGrid.astro';
+import ResearchSection from '~/components/widgets/ResearchSection.astro';
+import { Icon } from 'astro-icon/components';
+import { researchTopics } from '~/data/research.js';
+
+const metadata = {
+  title: 'Research',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Intro / overview -->
+  <Content
+    id="research-intro"
+    title="Research"
+    tagline="Dwarf galaxies, dark matter, and the cosmic web"
+  >
+    <Fragment slot="content">
+      <div class="rich-text space-y-4 text-justify hyphens-auto">
+        <p>
+          Primarily, my research relates to dwarf galaxies as visible probes of dark matter structure.
+          In the standard cosmological model (ΛCDM) dark matter is hugely influential in shaping the evolution
+          of the Universe; indeed, it comprises <a href="https://map.gsfc.nasa.gov/news/">as much as 85%</a> of all matter. However, we still don't know
+          what it is. No dark matter particle has been seen directly in any detectors, so we are left to infer
+          its properties from a mix of astrophysical observations of galaxies and advanced computer simulations.
+        </p>
+        <p>
+          Below are selected research themes and representative publications. For a complete list, see my
+          <a href="https://ui.adsabs.harvard.edu/#/public-libraries/RKBqTYouRMyLcpYNf1p10w" target="_blank" rel="noopener noreferrer">
+            ADS public library</a>.
+        </p>
+      </div>
+    </Fragment>
+
+    <!-- <Fragment slot="bg">
+      <div class="absolute inset-0 page-fade-dark"></div>
+    </Fragment> -->
+  </Content>
+
+  <!-- Topics overview -->
+  <Features
+    id="research-topics"
+    title="Research themes"
+    subtitle="Broad areas of interest and ongoing work."
+    columns={2}
+    items={researchTopics.map((topic) => ({
+      title: topic.title,
+    //   description: topic.description,
+      icon: 'tabler:planet',
+    }))}
+  >
+    <!-- <Fragment slot="bg">
+      <div class="absolute inset-0 page-fade-light"></div>
+    </Fragment> -->
+  </Features>
+
+  <!-- Per-topic sections with individual papers -->
+  {researchTopics.map((topic) => (
+    <ResearchSection
+      id={topic.id}
+      title={topic.title}
+      description={topic.description}
+      papers={topic.papers}
+    >
+      {/* <Fragment slot="bg">
+        <div class="absolute inset-0 page-fade-dark"></div>
+      </Fragment> */}
+    </ResearchSection>
+  ))}
+</Layout>

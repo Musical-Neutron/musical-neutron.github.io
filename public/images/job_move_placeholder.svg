@@ -1,0 +1,50 @@
+<svg
+  width="800"
+  height="450"
+  viewBox="0 0 800 450"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">Job / Country Move</title>
+  <desc id="desc">Stylized city skyline with a location marker.</desc>
+
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="var(--press-highlight-1)" />
+      <stop offset="100%" stop-color="var(--press-highlight-3)" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="800" height="450" fill="url(#bgGradient)" />
+
+  <!-- Horizon line -->
+  <rect x="0" y="290" width="800" height="160" fill="#b4ceb1" />
+
+  <!-- Simplified skyline -->
+  <g fill="var(--aw-color-primary)">
+    <rect x="80"  y="210" width="80"  height="80"  rx="4" />
+    <rect x="180" y="190" width="70"  height="100" rx="4" />
+    <rect x="270" y="220" width="90"  height="70"  rx="4" />
+    <rect x="390" y="200" width="100" height="90"  rx="4" />
+    <rect x="520" y="210" width="80"  height="80"  rx="4" />
+    <rect x="620" y="190" width="60"  height="100" rx="4" />
+  </g>
+
+  <!-- Location marker -->
+  <g transform="translate(400,150)">
+    <!-- Outer marker -->
+    <path
+      d="M0 0
+         C -40 0 -70 30 -70 70
+         C -70 120 0 180 0 180
+         C 0 180 70 120 70 70
+         C 70 30 40 0 0 0 Z"
+      fill="var(--aw-color-accent)"
+      opacity="0.9"
+    />
+    <!-- Inner circle -->
+    <circle cx="0" cy="60" r="24" fill="#f7fbf5" />
+  </g>
+</svg>

@@ -1,0 +1,148 @@
+---
+import { PERSONAL } from 'astrowind:config';
+import Layout from '~/layouts/PageLayout.astro';
+import Content from '~/components/widgets/Content.astro';
+import Features from '~/components/widgets/Features.astro';
+import { getPermalink } from '~/utils/permalinks';
+import { pressItems } from '~/data/press.js';
+import PressGallery from '~/components/PressGallery.astro';
+
+const metadata = {
+  title: 'Press',
+};
+
+const typeIcons = {
+  article: 'tabler:news',
+  podcast: 'tabler:microphone-2',
+  tv: 'tabler:device-tv',
+  interview: 'tabler:message-circle',
+};
+
+const coverageItems = pressItems
+  .slice()
+  .sort((a, b) => new Date(b.date) - new Date(a.date))
+  .map((item) => ({
+    title: item.title,
+    subtitle: `${item.outlet}, ${new Date(item.date).toLocaleDateString('en-GB', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })}`,
+    description: `${item.description}`,
+    icon: item.icon ?? typeIcons[item.type] ?? 'tabler:news',
+    image: item.image ? { src: item.image.src, alt: item.image.alt } : undefined,
+    href: item.link,
+    // callToAction: { text: 'Read article', href: item.link },
+  }));
+---
+    <!-- image={{
+      src: '~/assets/images/cosmic_web.png',
+      alt: 'Cosmic web visualisation',
+      class: 'bg-transparent',
+    }} -->
+<Layout metadata={metadata}>
+  <!-- Media contact + press kit -->
+  <Content
+    id="media-contact"
+    image=""
+  >
+    <Fragment slot="content">
+      <h2 class="mb-2 text-2xl font-bold tracking-tight sm:text-3xl">
+        Press &amp; Media
+      </h2>
+      <p class="text-justify">
+        Journalists and media contacts covering dark matter, galaxy formation,
+        or the &Lambda;CDM model are welcome to get in touch for interviews
+        or comment.
+      </p>
+      <p class="mt-4">
+        <strong>Media contact:</strong><br />
+        <div class="ml-4 rich-text"> 
+          Dr Oliver Newton<br />
+          Marie Sk&lstrok;odowska&ndash;Curie Fellow<br />
+          {PERSONAL.institutionGroup}, {PERSONAL.university}<br/>
+          <a href=`mailto:${PERSONAL.contactEmail}`>
+            {PERSONAL.contactEmail}
+          </a>
+        </div>
+      </p>
+      <p class="mt-4 rich-text text-justify">
+        <strong>{PERSONAL.university} Press Office:</strong><br />
+        For institutional enquiries, background information, or to arrange
+        interviews, you can also contact the
+        <a
+          href={PERSONAL.universityPress}
+        >{PERSONAL.university} Press Office</a>
+        directly.
+      </p>
+    </Fragment>
+    <Fragment slot="bg">
+      <div class="absolute inset-0 page-fade-light"></div>
+    </Fragment>
+  </Content>
+
+  <!-- Press kit downloads -->
+  <Features
+    id="press-kit"
+    tagline="Press kit"
+    title="Downloadable materials"
+    subtitle="Logos and images for media use."
+    columns={2}
+    items={[
+    //   {
+    //     title: 'Bio',
+    //     description: 'Biographical and professional information.',
+    //     icon: 'tabler:file-text',
+    //     // callToAction: { text: 'Download', href: '/press-kit/bio_info.pdf' },
+    //   },
+      {
+        title: 'EU emblems',
+        description: 'High-resolution EU emblems for use in articles or broadcasts. Please retain the accompanying funding acknowledgement when reusing.',
+        icon: 'tabler:photo',
+        callToAction: { text: 'Download EU Emblems', href: getPermalink('/press-kit/EU_emblems.zip'), download: 'EU_emblems.zip' },
+      },
+      {
+        title: 'Headshot & institutional photo',
+        description: `High-resolution headshot of Dr\u00A0Oliver Newton and a photo of the ${PERSONAL.university} campus for use in articles or broadcasts.`,
+        icon: 'tabler:user-circle',
+        callToAction: [{ text: 'Download headshot', href: getPermalink('/press-kit/oliver_newton.png'), download: 'oliver_newton.png' },
+            { text: 'Download institutional photo', href: getPermalink('/press-kit/stag-hill-lake-media.jpg'), download: 'stag-hill-lake-media.jpg' }
+        ],
+      },
+    ]}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 page-fade-dark"></div>
+    </Fragment>
+  </Features>
+
+  <!-- Media coverage -->
+  {coverageItems.length > 0 && (
+  <Content
+    id="coverage"
+    title="Media coverage"
+    subtitle="Articles, interviews, and mentions."
+    items={[]}
+  >
+    <Fragment slot="content">
+      <div class="space-y-4">
+        <p class="rich-text text-justify hyphens-auto">
+          Selected coverage of my research and public talks.
+          Click any item to open it in a new tab.
+        </p>
+        {coverageItems.length > 0 ? (
+          <PressGallery items={coverageItems} />
+        ) : (
+          <p class="text-sm text-muted mt-4">
+            No coverage yet. Check back soon.
+          </p>
+        )}
+      </div>
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 page-fade-light"></div>
+    </Fragment>
+  </Content>
+  )}
+</Layout>
