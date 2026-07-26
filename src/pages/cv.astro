@@ -8,6 +8,7 @@ import Content from '~/components/widgets/Content.astro';
 import Features from '~/components/widgets/Features.astro';
 import Features2 from '~/components/widgets/Features2.astro';
 import fs from 'node:fs';
+import path from 'node:path';
 
 const metadata = {
   title: 'CV | Oliver Newton',
@@ -15,16 +16,21 @@ const metadata = {
 };
 
 // Path to the PDF in the repo; adjust if your path is different
-const cvRelativePath = '../../public/cv/CV.pdf';
-const cvUrl = new URL(cvRelativePath, import.meta.url);
-const stat = fs.statSync(cvUrl);
+let lastUpdated = 'Unknown';
 
-// Format the last modified time as a human-readable date
-const lastUpdated = stat.mtime.toLocaleDateString('en-GB', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+try {
+  // Resolve CV path from the project root (both dev and CI)
+  const cvPath = path.join(process.cwd(), 'public', 'cv', 'CV.pdf');
+  const stat = fs.statSync(cvPath);
+  lastUpdated = stat.mtime.toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+} catch (e) {
+  // Fallback; you can also use PERSONAL.cvLastUpdated if you add it to config.yaml
+  lastUpdated = 'Unknown';
+}
 
 // Identifier panels
 const identifierItems = [
