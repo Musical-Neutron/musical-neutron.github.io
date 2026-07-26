@@ -17,11 +17,13 @@ export interface Props {
 }
 
 const { post } = Astro.props;
-const image = (await findImage(post.image)) as ImageMetadata | undefined;
+const image = (await findImage(post.image)) as ImageMetadata | string | undefined;
 const hasImage = !!image;
 
 const isSvg =
-  typeof image === 'string' && image.toLowerCase().endsWith('.svg');
+  typeof image === 'string'
+  ? image.toLowerCase().endsWith('.svg')
+  : false;
 const imageClass = isSvg
   ? 'w-full h-full object-contain'
   : 'w-full h-full object-cover';

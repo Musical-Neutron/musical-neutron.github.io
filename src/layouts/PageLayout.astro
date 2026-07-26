@@ -26,12 +26,12 @@ const footerData = getFooterData(PERSONAL);
   <slot name="header">
     <!-- Mobile / small screens: original horizontal Header with ToggleMenu -->
     <div class="md:hidden">
-      <Header {...headerData} isSticky showRssFeed showToggleTheme />
+      <Header {...headerData} showRssFeed showToggleTheme />
     </div>
 
     <!-- Desktop / md+ screens: vertical sidebar -->
     <div class="hidden md:block">
-      <SidebarHeader {...headerData} isSticky showRssFeed showToggleTheme />
+      <SidebarHeader {...headerData} showRssFeed showToggleTheme />
     </div>
   </slot>
   <main class="sidebar-offset">

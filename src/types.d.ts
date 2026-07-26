@@ -123,8 +123,10 @@ export interface Item {
   description?: string;
   icon?: string;
   classes?: Record<string, string>;
-  callToAction?: CallToAction;
+  callToAction?: CallToAction | CallToAction[];
   image?: Image;
+  cssIconClass?: string;
+  href?: string;
 }
 
 export interface Price {
