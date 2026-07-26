@@ -20,7 +20,10 @@ const typeIcons = {
 
 const coverageItems = pressItems
   .slice()
-  .sort((a, b) => new Date(b.date) - new Date(a.date))
+  .sort(
+    (a, b) =>
+      new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
   .map((item) => ({
     title: item.title,
     subtitle: `${item.outlet}, ${new Date(item.date).toLocaleDateString('en-GB', {
@@ -61,7 +64,7 @@ const coverageItems = pressItems
           Dr Oliver Newton<br />
           Marie Sk&lstrok;odowska&ndash;Curie Fellow<br />
           {PERSONAL.institutionGroup}, {PERSONAL.university}<br/>
-          <a href=`mailto:${PERSONAL.contactEmail}`>
+          <a href={`mailto:${PERSONAL.contactEmail}`}>
             {PERSONAL.contactEmail}
           </a>
         </div>
