@@ -1,0 +1,145 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Icon } from 'astro-icon/components';
+import Image from '~/components/common/Image.astro';
+import PostTags from '~/components/blog/Tags.astro';
+import JobMovePlaceholder from '~/components/JobMovePlaceholder.astro';
+
+import { APP_BLOG } from 'astrowind:config';
+import type { Post } from '~/types';
+
+import { getPermalink } from '~/utils/permalinks';
+import { findImage } from '~/utils/images';
+import { getFormattedDate } from '~/utils/utils';
+
+export interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const image = (await findImage(post.image)) as ImageMetadata | undefined;
+const hasImage = !!image;
+
+const isSvg =
+  typeof image === 'string' && image.toLowerCase().endsWith('.svg');
+const imageClass = isSvg
+  ? 'w-full h-full object-contain'
+  : 'w-full h-full object-cover';
+
+const isJobMove = (post as any).isJobMove === true;
+
+const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : '';
+---
+
+<article
+  class={`max-w-md mx-auto md:max-w-none grid gap-6 md:gap-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade md:grid-cols-2`}
+>
+  <div
+    class="relative h-48 md:h-64 lg:h-72 overflow-hidden rounded shadow-lg bg-var(--aw-color-bg-page) border border-(--aw-color-primary)"
+  >
+    {hasImage ? (
+      link ? (
+        <a href={link ?? 'javascript:void(0)'} class="block w-full h-full">
+          <Image
+            src={image}
+            alt={post.title}
+            class={imageClass}
+            widths={[400, 900]}
+            width={900}
+            height={506}
+            sizes="(max-width: 900px) 100vw, 900px"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+        </a>
+      ) : (
+        <>
+          <Image
+            src={image}
+            alt={post.title}
+            class={imageClass}
+            widths={[400, 900]}
+            width={900}
+            height={506}
+            sizes="(max-width: 900px) 100vw, 900px"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+        </>
+      )
+    ) : isJobMove ? (
+      // Job/country move: special placeholder
+      <JobMovePlaceholder class={imageClass} />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+    ) : link ? (
+      <!-- No image: clickable placeholder -->
+      <a href={link} class="block w-full h-full">
+        <div class="w-full h-full press-placeholder" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+      </a>
+    ) : (
+      <!-- No image and no link: non-clickable placeholder -->
+      <>
+        <div class="w-full h-full press-placeholder" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+      </>
+    )}
+  </div>
+  <div class="mt-2">
+    <header>
+      <div class="mb-1">
+        <span class="text-sm rich-text">
+          <Icon name="tabler:clock" class="w-3.5 h-3.5 inline-block -mt-0.5" />
+          <time datetime={String(post.publishDate)} class="inline-block">{getFormattedDate(post.publishDate)}</time>
+          {
+            post.author && (
+              <>
+                {' '}
+                · <Icon name="tabler:user" class="w-3.5 h-3.5 inline-block -mt-0.5" />
+                <span>{post.author.replaceAll('-', ' ')}</span>
+              </>
+            )
+          }
+          {
+            post.category && (
+              <>
+                {' '}
+                ·{' '}
+                <a href={getPermalink(post.category.slug, 'category')}>
+                  {post.category.title}
+                </a>
+              </>
+            )
+          }
+        </span>
+      </div>
+      <h2 class="text-xl sm:text-2xl font-bold leading-tight mb-2 font-heading ">
+        {
+          link ? (
+            <a
+              class="inline-block transition ease-in duration-200"
+              href={link}
+            >
+              {post.title}
+            </a>
+          ) : (
+            post.title
+          )
+        }
+      </h2>
+    </header>
+
+    {post.excerpt && <p class="flex-grow text-lg">{post.excerpt}</p>}
+    {
+      post.tags && Array.isArray(post.tags) ? (
+        <footer class="mt-5">
+          <PostTags tags={post.tags} />
+        </footer>
+      ) : (
+        <Fragment />
+      )
+    }
+  </div>
+</article>

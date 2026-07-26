@@ -1,0 +1,181 @@
+---
+import { Icon } from 'astro-icon/components';
+const { items = [] } = Astro.props;
+const hasItems = items && items.length > 0;
+---
+
+{hasItems ? (
+  <div
+    class="relative w-full overflow-x-hidden overflow-y-visible"
+    data-press-gallery
+  >
+    <div
+      class="flex gap-4 py-10 transition-transform duration-700 ease-in-out"
+      data-press-track
+    >
+      {items.map((item) => (
+        <a
+        href={item.href}
+        // target="_blank"
+        // rel="noopener noreferrer"
+        class="press-card relative block w-64 h-40 shrink-0 rounded-lg overflow-hidden
+             text-slate-900 dark:text-white
+             transition-shadow transition-opacity"
+        >
+        {item.image ? (
+            <>
+            <img
+                src={item.image.src}
+                alt={item.image.alt ?? item.title}
+                class="w-full h-full object-cover"
+                loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+            </>
+        ) : (
+            <div class="absolute inset-0 bg-gradient-to-br
+                      press-placeholder
+                      dark:from-slate-700 dark:via-slate-600 dark:to-slate-800 " />
+        )}
+
+        <div class="absolute inset-0 flex flex-col justify-end p-3">
+                {/* Icon in upper-right */}
+            {item.icon && (
+            <div class="absolute top-2 right-2">
+                <Icon
+                name={item.icon}
+                class="w-4 h-4 text-slate-900 dark:text-white"
+                />
+            </div>
+            )}
+            <h3 class="text-sm font-semibold mb-1 line-clamp-2">
+                {item.title}
+            </h3>
+            <p class="text-xs text-muted dark:text-muted line-clamp-3">
+                <span class="font-semibold">{item.subtitle}</span>
+                <br />
+                <span>{item.description}</span>
+            </p>
+        </div>
+
+        <!-- Internal highlight overlay -->
+        <div
+        class="press-card-highlight absolute inset-0 rounded-lg pointer-events-none opacity-0 z-10"
+        ></div>
+        </a>
+      ))}
+    </div>
+
+    <!-- Navigation arrows -->
+    <button
+      type="button"
+      class="absolute left-2 top-1/2 -translate-y-1/2 z-10 rounded-full btn-secondary press-gallery-button p-2 hover:bg-black/60"
+      data-press-dir="prev"
+      aria-label="Previous item"
+    >
+      ‹
+    </button>
+    <button
+      type="button"
+      class="absolute right-2 top-1/2 -translate-y-1/2 z-10 rounded-full btn-secondary press-gallery-button  p-2 hover:bg-black/60"
+      data-press-dir="next"
+      aria-label="Next item"
+    >
+      ›
+    </button>
+  </div>
+) : null}
+
+
+<script is:inline>
+  (function () {
+    if (typeof window === 'undefined') return;
+
+    var galleries = document.querySelectorAll('[data-press-gallery]');
+    galleries.forEach(function (gallery) {
+      var track = gallery.querySelector('[data-press-track]');
+      if (!track) return;
+
+      var slides = track.children;
+      var total = slides.length;
+      if (total === 0) return;
+
+      var index = 0;
+      var timer;
+      var autoPlay = true;
+      var interval = 8000;
+      var pauseAfterInteraction = 5000;
+
+      function update() {
+        if (total === 0) return;
+
+        // Remove highlight from all slides
+        for (var i = 0; i < total; i++) {
+          slides[i].classList.remove('press-active');
+        }
+        // Add highlight to the active slide
+        slides[index].classList.add('press-active');
+
+        // Reset transform so we measure positions in the base layout
+        track.style.transform = 'translateX(0px)';
+
+        var containerRect = gallery.getBoundingClientRect();
+        var activeSlide = slides[index];
+        var slideRect = activeSlide.getBoundingClientRect();
+
+        var slideCenter = slideRect.left + slideRect.width / 2;
+        var containerCenter = containerRect.left + containerRect.width / 2;
+
+        var translateX = slideCenter - containerCenter;
+
+        track.style.transform = 'translateX(-' + translateX + 'px)';
+      }
+
+      function startAutoPlay() {
+        if (!autoPlay || total <= 1) return;
+        clearInterval(timer);
+        timer = setInterval(function () {
+          index = (index + 1) % total;
+          update();
+        }, interval);
+      }
+
+      // Initial state
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+          requestAnimationFrame(function () {
+            update();
+            startAutoPlay();
+          });
+        });
+      } else {
+        requestAnimationFrame(function () {
+          update();
+          startAutoPlay();
+        });
+      }
+
+      window.addEventListener('resize', function () {
+        update();
+      });
+
+      var buttons = gallery.querySelectorAll('[data-press-dir]');
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var dir = btn.getAttribute('data-press-dir');
+          if (dir === 'prev') {
+            index = (index - 1 + total) % total;
+          } else {
+            index = (index + 1) % total;
+          }
+          update();
+
+          clearInterval(timer);
+          if (autoPlay && total > 1) {
+            setTimeout(startAutoPlay, pauseAfterInteraction);
+          }
+        });
+      });
+    });
+  })();
+</script>

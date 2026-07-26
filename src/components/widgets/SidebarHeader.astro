@@ -1,0 +1,358 @@
+---
+import Logo from '~/components/Logo.astro';
+import ToggleTheme from '~/components/common/ToggleTheme.astro';
+import Button from '~/components/ui/Button.astro';
+import { Icon } from 'astro-icon/components';
+
+import { getHomePermalink, trimSlash, getAsset, getPermalink, getBlogPermalink } from '~/utils/permalinks';
+import type { CallToAction } from '~/types';
+import { APP_BLOG } from 'astrowind:config';
+import { fetchPosts } from '~/utils/blog';
+
+interface Link {
+  text?: string;
+  href?: string;
+  ariaLabel?: string;
+  icon?: string;
+  links?: Array<Link>;
+}
+
+export interface Props {
+  links?: Array<Link>;
+  actions?: Array<CallToAction>;
+  showToggleTheme?: boolean;
+  showRssFeed?: boolean;
+}
+
+const {
+  links: navLinks = [],
+  actions = [],
+  showToggleTheme = false,
+  showRssFeed = false,
+} = Astro.props;
+
+const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
+
+// Same display criteria as index.astro / BlogLatestPosts
+const count = APP_BLOG.latest?.minCount ?? 4;
+const freshnessDays = APP_BLOG.latest?.freshnessDays ?? 30;
+const maxAgeDays = APP_BLOG.latest?.maxAgeDays ?? 365;
+const sidebarCount = APP_BLOG.latest?.sidebarCount ?? 3;
+const newsButtonMaxAgeDays = APP_BLOG.latest?.newsButtonMaxAgeDays ?? 730;
+const dayMs = 1000 * 60 * 60 * 24;
+
+let enhancedNavLinks = navLinks;
+
+if (APP_BLOG.isEnabled) {
+  const now = new Date();
+  const allPosts = await fetchPosts();
+  const hasAnyPosts = allPosts.length > 0;
+
+  const freshPosts = allPosts.filter(
+    (post) => now.getTime() - post.publishDate.getTime() <= freshnessDays * dayMs
+  );
+  const hasFreshPosts = freshPosts.length > 0;
+  const hideNewsTopLevel = !hasFreshPosts
+
+  // Build latest posts for sidebar when we *do* show News
+  const ageFilteredPosts = allPosts.filter(
+    (post) => now.getTime() - post.publishDate.getTime() <= maxAgeDays * dayMs
+  );
+  const latestPosts = ageFilteredPosts.slice(0, sidebarCount);
+
+  enhancedNavLinks = navLinks
+    .map((item) => {
+      // Handle News section
+      if (item.text === 'News') {
+        if (hideNewsTopLevel) {
+          // Remove News as a top-level section in sidebar
+          return null;
+        }
+
+        // Show latest posts under News
+        const topPostLinks: Link[] = latestPosts.map((post) => ({
+          text: post.title,
+          href: getPermalink(post.permalink, 'post'),
+        }));
+
+        return {
+          ...item,
+          links: topPostLinks,
+        };
+      }
+
+      // Handle Home section: add News link under Home when News is hidden
+      if (item.text === 'Home' && hideNewsTopLevel) {
+        const existingChildren = item.links ?? [];
+        const hasNewsChild = existingChildren.some((child) => child.text === 'News');
+        const newsChild: Link = {
+          text: 'News',
+          href: getBlogPermalink(),
+        };
+
+        return {
+          ...item,
+          links: hasNewsChild ? existingChildren : [...existingChildren, newsChild],
+        };
+      }
+
+      return item;
+    })
+    .filter((item): item is Link => item !== null);
+  
+  // If no fresh posts, leave navLinks as originally defined (News section just shows static children)
+}
+
+//////////
+
+// const latestCfg = APP_BLOG.latest ?? {};
+// const freshnessDays = latestCfg.freshnessDays ?? 90;
+// const maxAgeDays = latestCfg.maxAgeDays ?? 365;
+// const sidebarCount = latestCfg.sidebarCount ?? 3;
+// const newsButtonMaxAgeDays = 730; // Y: same as index.astro
+// const dayMs = 1000 * 60 * 60 * 24;
+
+// let enhancedNavLinks = navLinks;
+
+// if (APP_BLOG.isEnabled) {
+//   const now = new Date();
+//   const allPosts = await fetchPosts();
+//   const hasAnyPosts = allPosts.length > 0;
+
+//   const freshPosts = allPosts.filter(
+//     (post) => now.getTime() - post.publishDate.getTime() <= freshnessDays * dayMs
+//   );
+//   const hasFreshPosts = freshPosts.length > 0;
+
+//   const newestAgeDays =
+//     hasAnyPosts ? (now.getTime() - allPosts[0].publishDate.getTime()) / dayMs : Infinity;
+
+//   // Same condition as "no News button on index"
+//   const hideNewsTopLevel =
+//     !hasFreshPosts && (!hasAnyPosts || newestAgeDays > newsButtonMaxAgeDays);
+
+//   // Build latest posts for sidebar when we *do* show News
+//   const ageFilteredPosts = allPosts.filter(
+//     (post) => now.getTime() - post.publishDate.getTime() <= maxAgeDays * dayMs
+//   );
+//   const latestPosts = ageFilteredPosts.slice(0, sidebarCount);
+
+//   enhancedNavLinks = navLinks
+//     .map((item) => {
+//       // Handle News section
+//       if (item.text === 'News') {
+//         if (hideNewsTopLevel) {
+//           // Remove News as a top-level section in sidebar
+//           return null;
+//         }
+
+//         // Show latest posts under News
+//         const topPostLinks: Link[] = latestPosts.map((post) => ({
+//           text: post.title,
+//           href: getPermalink(post.permalink, 'post'),
+//         }));
+
+//         return {
+//           ...item,
+//           links: topPostLinks,
+//         };
+//       }
+
+//       // Handle Home section: add News link under Home when News is hidden
+//       if (item.text === 'Home' && hideNewsTopLevel && hasAnyPosts) {
+//         const existingChildren = item.links ?? [];
+//         const hasNewsChild = existingChildren.some((child) => child.text === 'News');
+//         const newsChild: Link = {
+//           text: 'News',
+//           href: getBlogPermalink(),
+//         };
+
+//         return {
+//           ...item,
+//           links: hasNewsChild ? existingChildren : [...existingChildren, newsChild],
+//         };
+//       }
+
+//       return item;
+//     })
+//     .filter((item): item is Link => item !== null);
+// }
+---
+
+<!-- class="fixed left-0 top-0 z-40 h-screen w-64 bg-page border-(--aw-color-primary) border-r flex flex-col" -->
+<aside
+  class="fixed left-0 top-0 bottom-0 z-40 w-[var(--aw-sidebar-width)] bg-page border-r border-t border-b border-(--aw-color-primary)
+         rounded-r-3xl sidebar-panel flex flex-col text-default overflow-hidden"
+>
+  <!-- Logo -->
+  <div class="flex items-center px-4 py-4 sidebar-head-background">
+    <a href={getHomePermalink()} class="flex items-center gap-2">
+      <Logo />
+    </a>
+  </div>
+
+  <!-- Navigation -->
+  <!-- <nav class="sidebar-nav-background flex-1 overflow-y-auto mt-2" aria-label="Main navigation">
+    <ul class="flex flex-col px-2">
+      {navLinks.map((item) => (
+        <li
+          class="mb-1 relative"
+          data-sidebar-dropdown
+        >
+          {item.links?.length ? (
+            <> -->
+              <!-- Top-level link (clickable, bold) -->
+              <!-- <a
+                href={item.href ?? '#'}
+                data-sidebar-toggle
+                class:list={[
+                  'sidebar-nav-link flex items-center justify-between px-2 py-2 text-sm font-bold rounded whitespace-nowrap',
+                  { 'aw-link-active': item.href === currentPath },
+                ]}
+              >
+                <span>{item.text}</span>
+                <Icon
+                  name="tabler:chevron-right"
+                  class="w-3.5 h-3.5 ml-1 text-muted"
+                />
+              </a> -->
+
+              <!-- Pop-out submenu: positioned via JS (fixed, high z-index) -->
+              <!-- <ul
+                class="sidebar-submenu hidden fixed bg-page rounded shadow-lg py-2 px-2 space-y-1 z-[9999]"
+              >
+                {item.links.map((child) => (
+                  <li>
+                    <a
+                      href={child.href}
+                      class:list={[
+                        'sidebar-sub-link block px-2 py-1 text-xs rounded whitespace-nowrap',
+                        { 'aw-link-active': child.href === currentPath },
+                      ]}
+                    >
+                      {child.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <a
+              href={item.href}
+              class:list={[
+                'sidebar-nav-link block px-2 py-2 text-sm font-bold rounded whitespace-nowrap',
+                { 'aw-link-active': item.href === currentPath },
+              ]}
+            >
+              {item.text}
+            </a>
+          )}
+        </li>
+      ))}
+    </ul>
+  </nav> -->
+
+    <!-- Navigation -->
+  <nav class="sidebar-nav-background flex-1 overflow-y-auto mt-2" aria-label="Main navigation">
+    <ul class="flex flex-col px-2">
+      {enhancedNavLinks.map((item, index) => (
+        <li class="mb-2">
+          <div class="pb-1">
+            {/* Parent link */}
+            <a
+              href={item.href ?? '#'}
+              class:list={[
+                'sidebar-nav-link flex w-full items-center justify-between px-2 py-1 text-sm font-bold whitespace-nowrap rounded-lg',
+                { 'aw-link-active': item.href === currentPath },
+              ]}
+            >
+              <span>{item.text}</span>
+            </a>
+
+            {/* Child links, if any */}
+            {item.links?.length ? (
+              <ul class="mt-1 ml-3 space-y-1">
+                {item.links.map((child) => (
+                  <li>
+                    <a
+                      href={child.href}
+                      class:list={[
+                        'sidebar-sub-link block px-2 py-1 text-xs whitespace-normal rounded-lg',
+                        { 'aw-link-active': child.href === currentPath },
+                      ]}
+                    >
+                      {child.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+          {/* Narrow divider */}
+          <div class="mt-1">
+            <div class="mx-1 pb-2 border-b border-(--aw-color-primary)" />
+          </div>
+        </li>
+      ))}
+    </ul>
+  </nav>
+  
+  <!-- Bottom: theme toggle, RSS, actions -->
+  <div class="px-4 py-3 sidebar-foot-background">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        {showToggleTheme && (
+          <ToggleTheme iconClass="w-5 h-5 md:inline-block" />
+        )}
+        {showRssFeed && (
+          <a
+            class="hover:bg-(--press-highlight-1) focus:outline-none focus:ring-4 focus:ring-(--press-highlight-1) rounded-lg text-sm p-2.5 inline-flex items-center gap-1"
+            aria-label="RSS Feed"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={getAsset('/rss.xml')}
+          >
+            <Icon name="tabler:rss" class="w-4 h-4" />
+          </a>
+        )}
+      </div>
+      {actions?.length ? (
+        <div class="flex gap-2">
+          {actions.map((btnProps) => (
+            <Button
+              {...btnProps}
+              class="py-1.5 px-3 font-semibold shadow-none text-xs w-auto"
+            />
+          ))}
+        </div>
+      ) : null}
+    </div>
+  </div>
+</aside>
+
+<!-- <script is:inline>
+  (function () {
+    if (typeof window === 'undefined') return;
+
+    var dropdowns = document.querySelectorAll('[data-sidebar-dropdown]');
+    dropdowns.forEach(function (dd) {
+      var toggle = dd.querySelector('[data-sidebar-toggle]');
+      var submenu = dd.querySelector('.sidebar-submenu');
+      if (!toggle || !submenu) return;
+
+      dd.addEventListener('mouseenter', function () {
+        var rect = toggle.getBoundingClientRect();
+
+        // Position submenu just to the right of the toggle, aligned vertically
+        submenu.style.top = rect.top + 'px';
+        submenu.style.left = rect.right + 'px';
+
+        submenu.classList.remove('hidden');
+      });
+
+      dd.addEventListener('mouseleave', function () {
+        submenu.classList.add('hidden');
+      });
+    });
+  })();
+</script> -->

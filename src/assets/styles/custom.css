@@ -1,0 +1,158 @@
+@layer base {
+  .rich-text a {
+    @apply decoration-dotted decoration-2;
+    color: var(--aw-color-primary);
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  }
+  .rich-text a:hover {
+    color: var(--aw-color-accent);
+    text-decoration-color: var(--aw-color-accent);
+  }
+  .rich-text h1 {
+    @apply text-3xl font-bold mb-4 font-heading transition ease-in duration-200;
+  }
+
+  .rich-text h2 {
+    @apply text-2xl font-semibold mt-4 mb-2 font-heading transition ease-in duration-200;
+  }
+
+  .rich-text h3 {
+    @apply text-xl font-semibold mt-3 mb-2 font-heading transition ease-in duration-200;
+  }
+
+  .rich-text h4 {
+    @apply text-lg font-semibold mt-3 mb-1 font-heading transition ease-in duration-200;
+  }
+
+  .markdown-body ul,
+  .markdown-body ol {
+    list-style-position: outside;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .markdown-body ul {
+    list-style-type: disc !important;
+  }
+
+  .markdown-body ol {
+    list-style-type: decimal !important;
+  }
+
+  .markdown-body li {
+    margin-top: 0.15rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .sidebar-offset {
+    margin-left: 0;
+  }
+
+  @media (min-width: 768px) {
+    .sidebar-offset {
+      margin-left: var(--aw-sidebar-width);
+    }
+  }
+}
+
+@keyframes carousel-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer components {
+  .carousel-track {
+    animation: carousel-scroll 30s linear infinite;
+  }
+}
+
+/* @keyframes press-gallery-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer components {
+  .press-gallery-track {
+    animation: press-gallery-scroll 60s linear infinite;
+  }
+} */
+
+
+@layer components {
+  .bg-page-alt {
+    background-color: var(--aw-color-bg-alt); /* old wrapper-color-alt */
+  }
+
+  .bg-page-dark {
+    background-color: var(--aw-color-bg-page-dark); /* old wrapper-color-alt */
+  }
+
+  .aw-section-bg-1 {
+    background-color: var(--aw-color-bg-page); /* old bg-color-1 */
+  }
+  
+  .aw-section-bg-2 {
+    background-color: #ddeddd; /* old bg-color-2 */
+  }
+  
+  .aw-section-bg-3 {
+    background-color: #1E4258; /* old bg-color-3 */
+  }
+  
+  .aw-section-bg-alt {
+    background-color: #261c3e; /* old wrapper-color-alt */
+  }
+  
+  .aw-press-highlight-1 {
+    background-color: #fbfffb; /* old bg-color-1 */
+  }
+  
+  .aw-press-highlight-2 {
+    background-color: #187618; /* old bg-color-2 */
+  }
+  
+  .aw-press-highlight-3 {
+    background-color: #ccf1cc; /* old bg-color-2 */
+  }
+
+  .social-button {
+    @apply hover:bg-[var(--press-highlight-1)] dark:hover:bg-[var(--press-highlight-1)] focus:outline-none focus:ring-4 focus:ring-[var(--press-highlight-1)] dark:focus:ring-[var(--press-highlight-1)] rounded-lg text-sm p-2.5 inline-flex items-center gap-1
+  }
+
+  .social-button-small {
+    @apply hover:bg-[var(--press-highlight-1)] dark:hover:bg-[var(--press-highlight-1)] focus:outline-none focus:ring-4 focus:ring-[var(--press-highlight-1)] dark:focus:ring-[var(--press-highlight-1)] rounded-lg text-sm p-1.5 inline-flex items-center gap-1
+  }
+
+}
+
+@layer components {
+  /* Shared social button behaviour (hover + focus) */
+  .social-button {
+    @apply hover:bg-[var(--press-highlight-3)]
+           dark:hover:bg-[var(--press-highlight-1)]
+           focus:outline-none
+           focus:ring-4
+           focus:ring-[var(--press-highlight-3)]
+           dark:focus:ring-[var(--press-highlight-1)]
+           rounded-lg
+           text-sm
+           inline-flex
+           items-center
+           gap-1;
+  }
+
+  /* Size variant for smaller buttons */
+  .social-button-small {
+    @apply p-1.5;
+  }
+}
+

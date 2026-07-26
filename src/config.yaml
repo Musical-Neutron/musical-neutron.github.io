@@ -1,0 +1,102 @@
+site:
+  name: Oliver Newton
+  site: 'https://oliver-newton.com'
+  trailingSlash: false
+
+  googleSiteVerificationId: false
+
+# Default SEO metadata
+metadata:
+  title:
+    default: Oliver Newton
+    template: '%s — Oliver Newton'
+  description: "Astrophysicist | Dr Oliver Newton"
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: Oliver Newton
+    images:
+      - url: '~/assets/images/default.png'
+        width: 1200
+        height: 628
+    type: website
+  # twitter:
+  #   handle: '@arthelokyo'
+  #   site: '@arthelokyo'
+  #   cardType: summary_large_image
+
+i18n:
+  language: en
+  textDirection: ltr
+
+apps:
+  blog:
+    isEnabled: true
+    postsPerPage: 8
+
+    post:
+      isEnabled: true
+      permalink: '/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
+      robots:
+        index: true
+
+    list:
+      isEnabled: true
+      pathname: 'news' # Blog main path, you can change this to "articles" (/articles)
+      robots:
+        index: true
+
+    category:
+      isEnabled: true
+      pathname: 'category' # Category main path /category/some-category, you can change this to "group" (/group/some-category)
+      robots:
+        index: true
+
+    tag:
+      isEnabled: true
+      pathname: 'tag' # Tag main path /tag/some-tag, you can change this to "topics" (/topics/some-category)
+      robots:
+        index: false
+
+    isRelatedPostsEnabled: true
+    relatedPostsCount: 4
+
+    latest:
+      freshnessDays: 90    # X: at least one post newer than this to show Latest news
+      maxAgeDays: 365      # Z: don't show posts older than this in Latest news/sidebar
+      minCount: 4          # Y: target number of posts for Latest news on index
+      sidebarCount: 3      # number of latest posts to show under "News" in sidebar
+      newsButtonMaxAgeDays: 425
+
+analytics:
+  vendors:
+    googleAnalytics:
+      id: null # or "G-XXXXXXXXXX"
+
+ui:
+  theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
+
+personal:
+  myName: "Oliver Newton"
+  mySite: "https://oliver-newton.com/"
+  siteGithub: "https://oliver-newton.com"
+  contactEmail: "o.newton@surrey.ac.uk"
+  contactAddress: "Astrophysics Group</br>University of Surrey</br>Guildford</br>Surrey</br>GU2 7XH"
+  university: "University of Surrey"
+  universityURL: "https://www.surrey.ac.uk"
+  universityPress: "https://www.surrey.ac.uk/news/media-contacts"
+  institutionGroup: "Astrophysics Group"
+  institutionURL: "https://www.surrey.ac.uk/astrophysics-group"
+  contactPhone: "+44 (#####) ### ###"
+  projectNumber: "101209580"
+  projectAcronym: "CWEBDWARFS"
+  copyYear: "2018—2026"
+  recaptchaSiteKey: "6Le3yUwtAAAAAPH4CA_CHSSd59bVG7gk1jnpehWB"
+
+announcement:
+  enabled: true # Easy on/off switch
+  text: "Website refreshed"
+  link: "/events#launch" # Link for the text
+  badgeText: "NEW" # Text for the badge/ribbon
+  expiresAt: "2026-08-15T00:00:00Z" # Announcement disappears after this date
