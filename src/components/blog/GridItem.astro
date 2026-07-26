@@ -4,6 +4,7 @@ import type { Post } from '~/types';
 import { Icon } from 'astro-icon/components';
 
 import Image from '~/components/common/Image.astro';
+import JobMovePlaceholder from '~/components/JobMovePlaceholder.astro';
 import { findImage } from '~/utils/images';
 import { getPermalink } from '~/utils/permalinks';
 import { getFormattedDate } from '~/utils/utils';
@@ -15,6 +16,7 @@ export interface Props {
 const { post } = Astro.props;
 const image = await findImage(post.image);
 const hasImage = !!image;
+const isJobMove = (post as any).isJobMove === true;
 
 const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : '';
 ---
@@ -58,6 +60,12 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
         </>
       )
+    ) : isJobMove ? (
+      <!-- Job/country move: special placeholder -->
+      <div class="flex items-center justify-center w-full h-full">
+        <JobMovePlaceholder class="max-w-full max-h-full" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+      </div>
     ) : link ? (
       <!-- No image: clickable placeholder -->
       <a href={link} class="block w-full h-full">

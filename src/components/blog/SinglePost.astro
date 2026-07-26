@@ -72,9 +72,10 @@ const { post, url } = Astro.props;
 
       {
         post.image ? (
+          <div class="relative max-w-full lg:max-w-[900px] mx-auto mb-6 sm:rounded-md overflow-hidden">
           <Image
             src={post.image}
-            class="max-w-full lg:max-w-[900px] mx-auto mb-6 sm:rounded-md var(--aw-color-bg-page)"
+            class="w-full h-full object-cover var(--aw-color-bg-page)"
             widths={[400, 900]}
             sizes="(max-width: 900px) 400px, 900px"
             alt={post?.excerpt || ''}
@@ -84,6 +85,8 @@ const { post, url } = Astro.props;
             loading="eager"
             decoding="async"
           />
+          <div class="absolute mx-auto inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+          </div>
         ) : (
           <div class="max-w-3xl mx-auto px-4 sm:px-6">
             <div class="border-t dark:border-slate-700" />

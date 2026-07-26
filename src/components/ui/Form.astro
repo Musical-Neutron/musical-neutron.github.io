@@ -71,7 +71,7 @@ const { inputs, textarea, disclaimer, button = 'Send', description = '', action,
   { /* reCAPTCHA widget */
   recaptchaSiteKey && (
     <div class="mt-6">
-      <div class="g-recaptcha" data-sitekey={recaptchaSiteKey}></div>
+      <div class="g-recaptcha" data-sitekey={recaptchaSiteKey} aria-hidden="true"></div>
     </div>
   )}
 
