@@ -1,11 +1,10 @@
 ---
-import { Icon } from 'astro-icon/components';
+import Image from '~/components/common/Image.astro';
 import Button from '~/components/ui/Button.astro';
 import Headline from '~/components/ui/Headline.astro';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
-import Image from '~/components/common/Image.astro';
-import ItemGrid from '../ui/ItemGrid.astro';
 import type { Content as Props } from '~/types';
+import ItemGrid from '../ui/ItemGrid.astro';
 
 const {
   title = await Astro.slots.render('title'),
@@ -48,7 +47,7 @@ const columnsClass =
     tagline={tagline}
     classes={{
       container: 'max-w-xl sm:mx-auto lg:max-w-2xl',
-      title: 'text-4xl md:text-5xl font-bold tracking-tighter mb-4 font-heading',
+      title: 'text-3xl md:text-4xl font-bold tracking-tighter mb-4 font-heading',
       subtitle: 'max-w-3xl mx-auto sm:text-center text-xl text-muted',
     }}
   />
@@ -82,11 +81,11 @@ const columnsClass =
             title:
               'text-lg font-medium leading-6 ml-2 rtl:ml-0 rtl:mr-2',
             description:
-              'text-muted dark:text-slate-400 ml-2 rtl:ml-0 rtl:mr-2',
+              'text-muted ml-2 rtl:ml-0 rtl:mr-2',
             icon:
               'flex h-7 w-7 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-1',
             action:
-              'text-lg font-medium leading-6 dark:text-white ml-2 rtl:ml-0 rtl:mr-2',
+              'text-lg font-medium leading-6 ml-2 rtl:ml-0 rtl:mr-2',
           }}
         />
       </div>

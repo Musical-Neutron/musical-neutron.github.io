@@ -29,46 +29,6 @@ export const headerData = {
       ],
     },
     {
-      text: 'Research',
-      href: getPermalink('/research'),
-      links: [
-        { text: 'Galaxy-environment connection', href: '/research#galaxy-environment' },
-        { text: 'Warm dark matter', href: '/research#warm-dark-matter' },
-        { text: 'The Local Group', href: '/research#local-group' },
-        { text: 'Satellite galaxies', href: '/research#satellite-galaxies' },
-        // { text: 'UDGs in the Local Group', href: '/research#udgs-local-group' },
-      ],
-    },
-    // {
-    //   text: 'Landing',
-    //   links: [
-    //     {
-    //       text: 'Lead Generation',
-    //       href: getPermalink('/landing/lead-generation'),
-    //     },
-    //     {
-    //       text: 'Long-form Sales',
-    //       href: getPermalink('/landing/sales'),
-    //     },
-    //     {
-    //       text: 'Click-Through',
-    //       href: getPermalink('/landing/click-through'),
-    //     },
-    //     {
-    //       text: 'Product Details (or Services)',
-    //       href: getPermalink('/landing/product'),
-    //     },
-    //     {
-    //       text: 'Coming Soon or Pre-Launch',
-    //       href: getPermalink('/landing/pre-launch'),
-    //     },
-    //     {
-    //       text: 'Subscription',
-    //       href: getPermalink('/landing/subscription'),
-    //     },
-    //   ],
-    // },
-    {
       text: 'News',
       href: getBlogPermalink(),
       links: [
@@ -92,6 +52,17 @@ export const headerData = {
         //   text: 'Tag Page',
         //   href: getPermalink('astro', 'tag'),
         // },
+      ],
+    },
+    {
+      text: 'Research',
+      href: getPermalink('/research'),
+      links: [
+        { text: 'Galaxy-environment connection', href: '/research#galaxy-environment' },
+        { text: 'Warm dark matter', href: '/research#warm-dark-matter' },
+        { text: 'The Local Group', href: '/research#local-group' },
+        { text: 'Satellite galaxies', href: '/research#satellite-galaxies' },
+        // { text: 'UDGs in the Local Group', href: '/research#udgs-local-group' },
       ],
     },
     {

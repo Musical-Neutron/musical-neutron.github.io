@@ -36,6 +36,18 @@ import '@fontsource-variable/inter';
 
     --aw-color-bg-page-dark: rgb(3 6 32); */
 
+/* Global font scaling */
+html {
+  font-size: 15.5px; /* slightly smaller than the default 16px */
+}
+
+/* Restore/boost at very large widths (e.g. 1600px+) */
+@media (min-width: 1600px) {
+  html {
+    font-size: 17px;
+  }
+}
+
 :root {
   --aw-font-sans: 'Inter Variable';
   --aw-font-serif: 'Inter Variable';

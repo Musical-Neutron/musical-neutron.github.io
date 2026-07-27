@@ -1,22 +1,14 @@
 ---
-import { getPermalink, getBlogPermalink, getAsset } from '../utils/permalinks';
 import Layout from '~/layouts/PageLayout.astro';
+import { getBlogPermalink } from '../utils/permalinks';
 
-import Hero from '~/components/widgets/Hero.astro';
-import Note from '~/components/widgets/Note.astro';
-import Features from '~/components/widgets/Features.astro';
-import Features2 from '~/components/widgets/Features2.astro';
-import Steps from '~/components/widgets/Steps.astro';
-import Content from '~/components/widgets/Content.astro';
-import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
-import FAQs from '~/components/widgets/FAQs.astro';
-import Stats from '~/components/widgets/Stats.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
-import AboutMe from '~/content/about_me.md';
-import ImageCarousel from '~/components/ImageCarousel.astro';
 import { APP_BLOG, PERSONAL } from 'astrowind:config';
+import ImageCarousel from '~/components/ImageCarousel.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import Content from '~/components/widgets/Content.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import AboutMe from '~/content/about_me.md';
 import { fetchPosts } from '~/utils/blog';
-import { getNewsDisplayState } from '~/utils/newsDisplay';
 
 const metadata = {
   title: 'Astrophysicist | Oliver Newton',
@@ -171,7 +163,7 @@ const heroActions = [
     id="about"
     isReversed
     tagline=""
-    title="About me"
+    title="About"
     items={[
       // {
       //   title: 'Built on top of Astro v6',

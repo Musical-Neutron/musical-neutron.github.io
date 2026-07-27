@@ -1,13 +1,13 @@
 ---
+import { Icon } from 'astro-icon/components';
 import Logo from '~/components/Logo.astro';
 import ToggleTheme from '~/components/common/ToggleTheme.astro';
 import Button from '~/components/ui/Button.astro';
-import { Icon } from 'astro-icon/components';
 
-import { getHomePermalink, trimSlash, getAsset, getPermalink, getBlogPermalink } from '~/utils/permalinks';
-import type { CallToAction } from '~/types';
 import { APP_BLOG } from 'astrowind:config';
+import type { CallToAction } from '~/types';
 import { fetchPosts } from '~/utils/blog';
+import { getAsset, getBlogPermalink, getHomePermalink, getPermalink, trimSlash } from '~/utils/permalinks';
 
 interface Link {
   text?: string;
@@ -262,7 +262,7 @@ if (APP_BLOG.isEnabled) {
             <a
               href={item.href ?? '#'}
               class:list={[
-                'sidebar-nav-link flex w-full items-center justify-between px-2 py-1 text-sm font-bold whitespace-nowrap rounded-lg',
+                'sidebar-nav-link flex w-full items-center justify-between px-2 py-1 font-bold whitespace-nowrap rounded-lg',
                 { 'aw-link-active': item.href === currentPath },
               ]}
             >

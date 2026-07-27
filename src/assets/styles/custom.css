@@ -1,12 +1,11 @@
 @layer base {
   .rich-text a {
-    @apply decoration-dotted decoration-2;
     color: var(--aw-color-primary);
-    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+    transition: color 0.2s ease;
   }
   .rich-text a:hover {
     color: var(--aw-color-accent);
-    text-decoration-color: var(--aw-color-accent);
+    /* text-decoration-color: var(--aw-color-accent); */
   }
   .rich-text h1 {
     @apply text-3xl font-bold mb-4 font-heading transition ease-in duration-200;
