@@ -455,8 +455,12 @@ html {
   background-color: color-mix(in srgb, var(--aw-color-primary) 80%, black);
 }
 
-/* Optional: darker track in dark mode */
-/* .dark ::-webkit-scrollbar-track {
-  background-color: var(--aw-color-bg-page-dark);
-} */
+html {
+  scrollbar-width: thin; /* "auto" | "thin" | "none" */
+  scrollbar-color: var(--aw-color-primary) var(--aw-color-bg-page);
+}
+
+.dark html {
+  scrollbar-color: var(--aw-color-primary) var(--aw-color-bg-page-dark);
+}
 </style>
