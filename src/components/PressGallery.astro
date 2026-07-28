@@ -6,11 +6,11 @@ const hasItems = items && items.length > 0;
 
 {hasItems ? (
   <div
-    class="relative w-full overflow-x-hidden overflow-y-visible"
+    class="relative w-full"
     data-press-gallery
   >
     <div
-      class="flex gap-4 py-10 transition-transform duration-700 ease-in-out"
+      class="flex gap-4 py-10  overflow-x-auto overflow-y-visible scroll-snap-x mandatory scroll-snap-align-center"
       data-press-track
     >
       {items.map((item) => (
@@ -20,7 +20,8 @@ const hasItems = items && items.length > 0;
         // rel="noopener noreferrer"
         class="press-card relative block w-64 h-40 shrink-0 rounded-lg overflow-hidden
              text-slate-900 dark:text-white
-             transition-shadow transition-opacity"
+             transition-shadow transition-opacity
+             scroll-snap-align-center"
         >
         {item.image ? (
             <>
@@ -106,29 +107,27 @@ const hasItems = items && items.length > 0;
       var interval = 8000;
       var pauseAfterInteraction = 5000;
 
-      function update() {
+      function scrollToIndex(idx, smooth) {
         if (total === 0) return;
 
-        // Remove highlight from all slides
-        for (var i = 0; i < total; i++) {
-          slides[i].classList.remove('press-active');
-        }
-        // Add highlight to the active slide
-        slides[index].classList.add('press-active');
-
-        // Reset transform so we measure positions in the base layout
-        track.style.transform = 'translateX(0px)';
-
-        var containerRect = gallery.getBoundingClientRect();
-        var activeSlide = slides[index];
+        var activeSlide = slides[idx];
+        var containerRect = track.getBoundingClientRect();
         var slideRect = activeSlide.getBoundingClientRect();
 
         var slideCenter = slideRect.left + slideRect.width / 2;
         var containerCenter = containerRect.left + containerRect.width / 2;
+        var delta = slideCenter - containerCenter;
 
-        var translateX = slideCenter - containerCenter;
+        track.scrollBy({
+          left: delta,
+          behavior: smooth ? 'smooth' : 'auto',
+        });
 
-        track.style.transform = 'translateX(-' + translateX + 'px)';
+        // Highlight active slide
+        for (var i = 0; i < total; i++) {
+          slides[i].classList.remove('press-active');
+        }
+        slides[idx].classList.add('press-active');
       }
 
       function startAutoPlay() {
@@ -136,7 +135,7 @@ const hasItems = items && items.length > 0;
         clearInterval(timer);
         timer = setInterval(function () {
           index = (index + 1) % total;
-          update();
+          scrollToIndex(index, true);
         }, interval);
       }
 
@@ -144,19 +143,19 @@ const hasItems = items && items.length > 0;
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function () {
           requestAnimationFrame(function () {
-            update();
+            scrollToIndex(index, false);
             startAutoPlay();
           });
         });
       } else {
         requestAnimationFrame(function () {
-          update();
+          scrollToIndex(index, false);
           startAutoPlay();
         });
       }
 
       window.addEventListener('resize', function () {
-        update();
+        scrollToIndex(index, false);
       });
 
       var buttons = gallery.querySelectorAll('[data-press-dir]');
@@ -168,13 +167,19 @@ const hasItems = items && items.length > 0;
           } else {
             index = (index + 1) % total;
           }
-          update();
+          scrollToIndex(index, true);
 
           clearInterval(timer);
           if (autoPlay && total > 1) {
             setTimeout(startAutoPlay, pauseAfterInteraction);
           }
         });
+      });
+
+      // Optional: track scroll to update index based on the centered slide
+      track.addEventListener('scroll', function () {
+        // You can implement an index update based on current scroll position if you like,
+        // but it's not strictly necessary if you only care about visual behavior.
       });
     });
   })();
