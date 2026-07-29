@@ -16,7 +16,7 @@ export interface Props {
 const { post } = Astro.props;
 const image = await findImage(post.image);
 const hasImage = !!image;
-const isJobMove = (post as any).isJobMove === true;
+const isJobMove = post.isJobMove === true;
 
 const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : '';
 ---
@@ -61,19 +61,20 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
         </>
       )
     ) : isJobMove ? (
-      <!-- Job/country move: special placeholder -->
+      <>
       <div class="flex items-center justify-center w-full h-full">
         <JobMovePlaceholder class="max-w-full max-h-full" />
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
       </div>
+      </>
     ) : link ? (
-      <!-- No image: clickable placeholder -->
+      /* No image: clickable placeholder */
       <a href={link} class="block w-full h-full">
         <div class="absolute inset-0 press-placeholder" />
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
       </a>
     ) : (
-      <!-- No image and no link: non-clickable placeholder -->
+      /* No image and no link: non-clickable placeholder */
       <>
         <div class="absolute inset-0 press-placeholder" />
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />

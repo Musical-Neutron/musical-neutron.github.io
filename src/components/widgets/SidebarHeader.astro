@@ -34,11 +34,9 @@ const {
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 
 // Same display criteria as index.astro / BlogLatestPosts
-const count = APP_BLOG.latest?.minCount ?? 4;
 const freshnessDays = APP_BLOG.latest?.freshnessDays ?? 30;
 const maxAgeDays = APP_BLOG.latest?.maxAgeDays ?? 365;
 const sidebarCount = APP_BLOG.latest?.sidebarCount ?? 3;
-const newsButtonMaxAgeDays = APP_BLOG.latest?.newsButtonMaxAgeDays ?? 730;
 const dayMs = 1000 * 60 * 60 * 24;
 
 let enhancedNavLinks = navLinks;
@@ -46,7 +44,6 @@ let enhancedNavLinks = navLinks;
 if (APP_BLOG.isEnabled) {
   const now = new Date();
   const allPosts = await fetchPosts();
-  const hasAnyPosts = allPosts.length > 0;
 
   const freshPosts = allPosts.filter(
     (post) => now.getTime() - post.publishDate.getTime() <= freshnessDays * dayMs
@@ -255,7 +252,7 @@ if (APP_BLOG.isEnabled) {
     <!-- Navigation -->
   <nav class="sidebar-nav-background flex-1 overflow-y-auto mt-2" aria-label="Main navigation">
     <ul class="flex flex-col px-2">
-      {enhancedNavLinks.map((item, index) => (
+      {enhancedNavLinks.map((item,) => (
         <li class="mb-2">
           <div class="pb-1">
             {/* Parent link */}

@@ -1,6 +1,19 @@
 ---
 import { Icon } from 'astro-icon/components';
-const { items = [] } = Astro.props;
+
+type PressGalleryItem = {
+  href: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  icon?: string;
+  image?: {
+    src: string;
+    alt?: string;
+  };
+};
+
+const { items = [] }: { items?: PressGalleryItem[] } = Astro.props;
 const hasItems = items && items.length > 0;
 ---
 
@@ -16,8 +29,6 @@ const hasItems = items && items.length > 0;
       {items.map((item) => (
         <a
         href={item.href}
-        // target="_blank"
-        // rel="noopener noreferrer"
         class="press-card relative block w-64 h-40 shrink-0 rounded-lg overflow-hidden
              text-slate-900 dark:text-white
              transition-shadow transition-opacity
@@ -92,31 +103,31 @@ const hasItems = items && items.length > 0;
   (function () {
     if (typeof window === 'undefined') return;
 
-    var galleries = document.querySelectorAll('[data-press-gallery]');
+    const galleries = document.querySelectorAll('[data-press-gallery]');
     galleries.forEach(function (gallery) {
-      var track = gallery.querySelector('[data-press-track]');
+      const track = gallery.querySelector('[data-press-track]');
       if (!track) return;
 
-      var slides = track.children;
-      var total = slides.length;
+      const slides = track.children;
+      const total = slides.length;
       if (total === 0) return;
 
-      var index = 0;
-      var timer;
-      var autoPlay = true;
-      var interval = 8000;
-      var pauseAfterInteraction = 5000;
+      let index = 0;
+      let timer;
+      const autoPlay = true;
+      const interval = 8000;
+      const pauseAfterInteraction = 5000;
 
       function scrollToIndex(idx, smooth) {
         if (total === 0) return;
 
-        var activeSlide = slides[idx];
-        var containerRect = track.getBoundingClientRect();
-        var slideRect = activeSlide.getBoundingClientRect();
+        const activeSlide = slides[idx];
+        const containerRect = track.getBoundingClientRect();
+        const slideRect = activeSlide.getBoundingClientRect();
 
-        var slideCenter = slideRect.left + slideRect.width / 2;
-        var containerCenter = containerRect.left + containerRect.width / 2;
-        var delta = slideCenter - containerCenter;
+        const slideCenter = slideRect.left + slideRect.width / 2;
+        const containerCenter = containerRect.left + containerRect.width / 2;
+        const delta = slideCenter - containerCenter;
 
         track.scrollBy({
           left: delta,
@@ -124,7 +135,7 @@ const hasItems = items && items.length > 0;
         });
 
         // Highlight active slide
-        for (var i = 0; i < total; i++) {
+        for (let i = 0; i < total; i++) {
           slides[i].classList.remove('press-active');
         }
         slides[idx].classList.add('press-active');
@@ -158,10 +169,10 @@ const hasItems = items && items.length > 0;
         scrollToIndex(index, false);
       });
 
-      var buttons = gallery.querySelectorAll('[data-press-dir]');
+      const buttons = gallery.querySelectorAll('[data-press-dir]');
       buttons.forEach(function (btn) {
         btn.addEventListener('click', function () {
-          var dir = btn.getAttribute('data-press-dir');
+          const dir = btn.getAttribute('data-press-dir');
           if (dir === 'prev') {
             index = (index - 1 + total) % total;
           } else {

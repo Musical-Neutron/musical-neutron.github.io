@@ -40,7 +40,7 @@ const newestAgeDays =
 // Decide News button behaviour
 const latestNewsSectionId = 'latest-news';
 
-let newsHref: string | null = null;
+let newsHref: string | undefined;
 
 if (hasFreshPosts) {
   // Case 1: at least one post within X days → scroll to Latest news section
@@ -52,9 +52,6 @@ if (hasFreshPosts) {
 ) {
   // Case 2: no fresh posts; most recent is older than Z but fresher than Y → link to news page
   newsHref = getBlogPermalink();
-} else {
-  // Case 3: most recent is older than Y days or no posts at all → no News button
-  newsHref = null;
 }
 
 const heroActions = [
@@ -97,7 +94,7 @@ const heroActions = [
         Tailwind CSS v4. -->
         </span
       >
-      <span class="block mb-1 sm:hidden">Marie Sk&lstrok;odowska&ndash;Curie Fellow</br>University of Surrey, UK</span>
+      <span class="block mb-1 sm:hidden">Marie Sk&lstrok;odowska&ndash;Curie Fellow<br />University of Surrey, UK</span>
       <!-- Suitable for Startups, Small Business, SaaS websites, Professional Portfolios, Marketing websites, Landing Pages & Blogs. -->
     </Fragment>
 
