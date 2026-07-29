@@ -15,6 +15,17 @@ import type { AstroIntegration } from "astro";
 
 import astrowind from "./vendor/integration";
 
+const clearRollupInput: AstroIntegration = {
+  name: "clear-rollup-input",
+  hooks: {
+    "astro:config:setup"({ config }) {
+      if (config.vite?.build?.rollupOptions?.input) {
+        delete config.vite.build!.rollupOptions!.input;
+      }
+    },
+  },
+};
+
 import {
   readingTimeRemarkPlugin,
   responsiveTablesRehypePlugin,
@@ -78,6 +89,7 @@ export default defineConfig({
     astrowind({
       config: "./src/config.yaml",
     }),
+    clearRollupInput,
   ],
 
   image: {
