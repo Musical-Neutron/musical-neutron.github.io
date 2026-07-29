@@ -85,7 +85,6 @@
   }
 } */
 
-
 @layer components {
   .bg-page-alt {
     background-color: var(--aw-color-bg-alt); /* old wrapper-color-alt */
@@ -98,39 +97,38 @@
   .aw-section-bg-1 {
     background-color: var(--aw-color-bg-page); /* old bg-color-1 */
   }
-  
+
   .aw-section-bg-2 {
     background-color: #ddeddd; /* old bg-color-2 */
   }
-  
+
   .aw-section-bg-3 {
-    background-color: #1E4258; /* old bg-color-3 */
+    background-color: #1e4258; /* old bg-color-3 */
   }
-  
+
   .aw-section-bg-alt {
     background-color: #261c3e; /* old wrapper-color-alt */
   }
-  
+
   .aw-press-highlight-1 {
     background-color: #fbfffb; /* old bg-color-1 */
   }
-  
+
   .aw-press-highlight-2 {
     background-color: #187618; /* old bg-color-2 */
   }
-  
+
   .aw-press-highlight-3 {
     background-color: #ccf1cc; /* old bg-color-2 */
   }
 
   .social-button {
-    @apply hover:bg-[var(--press-highlight-1)] dark:hover:bg-[var(--press-highlight-1)] focus:outline-none focus:ring-4 focus:ring-[var(--press-highlight-1)] dark:focus:ring-[var(--press-highlight-1)] rounded-lg text-sm p-2.5 inline-flex items-center gap-1
+    @apply hover:bg-[var(--press-highlight-1)] dark:hover:bg-[var(--press-highlight-1)] focus:outline-none focus:ring-4 focus:ring-[var(--press-highlight-1)] dark:focus:ring-[var(--press-highlight-1)] rounded-lg text-sm p-2.5 inline-flex items-center gap-1;
   }
 
   .social-button-small {
-    @apply hover:bg-[var(--press-highlight-1)] dark:hover:bg-[var(--press-highlight-1)] focus:outline-none focus:ring-4 focus:ring-[var(--press-highlight-1)] dark:focus:ring-[var(--press-highlight-1)] rounded-lg text-sm p-1.5 inline-flex items-center gap-1
+    @apply hover:bg-[var(--press-highlight-1)] dark:hover:bg-[var(--press-highlight-1)] focus:outline-none focus:ring-4 focus:ring-[var(--press-highlight-1)] dark:focus:ring-[var(--press-highlight-1)] rounded-lg text-sm p-1.5 inline-flex items-center gap-1;
   }
-
 }
 
 @layer components {
@@ -154,4 +152,3 @@
     @apply p-1.5;
   }
 }
-

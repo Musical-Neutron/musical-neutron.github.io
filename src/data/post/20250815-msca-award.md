@@ -17,7 +17,7 @@ tags:
 
 This year I found out that I had been awarded a **Marie Skłodowska–Curie Actions (MSCA) Postdoctoral Fellowship** under the Horizon Europe programme. The fellowship funds the project:
 
-> *Dwarf galaxies in context: connecting their physical & dynamical properties with the cosmic web*  
+> _Dwarf galaxies in context: connecting their physical & dynamical properties with the cosmic web_  
 > Project number: [101209580](https://doi.org/10.3030/101209580)
 
 to be carried out in the [Astrophysics Group](https://www.surrey.ac.uk/astrophysics-group) at the [University of Surrey](https://www.surrey.ac.uk), UK starting early in 2026.
@@ -38,7 +38,7 @@ This work builds on my previous research, and aims to provide a more unified pic
 
 The fellowship is hosted by the [Astrophysics Group](https://www.surrey.ac.uk/astrophysics-group) at the University of Surrey, working closely with:
 
-- Denis Erkal  
+- Denis Erkal
 - Justin Read
 - Members of the [EDGE Collaboration](https://edge-simulation.github.io)
 

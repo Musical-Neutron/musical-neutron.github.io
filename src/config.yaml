@@ -1,6 +1,6 @@
 site:
   name: Oliver Newton
-  site: 'https://oliver-newton.com'
+  site: "https://oliver-newton.com"
   trailingSlash: false
 
   googleSiteVerificationId: false
@@ -9,7 +9,7 @@ site:
 metadata:
   title:
     default: Oliver Newton
-    template: '%s — Oliver Newton'
+    template: "%s — Oliver Newton"
   description: "Astrophysicist | Dr Oliver Newton"
   robots:
     index: true
@@ -17,7 +17,7 @@ metadata:
   openGraph:
     site_name: Oliver Newton
     images:
-      - url: '~/assets/images/default.png'
+      - url: "~/assets/images/default.png"
         width: 1200
         height: 628
     type: website
@@ -37,25 +37,25 @@ apps:
 
     post:
       isEnabled: true
-      permalink: '/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
+      permalink: "/%slug%" # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
       robots:
         index: true
 
     list:
       isEnabled: true
-      pathname: 'news' # Blog main path, you can change this to "articles" (/articles)
+      pathname: "news" # Blog main path, you can change this to "articles" (/articles)
       robots:
         index: true
 
     category:
       isEnabled: true
-      pathname: 'category' # Category main path /category/some-category, you can change this to "group" (/group/some-category)
+      pathname: "category" # Category main path /category/some-category, you can change this to "group" (/group/some-category)
       robots:
         index: true
 
     tag:
       isEnabled: true
-      pathname: 'tag' # Tag main path /tag/some-tag, you can change this to "topics" (/topics/some-category)
+      pathname: "tag" # Tag main path /tag/some-tag, you can change this to "topics" (/topics/some-category)
       robots:
         index: false
 
@@ -63,10 +63,10 @@ apps:
     relatedPostsCount: 4
 
     latest:
-      freshnessDays: 90    # X: at least one post newer than this to show Latest news
-      maxAgeDays: 365      # Z: don't show posts older than this in Latest news/sidebar
-      minCount: 4          # Y: target number of posts for Latest news on index
-      sidebarCount: 3      # number of latest posts to show under "News" in sidebar
+      freshnessDays: 90 # X: at least one post newer than this to show Latest news
+      maxAgeDays: 365 # Z: don't show posts older than this in Latest news/sidebar
+      minCount: 4 # Y: target number of posts for Latest news on index
+      sidebarCount: 3 # number of latest posts to show under "News" in sidebar
       newsButtonMaxAgeDays: 425
 
 analytics:
@@ -75,7 +75,7 @@ analytics:
       id: "G-3JYJ2FCSHN"
 
 ui:
-  theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
+  theme: "system" # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
 
 personal:
   myName: "Oliver Newton"

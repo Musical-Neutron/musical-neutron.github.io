@@ -1,6 +1,6 @@
-import merge from 'lodash.merge';
+import merge from "lodash.merge";
 
-import type { MetaData } from '~/types';
+import type { MetaData } from "~/types";
 
 export type Config = {
   site?: SiteConfig;
@@ -22,7 +22,7 @@ export interface SiteConfig {
   trailingSlash?: boolean;
   googleSiteVerificationId?: string;
 }
-export interface MetaDataConfig extends Omit<MetaData, 'title'> {
+export interface MetaDataConfig extends Omit<MetaData, "title"> {
   title?: {
     default: string;
     template: string;
@@ -84,16 +84,16 @@ export interface UIConfig {
   theme: string;
 }
 
-const DEFAULT_SITE_NAME = 'Website';
+const DEFAULT_SITE_NAME = "Website";
 
 const getSite = (config: Config) => {
   const _default = {
     name: DEFAULT_SITE_NAME,
     site: undefined,
-    base: '/',
+    base: "/",
     trailingSlash: false,
 
-    googleSiteVerificationId: '',
+    googleSiteVerificationId: "",
   };
 
   return merge({}, _default, config?.site ?? {}) as SiteConfig;
@@ -105,15 +105,15 @@ const getMetadata = (config: Config) => {
   const _default = {
     title: {
       default: siteConfig?.name || DEFAULT_SITE_NAME,
-      template: '%s',
+      template: "%s",
     },
-    description: '',
+    description: "",
     robots: {
       index: false,
       follow: false,
     },
     openGraph: {
-      type: 'website',
+      type: "website",
     },
   };
 
@@ -122,8 +122,8 @@ const getMetadata = (config: Config) => {
 
 const getI18N = (config: Config) => {
   const _default = {
-    language: 'en',
-    textDirection: 'ltr',
+    language: "en",
+    textDirection: "ltr",
   };
 
   const value = merge({}, _default, config?.i18n ?? {});
@@ -139,7 +139,7 @@ const getAppBlog = (config: Config) => {
     relatedPostsCount: 4,
     post: {
       isEnabled: true,
-      permalink: '/news/%slug%',
+      permalink: "/news/%slug%",
       robots: {
         index: true,
         follow: true,
@@ -147,7 +147,7 @@ const getAppBlog = (config: Config) => {
     },
     list: {
       isEnabled: true,
-      pathname: 'news',
+      pathname: "news",
       robots: {
         index: true,
         follow: true,
@@ -155,7 +155,7 @@ const getAppBlog = (config: Config) => {
     },
     category: {
       isEnabled: true,
-      pathname: 'category',
+      pathname: "category",
       robots: {
         index: true,
         follow: true,
@@ -163,7 +163,7 @@ const getAppBlog = (config: Config) => {
     },
     tag: {
       isEnabled: true,
-      pathname: 'tag',
+      pathname: "tag",
       robots: {
         index: false,
         follow: true,
@@ -176,7 +176,7 @@ const getAppBlog = (config: Config) => {
 
 const getUI = (config: Config) => {
   const _default = {
-    theme: 'system',
+    theme: "system",
   };
 
   return merge({}, _default, config?.ui ?? {});
