@@ -6,7 +6,6 @@ import Headline from '~/components/ui/Headline.astro';
 import ItemGrid from '~/components/ui/ItemGrid.astro';
 import Content from '~/components/widgets/Content.astro';
 import Features from '~/components/widgets/Features.astro';
-import Features2 from '~/components/widgets/Features2.astro';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -16,7 +15,7 @@ const metadata = {
 };
 
 // Path to the PDF in the repo; adjust if your path is different
-let lastUpdated = 'Unknown';
+let lastUpdated: string;
 
 try {
   // Resolve CV path from the project root (both dev and CI)
@@ -27,7 +26,7 @@ try {
     month: 'long',
     day: 'numeric',
   });
-} catch (e) {
+} catch {
   // Fallback; you can also use PERSONAL.cvLastUpdated if you add it to config.yaml
   lastUpdated = 'Unknown';
 }

@@ -28,7 +28,7 @@ const imageClass = isSvg
   ? 'w-full h-full object-contain'
   : 'w-full h-full object-cover';
 
-const isJobMove = (post as any).isJobMove === true;
+const isJobMove = post.isJobMove === true;
 
 const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : '';
 ---
@@ -73,16 +73,18 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
       )
     ) : isJobMove ? (
       // Job/country move: special placeholder
+      <>
       <JobMovePlaceholder class={imageClass} />
       <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+      </>
     ) : link ? (
-      <!-- No image: clickable placeholder -->
+      /* No image: clickable placeholder */
       <a href={link} class="block w-full h-full">
         <div class="w-full h-full press-placeholder" />
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
       </a>
     ) : (
-      <!-- No image and no link: non-clickable placeholder -->
+      /* No image and no link: non-clickable placeholder */
       <>
         <div class="w-full h-full press-placeholder" />
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
