@@ -15,12 +15,27 @@ import type { AstroIntegration } from "astro";
 
 import astrowind from "./vendor/integration";
 
-const clearRollupInput: AstroIntegration = {
-  name: "clear-rollup-input",
+const sanitizeRollupInput: AstroIntegration = {
+  name: "sanitize-rollup-input",
   hooks: {
-    "astro:config:setup"({ config }) {
-      if (config.vite?.build?.rollupOptions?.input) {
-        delete config.vite.build!.rollupOptions!.input;
+    "astro:config:setup"({ config, updateConfig }) {
+      const currentInput = config.vite?.build?.rollupOptions?.input;
+
+      // Only care if it's a single HTML entry
+      if (typeof currentInput === "string" && currentInput.endsWith(".html")) {
+        updateConfig({
+          vite: {
+            ...config.vite,
+            build: {
+              ...config.vite?.build,
+              rollupOptions: {
+                ...config.vite?.build?.rollupOptions,
+                // Remove HTML input – Astro/Vite will infer entries from pages
+                input: undefined,
+              },
+            },
+          },
+        });
       }
     },
   },
@@ -89,7 +104,7 @@ export default defineConfig({
     astrowind({
       config: "./src/config.yaml",
     }),
-    clearRollupInput,
+    sanitizeRollupInput,
   ],
 
   image: {
