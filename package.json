@@ -48,9 +48,9 @@
     "@typescript-eslint/eslint-plugin": "^8.60.0",
     "@typescript-eslint/parser": "^8.60.0",
     "astro-compress": "^2.4.3",
-    "astro-eslint-parser": "^1.4.0",
+    "astro-eslint-parser": "^3.2.0",
     "eslint": "^10.4.0",
-    "eslint-plugin-astro": "^1.7.0",
+    "eslint-plugin-astro": "^3.2.1",
     "globals": "^17.6.0",
     "js-yaml": "^4.3.2",
     "mdast-util-to-string": "^4.0.0",
@@ -64,6 +64,11 @@
     "typescript-eslint": "^8.60.0"
   },
   "overrides": {
-    "yaml": ">=2.8.3"
+    "yaml": ">=2.8.3",
+    "astro-compress": {
+      "sharp": "^0.35.5",
+      "svgo": "^4.1.0"
+    },
+    "deepmerge-ts": ">=8.0.2"
   }
 }
