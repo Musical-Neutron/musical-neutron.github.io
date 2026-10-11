@@ -45,6 +45,7 @@ const whenExternalScripts = (
 
 export default defineConfig({
   output: "static",
+  compressHTML: true,
   site: "https://oliver-newton.com",
 
   integrations: [
