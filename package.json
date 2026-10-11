@@ -1,7 +1,7 @@
 {
   "name": "website-astrowind",
   "version": "1.0.0-beta.63",
-  "description": "AstroWind: A free template using Astro 6 and Tailwind CSS v4. Astro starter theme.",
+  "description": "Oliver Newton's personal website, built with Astro and the AstroWind template.",
   "type": "module",
   "engines": {
     "node": ">=22.12.0"
