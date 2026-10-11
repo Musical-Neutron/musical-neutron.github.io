@@ -1,0 +1,36 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      # Astro and its official integrations must be upgraded together:
+      # @astrojs/mdx and @astrojs/markdown-remark only accept a narrow range
+      # of astro versions, so bumping one on its own breaks `npm ci`.
+      astro:
+        patterns:
+          - astro
+          - '@astrojs/*'
+      astro-security:
+        applies-to: security-updates
+        patterns:
+          - astro
+          - '@astrojs/*'
+      # Everything else: one PR per month for minor and patch releases.
+      # Major releases still get their own PRs.
+      minor-and-patch:
+        patterns:
+          - '*'
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns:
+          - '*'
