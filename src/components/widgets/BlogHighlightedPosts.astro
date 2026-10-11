@@ -43,10 +43,7 @@ const posts = APP_BLOG.isEnabled ? await findPostsByIds(postIds) : [];
               set:html={title}
             />
             {APP_BLOG.list.isEnabled && linkText && linkUrl && (
-              <a
-                class="transition ease-in duration-200 block mb-6 lg:mb-0"
-                href={linkUrl}
-              >
+              <a class="transition ease-in duration-200 block mb-6 lg:mb-0" href={linkUrl}>
                 {linkText} »
               </a>
             )}

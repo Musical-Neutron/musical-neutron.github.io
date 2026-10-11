@@ -17,87 +17,80 @@ const { items = [] }: { items?: PressGalleryItem[] } = Astro.props;
 const hasItems = items && items.length > 0;
 ---
 
-{hasItems ? (
-  <div
-    class="relative w-full"
-    data-press-gallery
-  >
-    <div
-      class="flex gap-4 py-10  overflow-x-auto overflow-y-visible scroll-snap-x mandatory scroll-snap-align-center"
-      data-press-track
-    >
-      {items.map((item) => (
-        <a
-        href={item.href}
-        class="press-card relative block w-64 h-40 shrink-0 rounded-lg overflow-hidden
+{
+  hasItems ? (
+    <div class="relative w-full" data-press-gallery>
+      <div
+        class="flex gap-4 py-10  overflow-x-auto overflow-y-visible scroll-snap-x mandatory scroll-snap-align-center"
+        data-press-track
+      >
+        {items.map((item) => (
+          <a
+            href={item.href}
+            class="press-card relative block w-64 h-40 shrink-0 rounded-lg overflow-hidden
              text-slate-900 dark:text-white
              transition-shadow transition-opacity
              scroll-snap-align-center"
-        >
-        {item.image ? (
-            <>
-            <img
-                src={item.image.src}
-                alt={item.image.alt ?? item.title}
-                class="w-full h-full object-cover"
-                loading="lazy"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-            </>
-        ) : (
-            <div class="absolute inset-0 bg-gradient-to-br
-                      press-placeholder
-                      dark:from-slate-700 dark:via-slate-600 dark:to-slate-800 " />
-        )}
-
-        <div class="absolute inset-0 flex flex-col justify-end p-3">
-                {/* Icon in upper-right */}
-            {item.icon && (
-            <div class="absolute top-2 right-2">
-                <Icon
-                name={item.icon}
-                class="w-4 h-4 text-slate-900 dark:text-white"
+          >
+            {item.image ? (
+              <>
+                <img
+                  src={item.image.src}
+                  alt={item.image.alt ?? item.title}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
                 />
-            </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+              </>
+            ) : (
+              <div
+                class="absolute inset-0 bg-gradient-to-br
+                      press-placeholder
+                      dark:from-slate-700 dark:via-slate-600 dark:to-slate-800 "
+              />
             )}
-            <h3 class="text-sm font-semibold mb-1 line-clamp-2">
-                {item.title}
-            </h3>
-            <p class="text-xs text-muted dark:text-muted line-clamp-3">
+
+            <div class="absolute inset-0 flex flex-col justify-end p-3">
+              {/* Icon in upper-right */}
+              {item.icon && (
+                <div class="absolute top-2 right-2">
+                  <Icon name={item.icon} class="w-4 h-4 text-slate-900 dark:text-white" />
+                </div>
+              )}
+              <h3 class="text-sm font-semibold mb-1 line-clamp-2">{item.title}</h3>
+              <p class="text-xs text-muted dark:text-muted line-clamp-3">
                 <span class="font-semibold">{item.subtitle}</span>
                 <br />
                 <span>{item.description}</span>
-            </p>
-        </div>
+              </p>
+            </div>
 
-        <!-- Internal highlight overlay -->
-        <div
-        class="press-card-highlight absolute inset-0 rounded-lg pointer-events-none opacity-0 z-10"
-        ></div>
-        </a>
-      ))}
+            {/* Internal highlight overlay */}
+            <div class="press-card-highlight absolute inset-0 rounded-lg pointer-events-none opacity-0 z-10" />
+          </a>
+        ))}
+      </div>
+
+      {/* Navigation arrows */}
+      <button
+        type="button"
+        class="absolute left-2 top-1/2 -translate-y-1/2 z-10 rounded-full btn-secondary press-gallery-button p-2 hover:bg-black/60"
+        data-press-dir="prev"
+        aria-label="Previous item"
+      >
+        ‹
+      </button>
+      <button
+        type="button"
+        class="absolute right-2 top-1/2 -translate-y-1/2 z-10 rounded-full btn-secondary press-gallery-button  p-2 hover:bg-black/60"
+        data-press-dir="next"
+        aria-label="Next item"
+      >
+        ›
+      </button>
     </div>
-
-    <!-- Navigation arrows -->
-    <button
-      type="button"
-      class="absolute left-2 top-1/2 -translate-y-1/2 z-10 rounded-full btn-secondary press-gallery-button p-2 hover:bg-black/60"
-      data-press-dir="prev"
-      aria-label="Previous item"
-    >
-      ‹
-    </button>
-    <button
-      type="button"
-      class="absolute right-2 top-1/2 -translate-y-1/2 z-10 rounded-full btn-secondary press-gallery-button  p-2 hover:bg-black/60"
-      data-press-dir="next"
-      aria-label="Next item"
-    >
-      ›
-    </button>
-  </div>
-) : null}
-
+  ) : null
+}
 
 <script is:inline>
   (function () {

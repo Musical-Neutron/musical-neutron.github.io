@@ -36,7 +36,7 @@ const identifierItems = [
   {
     title: 'ORCID',
     description: '0000-0002-2769-9507',
-    cssIconClass: 'ai ai-orcid',          // Academicons
+    cssIconClass: 'ai ai-orcid', // Academicons
     callToAction: { text: 'View', href: 'https://orcid.org/0000-0002-2769-9507' },
   },
   {
@@ -75,42 +75,39 @@ const identifierItems = [
       }}
     />
 
-    <Content
-    id="cv-intro"
-    >
-    <Fragment slot="content">
-      <div class="mx-auto max-w-7xl p-0 md:px-0 py-0 rich-text text-justify">
-        <!-- Quick summary -->
-        <!-- <section class="rich-text space-y-3 mb-0"> -->
+    <Content id="cv-intro">
+      <Fragment slot="content">
+        <div class="mx-auto max-w-7xl p-0 md:px-0 py-0 rich-text text-justify">
+          <!-- Quick summary -->
+          <!-- <section class="rich-text space-y-3 mb-0"> -->
           <!-- <h2 class="text-xl font-semibold">Summary</h2> -->
           <p>
             I am a Marie Sk&lstrok;odowska&ndash;Curie Fellow in the
-            <a href={PERSONAL.institutionURL}>
-              {PERSONAL.institutionGroup}</a>
+            <a href={PERSONAL.institutionURL}> {PERSONAL.institutionGroup}</a>
             at the
-            <a href="https://www.surrey.ac.uk/">
-              {PERSONAL.university}</a>, UK.
-              My research focuses on dwarf galaxies as probes of dark matter and the cosmic web, combining
-            cosmological simulations with statistical inference from galaxy surveys.
+            <a href="https://www.surrey.ac.uk/"> {PERSONAL.university}</a>, UK. My research focuses on dwarf galaxies as
+            probes of dark matter and the cosmic web, combining cosmological simulations with statistical inference from
+            galaxy surveys.
           </p>
-        <!-- </section> -->
-      </div>
-    </Fragment>
+          <!-- </section> -->
+        </div>
+      </Fragment>
     </Content>
 
     <Features
       id="position-info"
       columns={2}
-      classes={{description: 'rich-text'}}
+      classes={{ description: 'rich-text' }}
       items={[
-        {title: "Current position",
+        {
+          title: 'Current position',
           description: `Marie Sk&lstrok;odowska&ndash;Curie Fellow<br />${PERSONAL.institutionGroup}<br />${PERSONAL.university}, UK`,
         },
-        {title: "Contact",
+        {
+          title: 'Contact',
           description: `Dr Oliver Newton<br /><a href="mailto:${PERSONAL.contactEmail}">${PERSONAL.contactEmail}</a>`,
-        }
-      ]
-      }
+        },
+      ]}
     >
       <!-- <Fragment slot="bg">
         <div class="absolute inset-0 page-fade-light"></div>
@@ -131,12 +128,12 @@ const identifierItems = [
           }}
       items={identifierItems}
     > -->
-      <!-- <Fragment slot="bg">
+    <!-- <Fragment slot="bg">
         <div class="absolute inset-0 page-fade-light"></div>
       </Fragment> -->
     <!-- </Features2> -->
 
-      <div class="mx-auto max-w-7xl p-4 md:px-8">
+    <div class="mx-auto max-w-7xl p-4 md:px-8">
       <!-- Current position & contact -->
       <!-- <section class="rich-text grid gap-4 md:grid-cols-2 mb-6">
         <div>
@@ -175,54 +172,37 @@ const identifierItems = [
       </section>
 
       <!-- Selected highlights -->
-      <Content
-        id="research-highlights"
-        classes={{container: "rich-text"}}
-      >
+      <Content id="research-highlights" classes={{ container: 'rich-text' }}>
         <Fragment slot="content">
           <h2 class="text-3xl font-semibold mb-2">Selected highlights</h2>
           <ul class="list-disc pl-5 space-y-1">
-          <li>
-            Marie Sk&lstrok;odowska&ndash;Curie Postdoctoral Fellow leading the CWEBDWARFS project connecting dwarf
-            galaxies and the cosmic web.
-          </li>
-          <li>
-            Author of observational and theoretical studies constraining Milky Way satellites in ΛCDM and warm
-            dark matter models.
-          </li>
-          <li>
-            Work on Hermeian haloes and ultra-diffuse galaxies in the Local Group.
-          </li>
-          <li>
-            Experience with large-volume cosmological simulations, substructure modelling, and statistical
-            inference from survey data.
-          </li>
-        </ul>
+            <li>
+              Marie Sk&lstrok;odowska&ndash;Curie Postdoctoral Fellow leading the CWEBDWARFS project connecting dwarf
+              galaxies and the cosmic web.
+            </li>
+            <li>
+              Author of observational and theoretical studies constraining Milky Way satellites in ΛCDM and warm dark
+              matter models.
+            </li>
+            <li>Work on Hermeian haloes and ultra-diffuse galaxies in the Local Group.</li>
+            <li>
+              Experience with large-volume cosmological simulations, substructure modelling, and statistical inference
+              from survey data.
+            </li>
+          </ul>
         </Fragment>
       </Content>
 
       <!-- Download + embedded PDF -->
       <section class="mb-4">
-        <a
-          href="/cv/CV.pdf"
-          download="Oliver_Newton_CV.pdf"
-          class="btn-secondary"
-        >
-          Download CV (PDF)
-        </a>
+        <a href="/cv/CV.pdf" download="Oliver_Newton_CV.pdf" class="btn-secondary"> Download CV (PDF) </a>
       </section>
 
       <section class="border border-(--aw-color-secondary) rounded-lg overflow-hidden bg-page-alt">
-        <object
-          data="/cv/CV.pdf"
-          type="application/pdf"
-          class="w-full h-[80vh]"
-        >
+        <object data="/cv/CV.pdf" type="application/pdf" class="w-full h-[80vh]">
           <p class="p-4 text-sm text-muted">
             Your browser can't display this PDF. You can
-            <a href="/cv/CV.pdf" class="rich-text">
-              open it in a new tab
-            </a>
+            <a href="/cv/CV.pdf" class="rich-text"> open it in a new tab </a>
             or download it instead.
           </p>
         </object>

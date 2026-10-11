@@ -26,16 +26,11 @@ const allPosts = APP_BLOG.isEnabled ? await fetchPosts() : [];
 const hasAnyPosts = allPosts.length > 0;
 
 // Posts newer than X days (freshnessDays)
-const freshPosts = allPosts.filter(
-  (post) => now.getTime() - post.publishDate.getTime() <= freshnessDays * dayMs
-);
+const freshPosts = allPosts.filter((post) => now.getTime() - post.publishDate.getTime() <= freshnessDays * dayMs);
 const hasFreshPosts = freshPosts.length > 0;
 
 // Age of the most recent post, in days
-const newestAgeDays =
-  hasAnyPosts
-    ? (now.getTime() - allPosts[0].publishDate.getTime()) / dayMs
-    : Infinity;
+const newestAgeDays = hasAnyPosts ? (now.getTime() - allPosts[0].publishDate.getTime()) / dayMs : Infinity;
 
 // Decide News button behaviour
 const latestNewsSectionId = 'latest-news';
@@ -45,11 +40,7 @@ let newsHref: string | undefined;
 if (hasFreshPosts) {
   // Case 1: at least one post within X days → scroll to Latest news section
   newsHref = `#${latestNewsSectionId}`;
-} else if (
-  hasAnyPosts &&
-  newestAgeDays > maxAgeDays &&
-  newestAgeDays <= newsButtonMaxAgeDays
-) {
+} else if (hasAnyPosts && newestAgeDays > maxAgeDays && newestAgeDays <= newsButtonMaxAgeDays) {
   // Case 2: no fresh posts; most recent is older than Z but fresher than Y → link to news page
   newsHref = getBlogPermalink();
 }
@@ -65,35 +56,21 @@ const heroActions = [
 <Layout metadata={metadata}>
   <!-- Hero Widget ******************* -->
 
-  <Hero
-    actions={heroActions}
-    image=""
-  >
-    <Fragment slot="title">
-      Oliver Newton
-    </Fragment>
+  <Hero actions={heroActions} image="">
+    <Fragment slot="title"> Oliver Newton </Fragment>
 
     <Fragment slot="subtitle">
       <span class="hidden sm:inline rich-text">
         I'm a Marie Sk&lstrok;odowska&ndash;Curie Fellow in the
-      <a
-        href={PERSONAL.institutionURL}
-      >{PERSONAL.institutionGroup}</a>
-      at the
-      <a
-        href="https://www.surrey.ac.uk/"
-      >University of Surrey</a>, UK.
-      My research focuses on using galaxies as tools to probe the nature of the
-      Universe. At Surrey I am leading the
-            <a
-        href="https://oliver-newton.com/"
-      >CWEBDWARFS</a> project connecting the
-      physical mechanisms underpinning galaxy evolution with their large-scale
-      cosmological environments.
+        <a href={PERSONAL.institutionURL}>{PERSONAL.institutionGroup}</a>
+        at the
+        <a href="https://www.surrey.ac.uk/">University of Surrey</a>, UK. My research focuses on using galaxies as tools
+        to probe the nature of the Universe. At Surrey I am leading the
+        <a href="https://oliver-newton.com/">CWEBDWARFS</a> project connecting the physical mechanisms underpinning galaxy
+        evolution with their large-scale cosmological environments.
         <!-- <span class="font-semibold">AstroWind</span> is a free, customizable and production-ready template for Astro v6 +
         Tailwind CSS v4. -->
-        </span
-      >
+      </span>
       <span class="block mb-1 sm:hidden">Marie Sk&lstrok;odowska&ndash;Curie Fellow<br />University of Surrey, UK</span>
       <!-- Suitable for Startups, Small Business, SaaS websites, Professional Portfolios, Marketing websites, Landing Pages & Blogs. -->
     </Fragment>
@@ -108,7 +85,7 @@ const heroActions = [
   <!-- <Note title="Philosophy:" description="Simplicity, Best Practices and High Performance" /> -->
 
   <!-- Features Widget *************** -->
-<!-- 
+  <!--
   <Features
     id="features"
     tagline="Features"
@@ -191,7 +168,7 @@ const heroActions = [
     </Fragment>
     <Fragment slot="content">
       <div class="rich-text space-y-4 text-justify hyphens-auto">
-      <AboutMe />
+        <AboutMe />
       </div>
     </Fragment>
 
@@ -201,7 +178,7 @@ const heroActions = [
   </Content>
 
   <!-- Content Widget **************** -->
-<!-- 
+  <!--
   <Content
     isAfterContent
     items={[
@@ -238,7 +215,7 @@ const heroActions = [
   </Content> -->
 
   <!-- Content Widget **************** -->
-<!-- 
+  <!--
   <Content
     isReversed
     isAfterContent
@@ -276,7 +253,7 @@ const heroActions = [
   </Content> -->
 
   <!-- Steps Widget ****************** -->
-<!-- 
+  <!--
   <Steps
     title="Get your dream website up and running in no time with AstroWind."
     items={[
@@ -310,7 +287,7 @@ const heroActions = [
   /> -->
 
   <!-- Features2 Widget ************** -->
-<!-- 
+  <!--
   <Features2
     title="Most used widgets"
     subtitle="Provides frequently used components for building websites using Tailwind CSS v4"
@@ -386,7 +363,7 @@ const heroActions = [
   </BlogLatestPosts>
 
   <!-- FAQs Widget ******************* -->
-<!-- 
+  <!--
   <FAQs
     title="Frequently Asked Questions"
     subtitle="Dive into the following questions to gain insights into the powerful features that AstroWind offers and how it can elevate your web development journey."
@@ -427,7 +404,7 @@ const heroActions = [
   /> -->
 
   <!-- Stats Widget ****************** -->
-<!-- 
+  <!--
   <Stats
     stats={[
       { title: 'Downloads', amount: '132K' },
@@ -438,7 +415,7 @@ const heroActions = [
   /> -->
 
   <!-- CallToAction Widget *********** -->
-<!-- 
+  <!--
   <CallToAction
     actions={[
       {
