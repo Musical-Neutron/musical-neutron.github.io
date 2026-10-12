@@ -48,7 +48,7 @@ const coverageItems = pressItems
   <Content id="media-contact" image="">
     <Fragment slot="content">
       <h2 class="mb-2 text-2xl font-bold tracking-tight sm:text-3xl">Press &amp; Media</h2>
-      <p class="text-justify">
+      <p class="hyphens-auto md:text-justify">
         Journalists and media contacts covering dark matter, galaxy formation, or the &Lambda;CDM model are welcome to
         get in touch for interviews or comment.
       </p>
@@ -63,7 +63,7 @@ const coverageItems = pressItems
           {PERSONAL.contactEmail}
         </a>
       </div>
-      <p class="mt-4 rich-text text-justify">
+      <p class="mt-4 rich-text hyphens-auto md:text-justify">
         <strong>{PERSONAL.university} Press Office:</strong><br />
         For institutional enquiries, background information, or to arrange interviews, you can also contact the
         <a href={PERSONAL.universityPress}>{PERSONAL.university} Press Office</a>
@@ -130,7 +130,7 @@ const coverageItems = pressItems
       <Content id="coverage" title="Media coverage" subtitle="Articles, interviews, and mentions." items={[]}>
         <Fragment slot="content">
           <div class="space-y-4">
-            <p class="rich-text text-justify hyphens-auto">
+            <p class="rich-text hyphens-auto md:text-justify">
               Selected coverage of my research and public talks. Click any item to open it in a new tab.
             </p>
             {coverageItems.length > 0 ? (

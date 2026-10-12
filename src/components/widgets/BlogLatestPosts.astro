@@ -69,7 +69,7 @@ const posts = ageFilteredPosts.slice(0, count);
           </div>
         )}
 
-        {information && <p class="lg:text-sm lg:max-w-md text-justify" set:html={information} />}
+        {information && <p class="lg:text-sm lg:max-w-md" set:html={information} />}
       </div>
 
       <Grid posts={posts} />
