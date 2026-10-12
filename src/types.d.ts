@@ -127,6 +127,19 @@ export interface Item {
   image?: Image;
   cssIconClass?: string;
   href?: string;
+  // Event fields (see src/data/events.js)
+  eventID?: string;
+  category?: string;
+  start_date?: string | Date;
+  end_date?: string | Date;
+  start_time_flag?: boolean;
+  end_time_flag?: boolean;
+  timezone?: string;
+  month_only?: boolean;
+  location?: string;
+  info_link?: string;
+  location_link?: string;
+  appear_days_before?: number;
 }
 
 export interface Price {

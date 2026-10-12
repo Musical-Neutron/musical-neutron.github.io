@@ -18,6 +18,10 @@ export const headerData = {
           text: "CV",
           href: getPermalink("cv"),
         },
+        {
+          text: "Outreach",
+          href: getPermalink("outreach"),
+        },
         // {
         //   text: 'Mobile App',
         //   href: getPermalink('/homes/mobile-app'),
@@ -121,6 +125,7 @@ export const getFooterData = (personal: {
           { text: "About", href: "/#about" },
           { text: "News", href: getBlogPermalink() },
           { text: "CV", href: "/cv" },
+          { text: "Outreach", href: "/outreach" },
           // { text: 'Team', href: '#' },
           // { text: 'Enterprise', href: '#' },
           // { text: 'Customer stories', href: '#' },
@@ -152,10 +157,9 @@ export const getFooterData = (personal: {
       //   ],
       // },
     ],
-    // secondaryLinks: [
-    //   { text: 'Terms', href: getPermalink('/terms') },
-    //   { text: 'Privacy Policy', href: getPermalink('/privacy') },
-    // ],
+    secondaryLinks: [
+      { text: "Privacy notice", href: getPermalink("/privacy") },
+    ],
     socialLinks: [
       // { ariaLabel: 'X', icon: 'tabler:brand-x', href: '#' },
       // { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: '#' },

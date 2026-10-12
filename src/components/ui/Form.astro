@@ -60,9 +60,7 @@ const { inputs, textarea, disclaimer, button = 'Send', description = '', action,
           />
         </div>
         <div class="ml-3">
-          <label for="disclaimer" class="cursor-pointer select-none text-sm ">
-            {disclaimer.label}
-          </label>
+          <label for="disclaimer" class="cursor-pointer select-none text-sm" set:html={disclaimer.label} />
         </div>
       </div>
     )

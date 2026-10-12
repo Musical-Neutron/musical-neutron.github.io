@@ -1,0 +1,101 @@
+---
+import Image from '~/components/common/Image.astro';
+import Timeline from '~/components/ui/EventTimeline.astro';
+import Headline from '~/components/ui/Headline.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import type { Steps as Props } from '~/types';
+import { categorizeEvents } from '~/utils/eventUtils';
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  tagline = await Astro.slots.render('tagline'),
+  items = [],
+  image = await Astro.slots.render('image'),
+  isReversed = false,
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+
+const { ongoingEvents, upcomingEvents, pastEvents } = categorizeEvents(items);
+
+// Sort ongoing events in reverse chronological order (newest first)
+ongoingEvents.sort((a, b) => b.start_date.getTime() - a.start_date.getTime());
+
+// Sort upcoming events chronologically (oldest first)
+upcomingEvents.sort((a, b) => a.start_date.getTime() - b.start_date.getTime());
+
+// Sort past events in reverse chronological order (newest first)
+pastEvents.sort((a, b) => b.start_date.getTime() - a.start_date.getTime());
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-5xl ${classes?.container ?? ''}`} bg={bg}>
+  <div class:list={['flex flex-col gap-8 md:gap-12', { 'md:flex-row-reverse': isReversed }, { 'md:flex-row': image }]}>
+    <div class:list={['md:py-4 md:self-center', { 'md:basis-1/2': image }, { 'w-full': !image }]}>
+      <Headline
+        title={title}
+        subtitle={subtitle}
+        tagline={tagline}
+        classes={{
+          container: 'text-left rtl:text-right',
+          title: 'text-3xl lg:text-4xl',
+          ...((classes?.headline as object) ?? {}),
+        }}
+      />
+
+      {/* Ongoing Events */}
+      {
+        ongoingEvents.length > 0 && (
+          <div class="mb-8">
+            <h3 class="text-2xl font-bold mb-4">Ongoing Events</h3>
+            <Timeline items={ongoingEvents} classes={classes?.items as Record<string, never>} />
+          </div>
+        )
+      }
+
+      {/* Upcoming Events */}
+      {
+        upcomingEvents.length > 0 && (
+          <div class="mb-8">
+            <h3 class="text-2xl font-bold mb-4">Upcoming Events</h3>
+            <Timeline items={upcomingEvents} classes={classes?.items as Record<string, never>} />
+          </div>
+        )
+      }
+
+      {/* Past Events */}
+      {
+        pastEvents.length > 0 && (
+          <div>
+            <h3 class="text-2xl font-bold mb-4">Past Events</h3>
+            <Timeline items={pastEvents} classes={classes?.items as Record<string, never>} />
+          </div>
+        )
+      }
+    </div>
+
+    {/* Optional Image */}
+    {
+      image && (
+        <div class="relative md:basis-1/2">
+          {typeof image === 'string' ? (
+            <Fragment set:html={image} />
+          ) : (
+            <Image
+              class="inset-0 object-cover object-top w-full rounded-md shadow-lg md:absolute md:h-full bg-gray-400 dark:bg-slate-700"
+              widths={[400, 768]}
+              sizes="(max-width: 768px) 100vw, 432px"
+              width={432}
+              height={768}
+              layout="cover"
+              src={image?.src}
+              alt={image?.alt || ''}
+            />
+          )}
+        </div>
+      )
+    }
+  </div>
+</WidgetWrapper>

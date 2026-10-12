@@ -3,12 +3,15 @@ export const researchTopics = [
   // Galaxy–environment connection
   {
     id: "galaxy-environment",
+    icon: "tabler:topology-star-3",
     title: "Galaxy-environment connection",
     description:
       "Observations show that galaxy properties are sensitive to their environment; however, its precise role in their evolution remains unclear. Globular clusters, ancient star clusters formed very early in the Universe, probe conditions shortly after the onset of star formation. At the same time, the cosmic web begins to affect the evolution of early low-mass galaxies. Thus, globular clusters and satellite galaxies are intrinsically connected to the large-scale environment we observe today.",
     papers: [
       {
-        title: "Newton et al., 2025, MNRAS, 542(2), 591-607",
+        title:
+          "The formation and disruption of globular cluster populations in simulations of present-day <i>L</i><sup>*</sup> galaxies with controlled assembly histories",
+        citation: "Newton et al., 2025, MNRAS, 542(2), 591-607",
         venue: "MNRAS",
         year: 2025,
         date: "2025-09-11",
@@ -43,7 +46,9 @@ export const researchTopics = [
         ],
       },
       {
-        title: "Hunde, Newton et al., 2025, A&A, 700, A65",
+        title:
+          "Caught in the cosmic web: Environmental effects on subhalo abundance and internal density profiles",
+        citation: "Hunde, Newton et al., 2025, A&A, 700, A65",
         venue: "A&A",
         year: 2025,
         date: "2025-08-01",
@@ -73,12 +78,15 @@ export const researchTopics = [
   // Warm dark matter
   {
     id: "warm-dark-matter",
+    icon: "tabler:temperature",
     title: "Warm dark matter",
     description:
       "Although extremely successful, ΛCDM is not the only viable description of the Universe. Warm dark matter models predict that dark matter particles have higher thermal velocities, preventing halo formation below a characteristic mass scale. In some models this cut-off lies at dwarf-galaxy scales, making the Milky Way satellite system a powerful probe of dark matter properties.",
     papers: [
       {
-        title: "Newton et al., 2025, MNRAS, 541(4), 3713-3727",
+        title:
+          "Constraints on the properties of νMSM dark matter using the satellite galaxies of the Milky Way",
+        citation: "Newton et al., 2025, MNRAS, 541(4), 3713-3727",
         venue: "MNRAS",
         year: 2025,
         date: "2025-08-21",
@@ -103,7 +111,9 @@ export const researchTopics = [
         ],
       },
       {
-        title: "Newton et al., 2021, JCAP, 2021(08), 62",
+        title:
+          "Constraints on the properties of warm dark matter using the satellite galaxies of the Milky Way",
+        citation: "Newton et al., 2021, JCAP, 2021(08), 62",
         venue: "JCAP",
         year: 2021,
         date: "2021-08-01",
@@ -128,7 +138,9 @@ export const researchTopics = [
         ],
       },
       {
-        title: "Enzi, Murgia, Newton et al., 2021, MNRAS, 506(4), 5848-5862",
+        title:
+          "Joint constraints on thermal relic dark matter from strong gravitational lensing, the Lyα forest, and Milky Way satellites",
+        citation: "Enzi, Murgia, Newton et al., 2021, MNRAS, 506(4), 5848-5862",
         venue: "MNRAS",
         year: 2021,
         date: "2021-10-01",
@@ -158,12 +170,15 @@ export const researchTopics = [
   // Local Group
   {
     id: "local-group",
+    icon: "tabler:galaxy",
     title: "The Local Group",
     description:
       "During the assembly of the Local Group many low-mass dark matter haloes interact with the Milky Way and Andromeda. Hermeian haloes are a new class of dark matter halo that passed through both the Milky Way and Andromeda, giving their population a characteristic spatial distribution, enhancing their central densities, and making them promising targets for dark matter annihilation searches. They play an important role as conduits of matter transfer between the Milky Way and Andromeda. Another unusual population of galaxies in the Local Group is the ultra-diffuse galaxies (UDGs), which resemble the brightest Milky Way satellites in luminosity but are many times larger. They are therefore extremely diffuse and hard to observe. Many galaxies in the Universe may be ultra-diffuse, making them important tests of cosmological models. This work shows that there is a population of UDGs in the Local Group awaiting discovery, some of which may already reside in Sloan Digital Sky Survey and Dark Energy Survey data.",
     papers: [
       {
-        title: "Osipova et al., 2023, PDU, 42, 101328",
+        title:
+          "Hermeian haloes: Extreme objects with two interactions in the past",
+        citation: "Osipova et al., 2023, PDU, 42, 101328",
         venue: "Physics of the Dark Universe",
         year: 2023,
         date: "2023-09-27",
@@ -188,7 +203,9 @@ export const researchTopics = [
         ],
       },
       {
-        title: "Newton et al., 2022, MNRAS, 514(3), 3612-3625",
+        title:
+          "Hermeian haloes: Field haloes that interacted with both the Milky Way and M31",
+        citation: "Newton et al., 2022, MNRAS, 514(3), 3612-3625",
         venue: "MNRAS",
         year: 2022,
         date: "2022-08-11",
@@ -218,7 +235,8 @@ export const researchTopics = [
         ],
       },
       {
-        title: "Newton et al., 2023, ApJL, 946(2), L37",
+        title: "The Undiscovered Ultradiffuse Galaxies of the Local Group",
+        citation: "Newton et al., 2023, ApJL, 946(2), L37",
         venue: "ApJL",
         year: 2023,
         date: "2023-03-31",
@@ -258,12 +276,14 @@ export const researchTopics = [
   // Satellite galaxies
   {
     id: "satellite-galaxies",
+    icon: "tabler:orbit",
     title: "Satellite galaxies of the Milky Way",
     description:
       "One major prediction of ΛCDM is that the present-day Milky Way is embedded in a dark matter halo rich with thousands of smaller substructures. Many — but not all — of these are expected to host faint satellite galaxies. Observational campaigns to detect some of these elusive objects have been carried out already and are currently ongoing, with further surveys planned to commence operations in the next few years. While this work is being undertaken, we can use observations from partial surveys of the sky to infer the total number and luminosity function of satellite galaxies around the Milky Way.",
     papers: [
       {
-        title: "Newton et al., 2018, MNRAS, 479(3), 2853-2870",
+        title: "The total satellite population of the Milky Way",
+        citation: "Newton et al., 2018, MNRAS, 479(3), 2853-2870",
         venue: "MNRAS",
         year: 2018,
         date: "2018-09-21",
@@ -293,7 +313,9 @@ export const researchTopics = [
         ],
       },
       {
-        title: "Lovell et al., 2021, MNRAS, 507(4), 4826-4839",
+        title:
+          "The spatial distribution of Milky Way satellites, gaps in streams, and the nature of dark matter",
+        citation: "Lovell et al., 2021, MNRAS, 507(4), 4826-4839",
         venue: "MNRAS",
         year: 2021,
         date: "2018-11-11",

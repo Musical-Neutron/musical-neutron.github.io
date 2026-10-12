@@ -57,8 +57,8 @@ const metadata = {
     columns={2}
     items={researchTopics.map((topic) => ({
       title: topic.title,
-      //   description: topic.description,
-      icon: 'tabler:planet',
+      href: `#${topic.id}`,
+      icon: topic.icon,
     }))}
   >
     {
