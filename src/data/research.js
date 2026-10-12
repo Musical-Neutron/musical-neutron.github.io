@@ -108,7 +108,7 @@ export const researchTopics = [
         year: 2021,
         date: "2021-08-01",
         summary:
-          "Studying the impact of warm dark matter on substructure and dwarf galaxy formation and placing contraints on the warm dark matter particle mass.",
+          "Studying the impact of warm dark matter on substructure and dwarf galaxy formation and placing constraints on the warm dark matter particle mass.",
         links: [
           {
             label: "Journal",

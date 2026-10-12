@@ -10,7 +10,7 @@ metadata:
   title:
     default: Oliver Newton
     template: "%s — Oliver Newton"
-  description: "Astrophysicist | Dr Oliver Newton"
+  description: "Oliver Newton is a Marie Skłodowska-Curie Fellow at the University of Surrey, UK, researching dwarf galaxies as probes of dark matter and the cosmic web."
   robots:
     index: true
     follow: true
