@@ -13,6 +13,7 @@ import icon from "astro-icon";
 import type { AstroIntegration } from "astro";
 
 import astrowind from "./vendor/integration";
+import typographyCheck from "./src/integrations/typography-check";
 
 import {
   readingTimeRemarkPlugin,
@@ -65,6 +66,8 @@ export default defineConfig({
     astrowind({
       config: "./src/config.yaml",
     }),
+
+    typographyCheck(),
   ],
 
   image: {

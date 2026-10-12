@@ -6,6 +6,9 @@
   classes used in this site's templates, so pages look the same. Only those
   classes are covered: a prose class that isn't used anywhere yet (for example
   prose-sm or prose-blockquote:...) has no effect until rules for it are added.
+
+  Each build checks whether a release of the plugin without the vulnerability is
+  out (src/integrations/typography-check.ts) and prints a warning when it is.
 */
 @layer components {
   .prose {
