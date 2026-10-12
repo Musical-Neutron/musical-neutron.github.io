@@ -32,5 +32,10 @@ const outreachEvents = events.filter((event) => event.category === 'outreach');
     </Fragment>
   </Content>
 
-  <EventsTimeline title="Talks and events" items={outreachEvents} classes={{ container: 'pt-0! md:pt-0!' }} />
+  <EventsTimeline
+    title="Talks and events"
+    items={outreachEvents}
+    showCategory={false}
+    classes={{ container: 'pt-0! md:pt-0!' }}
+  />
 </Layout>
