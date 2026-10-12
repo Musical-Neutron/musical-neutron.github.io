@@ -3,7 +3,12 @@ import Image from '~/components/common/Image.astro';
 import Timeline from '~/components/ui/EventTimeline.astro';
 import Headline from '~/components/ui/Headline.astro';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
-import type { Steps as Props } from '~/types';
+import type { Steps } from '~/types';
+
+export interface Props extends Steps {
+  // Passed on to the timeline: whether to show each event's category label.
+  showCategory?: boolean;
+}
 import { categorizeEvents } from '~/utils/eventUtils';
 
 const {
@@ -17,6 +22,7 @@ const {
   isDark = false,
   classes = {},
   bg = await Astro.slots.render('bg'),
+  showCategory = true,
 } = Astro.props;
 
 const { ongoingEvents, upcomingEvents, pastEvents } = categorizeEvents(items);
@@ -50,7 +56,11 @@ pastEvents.sort((a, b) => b.start_date.getTime() - a.start_date.getTime());
         ongoingEvents.length > 0 && (
           <div class="mb-8">
             <h3 class="text-2xl font-bold mb-4">Ongoing Events</h3>
-            <Timeline items={ongoingEvents} classes={classes?.items as Record<string, never>} />
+            <Timeline
+              items={ongoingEvents}
+              classes={classes?.items as Record<string, never>}
+              showCategory={showCategory}
+            />
           </div>
         )
       }
@@ -60,7 +70,11 @@ pastEvents.sort((a, b) => b.start_date.getTime() - a.start_date.getTime());
         upcomingEvents.length > 0 && (
           <div class="mb-8">
             <h3 class="text-2xl font-bold mb-4">Upcoming Events</h3>
-            <Timeline items={upcomingEvents} classes={classes?.items as Record<string, never>} />
+            <Timeline
+              items={upcomingEvents}
+              classes={classes?.items as Record<string, never>}
+              showCategory={showCategory}
+            />
           </div>
         )
       }
@@ -70,7 +84,11 @@ pastEvents.sort((a, b) => b.start_date.getTime() - a.start_date.getTime());
         pastEvents.length > 0 && (
           <div>
             <h3 class="text-2xl font-bold mb-4">Past Events</h3>
-            <Timeline items={pastEvents} classes={classes?.items as Record<string, never>} />
+            <Timeline
+              items={pastEvents}
+              classes={classes?.items as Record<string, never>}
+              showCategory={showCategory}
+            />
           </div>
         )
       }
