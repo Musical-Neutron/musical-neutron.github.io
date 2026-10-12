@@ -7,6 +7,8 @@ import ImageCarousel from '~/components/ImageCarousel.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import Content from '~/components/widgets/Content.astro';
 import Hero from '~/components/widgets/Hero.astro';
+import Image from '~/components/common/Image.astro';
+import headshot from '~/assets/images/oliver_newton.png';
 import AboutMe from '~/content/about_me.md';
 import { fetchPosts } from '~/utils/blog';
 
@@ -57,7 +59,20 @@ const heroActions = [
   {/* Hero Widget ******************* */}
 
   <Hero actions={heroActions} image="">
-    <Fragment slot="title"> Oliver Newton </Fragment>
+    <Fragment slot="title">
+      <Image
+        src={headshot}
+        alt=""
+        width={192}
+        height={192}
+        widths={[192, 384]}
+        sizes="(max-width: 768px) 144px, 176px"
+        format="webp"
+        loading="eager"
+        class="block mx-auto mb-6 w-36! h-36! md:w-44! md:h-44! rounded-full object-cover border-4 border-(--aw-color-bg-page-dark)"
+      />
+      Oliver Newton
+    </Fragment>
 
     <Fragment slot="subtitle">
       <span class="hidden sm:inline rich-text">
