@@ -43,11 +43,7 @@ const { socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme 
               secondaryLinks.map(({ text, href }, index) => (
                 <>
                   {index !== 0 ? ' · ' : ''}
-                  <a
-                    class="transition duration-150 ease-in-out"
-                    href={href}
-                    set:html={text}
-                  />
+                  <a class="transition duration-150 ease-in-out" href={href} set:html={text} />
                 </>
               ))
             }
@@ -61,11 +57,7 @@ const { socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme 
                 <ul class="text-sm rich-text">
                   {links.map(({ text, href, ariaLabel }) => (
                     <li class="mb-2">
-                      <a
-                        class="transition duration-150 ease-in-out"
-                        href={href}
-                        aria-label={ariaLabel}
-                      >
+                      <a class="transition duration-150 ease-in-out" href={href} aria-label={ariaLabel}>
                         <Fragment set:html={text} />
                       </a>
                     </li>
@@ -77,34 +69,36 @@ const { socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme 
         }
       </div>
       <div class="md:flex md:items-center md:justify-between py-6 md:py-8">
-        {socialLinks?.length ? (
-          <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0 rtl:ml-0 rtl:-mr-2 rtl:md:ml-0 rtl:md:mr-4">
-            {socialLinks.map(({ ariaLabel, href, text, icon, cssIconClass }) => (
-              <li>
-                <a
-                  class="hover:bg-[var(--press-highlight-1)] focus:outline-none focus:ring-4 focus:ring-[var(--press-highlight-1)] rounded-lg text-sm p-2.5 inline-flex items-center gap-1"
-                  aria-label={ariaLabel}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {(cssIconClass || icon) && (
-                    <span class="inline-flex items-center justify-center w-5 h-5">
-                      {cssIconClass ? (
-                        <i class={cssIconClass} aria-hidden="true"></i>
-                      ) : (
-                        icon && <Icon name={icon} class="w-5 h-5" />
-                      )}
-                    </span>
-                  )}
-                  {text && <Fragment set:html={text} />}
-                </a>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          ''
-        )}
+        {
+          socialLinks?.length ? (
+            <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0 rtl:ml-0 rtl:-mr-2 rtl:md:ml-0 rtl:md:mr-4">
+              {socialLinks.map(({ ariaLabel, href, text, icon, cssIconClass }) => (
+                <li>
+                  <a
+                    class="hover:bg-[var(--press-highlight-1)] focus:outline-none focus:ring-4 focus:ring-[var(--press-highlight-1)] rounded-lg text-sm p-2.5 inline-flex items-center gap-1"
+                    aria-label={ariaLabel}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {(cssIconClass || icon) && (
+                      <span class="inline-flex items-center justify-center w-5 h-5">
+                        {cssIconClass ? (
+                          <i class={cssIconClass} aria-hidden="true" />
+                        ) : (
+                          icon && <Icon name={icon} class="w-5 h-5" />
+                        )}
+                      </span>
+                    )}
+                    {text && <Fragment set:html={text} />}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            ''
+          )
+        }
 
         <div class="text-sm mr-4 dark:text-muted rich-text">
           <Fragment set:html={footNote} />

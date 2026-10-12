@@ -24,12 +24,7 @@ export interface Props {
   showRssFeed?: boolean;
 }
 
-const {
-  links: navLinks = [],
-  actions = [],
-  showToggleTheme = false,
-  showRssFeed = false,
-} = Astro.props;
+const { links: navLinks = [], actions = [], showToggleTheme = false, showRssFeed = false } = Astro.props;
 
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 
@@ -45,16 +40,12 @@ if (APP_BLOG.isEnabled) {
   const now = new Date();
   const allPosts = await fetchPosts();
 
-  const freshPosts = allPosts.filter(
-    (post) => now.getTime() - post.publishDate.getTime() <= freshnessDays * dayMs
-  );
+  const freshPosts = allPosts.filter((post) => now.getTime() - post.publishDate.getTime() <= freshnessDays * dayMs);
   const hasFreshPosts = freshPosts.length > 0;
-  const hideNewsTopLevel = !hasFreshPosts
+  const hideNewsTopLevel = !hasFreshPosts;
 
   // Build latest posts for sidebar when we *do* show News
-  const ageFilteredPosts = allPosts.filter(
-    (post) => now.getTime() - post.publishDate.getTime() <= maxAgeDays * dayMs
-  );
+  const ageFilteredPosts = allPosts.filter((post) => now.getTime() - post.publishDate.getTime() <= maxAgeDays * dayMs);
   const latestPosts = ageFilteredPosts.slice(0, sidebarCount);
 
   enhancedNavLinks = navLinks
@@ -96,7 +87,7 @@ if (APP_BLOG.isEnabled) {
       return item;
     })
     .filter((item): item is Link => item !== null);
-  
+
   // If no fresh posts, leave navLinks as originally defined (News section just shows static children)
 }
 
@@ -198,8 +189,8 @@ if (APP_BLOG.isEnabled) {
         >
           {item.links?.length ? (
             <> -->
-              <!-- Top-level link (clickable, bold) -->
-              <!-- <a
+  <!-- Top-level link (clickable, bold) -->
+  <!-- <a
                 href={item.href ?? '#'}
                 data-sidebar-toggle
                 class:list={[
@@ -214,8 +205,8 @@ if (APP_BLOG.isEnabled) {
                 />
               </a> -->
 
-              <!-- Pop-out submenu: positioned via JS (fixed, high z-index) -->
-              <!-- <ul
+  <!-- Pop-out submenu: positioned via JS (fixed, high z-index) -->
+  <!-- <ul
                 class="sidebar-submenu hidden fixed bg-page rounded shadow-lg py-2 px-2 space-y-1 z-[9999]"
               >
                 {item.links.map((child) => (
@@ -249,80 +240,81 @@ if (APP_BLOG.isEnabled) {
     </ul>
   </nav> -->
 
-    <!-- Navigation -->
+  <!-- Navigation -->
   <nav class="sidebar-nav-background flex-1 overflow-y-auto mt-2" aria-label="Main navigation">
     <ul class="flex flex-col px-2">
-      {enhancedNavLinks.map((item,) => (
-        <li class="mb-2">
-          <div class="pb-1">
-            {/* Parent link */}
-            <a
-              href={item.href ?? '#'}
-              class:list={[
-                'sidebar-nav-link flex w-full items-center justify-between px-2 py-1 font-bold whitespace-nowrap rounded-lg',
-                { 'aw-link-active': item.href === currentPath },
-              ]}
-            >
-              <span>{item.text}</span>
-            </a>
+      {
+        enhancedNavLinks.map((item) => (
+          <li class="mb-2">
+            <div class="pb-1">
+              {/* Parent link */}
+              <a
+                href={item.href ?? '#'}
+                class:list={[
+                  'sidebar-nav-link flex w-full items-center justify-between px-2 py-1 font-bold whitespace-nowrap rounded-lg',
+                  { 'aw-link-active': item.href === currentPath },
+                ]}
+              >
+                <span>{item.text}</span>
+              </a>
 
-            {/* Child links, if any */}
-            {item.links?.length ? (
-              <ul class="mt-1 ml-3 space-y-1">
-                {item.links.map((child) => (
-                  <li>
-                    <a
-                      href={child.href}
-                      class:list={[
-                        'sidebar-sub-link block px-2 py-1 text-xs whitespace-normal rounded-lg',
-                        { 'aw-link-active': child.href === currentPath },
-                      ]}
-                    >
-                      {child.text}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
-          {/* Narrow divider */}
-          <div class="mt-1">
-            <div class="mx-1 pb-2 border-b border-(--aw-color-primary)" />
-          </div>
-        </li>
-      ))}
+              {/* Child links, if any */}
+              {item.links?.length ? (
+                <ul class="mt-1 ml-3 space-y-1">
+                  {item.links.map((child) => (
+                    <li>
+                      <a
+                        href={child.href}
+                        class:list={[
+                          'sidebar-sub-link block px-2 py-1 text-xs whitespace-normal rounded-lg',
+                          { 'aw-link-active': child.href === currentPath },
+                        ]}
+                      >
+                        {child.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+            {/* Narrow divider */}
+            <div class="mt-1">
+              <div class="mx-1 pb-2 border-b border-(--aw-color-primary)" />
+            </div>
+          </li>
+        ))
+      }
     </ul>
   </nav>
-  
+
   <!-- Bottom: theme toggle, RSS, actions -->
   <div class="px-4 py-3 sidebar-foot-background">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
-        {showToggleTheme && (
-          <ToggleTheme iconClass="w-5 h-5 md:inline-block" />
-        )}
-        {showRssFeed && (
-          <a
-            class="hover:bg-(--press-highlight-1) focus:outline-none focus:ring-4 focus:ring-(--press-highlight-1) rounded-lg text-sm p-2.5 inline-flex items-center gap-1"
-            aria-label="RSS Feed"
-            target="_blank"
-            rel="noopener noreferrer"
-            href={getAsset('/rss.xml')}
-          >
-            <Icon name="tabler:rss" class="w-4 h-4" />
-          </a>
-        )}
+        {showToggleTheme && <ToggleTheme iconClass="w-5 h-5 md:inline-block" />}
+        {
+          showRssFeed && (
+            <a
+              class="hover:bg-(--press-highlight-1) focus:outline-none focus:ring-4 focus:ring-(--press-highlight-1) rounded-lg text-sm p-2.5 inline-flex items-center gap-1"
+              aria-label="RSS Feed"
+              target="_blank"
+              rel="noopener noreferrer"
+              href={getAsset('/rss.xml')}
+            >
+              <Icon name="tabler:rss" class="w-4 h-4" />
+            </a>
+          )
+        }
       </div>
-      {actions?.length ? (
-        <div class="flex gap-2">
-          {actions.map((btnProps) => (
-            <Button
-              {...btnProps}
-              class="py-1.5 px-3 font-semibold shadow-none text-xs w-auto"
-            />
-          ))}
-        </div>
-      ) : null}
+      {
+        actions?.length ? (
+          <div class="flex gap-2">
+            {actions.map((btnProps) => (
+              <Button {...btnProps} class="py-1.5 px-3 font-semibold shadow-none text-xs w-auto" />
+            ))}
+          </div>
+        ) : null
+      }
     </div>
   </div>
 </aside>

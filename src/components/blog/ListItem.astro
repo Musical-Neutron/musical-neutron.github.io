@@ -20,13 +20,8 @@ const { post } = Astro.props;
 const image = (await findImage(post.image)) as ImageMetadata | string | undefined;
 const hasImage = !!image;
 
-const isSvg =
-  typeof image === 'string'
-  ? image.toLowerCase().endsWith('.svg')
-  : false;
-const imageClass = isSvg
-  ? 'w-full h-full object-contain'
-  : 'w-full h-full object-cover';
+const isSvg = typeof image === 'string' ? image.toLowerCase().endsWith('.svg') : false;
+const imageClass = isSvg ? 'w-full h-full object-contain' : 'w-full h-full object-cover';
 
 const isJobMove = post.isJobMove === true;
 
@@ -39,57 +34,59 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
   <div
     class="relative h-48 md:h-64 lg:h-72 overflow-hidden rounded shadow-lg bg-var(--aw-color-bg-page) border border-(--aw-color-primary)"
   >
-    {hasImage ? (
-      link ? (
-        <a href={link ?? 'javascript:void(0)'} class="block w-full h-full">
-          <Image
-            src={image}
-            alt={post.title}
-            class={imageClass}
-            widths={[400, 900]}
-            width={900}
-            height={506}
-            sizes="(max-width: 900px) 100vw, 900px"
-            loading="lazy"
-            decoding="async"
-          />
+    {
+      hasImage ? (
+        link ? (
+          <a href={link ?? 'javascript:void(0)'} class="block w-full h-full">
+            <Image
+              src={image}
+              alt={post.title}
+              class={imageClass}
+              widths={[400, 900]}
+              width={900}
+              height={506}
+              sizes="(max-width: 900px) 100vw, 900px"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+          </a>
+        ) : (
+          <>
+            <Image
+              src={image}
+              alt={post.title}
+              class={imageClass}
+              widths={[400, 900]}
+              width={900}
+              height={506}
+              sizes="(max-width: 900px) 100vw, 900px"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+          </>
+        )
+      ) : isJobMove ? (
+        // Job/country move: special placeholder
+        <>
+          <JobMovePlaceholder class={imageClass} />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+        </>
+      ) : link ? (
+        /* No image: clickable placeholder */
+        <a href={link} class="block w-full h-full">
+          <div class="w-full h-full press-placeholder" />
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
         </a>
       ) : (
+        /* No image and no link: non-clickable placeholder */
         <>
-          <Image
-            src={image}
-            alt={post.title}
-            class={imageClass}
-            widths={[400, 900]}
-            width={900}
-            height={506}
-            sizes="(max-width: 900px) 100vw, 900px"
-            loading="lazy"
-            decoding="async"
-          />
+          <div class="w-full h-full press-placeholder" />
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
         </>
       )
-    ) : isJobMove ? (
-      // Job/country move: special placeholder
-      <>
-      <JobMovePlaceholder class={imageClass} />
-      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-      </>
-    ) : link ? (
-      /* No image: clickable placeholder */
-      <a href={link} class="block w-full h-full">
-        <div class="w-full h-full press-placeholder" />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-      </a>
-    ) : (
-      /* No image and no link: non-clickable placeholder */
-      <>
-        <div class="w-full h-full press-placeholder" />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-      </>
-    )}
+    }
   </div>
   <div class="mt-2">
     <header>
@@ -110,22 +107,16 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
             post.category && (
               <>
                 {' '}
-                ·{' '}
-                <a href={getPermalink(post.category.slug, 'category')}>
-                  {post.category.title}
-                </a>
+                · <a href={getPermalink(post.category.slug, 'category')}>{post.category.title}</a>
               </>
             )
           }
         </span>
       </div>
-      <h2 class="text-xl sm:text-2xl font-bold leading-tight mb-2 font-heading ">
+      <h2 class="text-xl sm:text-2xl font-bold leading-tight mb-2 font-heading">
         {
           link ? (
-            <a
-              class="inline-block transition ease-in duration-200"
-              href={link}
-            >
+            <a class="inline-block transition ease-in duration-200" href={link}>
               {post.title}
             </a>
           ) : (
