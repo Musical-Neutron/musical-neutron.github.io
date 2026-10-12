@@ -19,7 +19,7 @@ metadata:
     images:
       - url: "~/assets/images/default.png"
         width: 1200
-        height: 628
+        height: 630
     type: website
   # twitter:
   #   handle: '@arthelokyo'
