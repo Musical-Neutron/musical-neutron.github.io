@@ -59,6 +59,10 @@ export const headerData = {
       href: getPermalink("/research"),
       links: [
         {
+          text: "CWEBDWARFS project",
+          href: "https://oliver-newton.com/cwebdwarfs-sitefiles",
+        },
+        {
           text: "Galaxy-environment connection",
           href: "/research#galaxy-environment",
         },
