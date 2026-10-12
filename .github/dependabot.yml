@@ -4,6 +4,14 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    ignore:
+      # prettier-plugin-astro 1.x formats .astro files for Astro 7's default
+      # whitespace handling (compressHTML: 'jsx'). This site uses
+      # compressHTML: true, and reformatting with 1.x changes the rendered
+      # text (on the CWEBDWARFS site, "(CWEBDWARFS)" became "( CWEBDWARFS )").
+      - dependency-name: prettier-plugin-astro
+        update-types:
+          - version-update:semver-major
     groups:
       # Astro and its official integrations must be upgraded together:
       # @astrojs/mdx and @astrojs/markdown-remark only accept a narrow range
