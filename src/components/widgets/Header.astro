@@ -149,7 +149,7 @@ if (APP_BLOG.isEnabled) {
                     <Icon name="tabler:chevron-down" class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline" />
                   </a>
                   <ul class="dropdown-menu md:backdrop-blur-md dark:md:bg-dark rounded md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl">
-                    {links.map(({ text: text2, href: href2 }) => (
+                    {links.map(({ text: text2, href: href2, links: links2 }) => (
                       <li>
                         <a
                           class:list={[
@@ -160,6 +160,23 @@ if (APP_BLOG.isEnabled) {
                         >
                           {text2}
                         </a>
+                        {links2?.length ? (
+                          <ul class="pl-4">
+                            {links2.map(({ text: text3, href: href3 }) => (
+                              <li>
+                                <a
+                                  class:list={[
+                                    'md:hover:bg-gray-100 hover:text-link dark:hover:text-white dark:hover:bg-gray-700 py-2 px-5 block whitespace-no-wrap text-[0.9em]',
+                                    { 'aw-link-active': href3 === currentPath },
+                                  ]}
+                                  href={href3}
+                                >
+                                  {text3}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : null}
                       </li>
                     ))}
                   </ul>

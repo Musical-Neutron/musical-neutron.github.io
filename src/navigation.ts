@@ -59,12 +59,14 @@ export const headerData = {
       href: getPermalink("/research"),
       links: [
         {
-          text: "CWEBDWARFS project",
-          href: "https://oliver-newton.com/cwebdwarfs-sitefiles",
-        },
-        {
           text: "Galaxy-environment connection",
           href: "/research#galaxy-environment",
+          links: [
+            {
+              text: "CWEBDWARFS project",
+              href: "https://oliver-newton.com/cwebdwarfs-sitefiles",
+            },
+          ],
         },
         { text: "Warm dark matter", href: "/research#warm-dark-matter" },
         { text: "The Local Group", href: "/research#local-group" },
@@ -94,8 +96,14 @@ export const headerData = {
   // actions: [{ text: 'Download', href: 'https://github.com/arthelokyo/astrowind', target: '_blank' }],
 };
 
-const researchLinks =
-  headerData.links.find((link) => link.text === "Research")?.links ?? [];
+// The footer lists the Research links flat, including any nested a level deeper in the menu.
+const researchLinks = (
+  headerData.links.find((link) => link.text === "Research")?.links ?? []
+).flatMap((link) =>
+  "links" in link && link.links
+    ? [{ text: link.text, href: link.href }, ...link.links]
+    : [link],
+);
 
 export const getFooterData = (personal: {
   myName: string;

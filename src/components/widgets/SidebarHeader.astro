@@ -278,6 +278,24 @@ if (APP_BLOG.isEnabled) {
                       >
                         {child.text}
                       </a>
+                      {/* Third-level links, if any */}
+                      {child.links?.length ? (
+                        <ul class="mt-1 ml-3 space-y-1">
+                          {child.links.map((grandchild) => (
+                            <li>
+                              <a
+                                href={grandchild.href}
+                                class:list={[
+                                  'sidebar-sub-link block px-2 py-1 text-xs whitespace-normal rounded-lg',
+                                  { 'aw-link-active': grandchild.href === currentPath },
+                                ]}
+                              >
+                                {grandchild.text}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
                     </li>
                   ))}
                 </ul>
