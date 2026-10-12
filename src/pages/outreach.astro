@@ -1,0 +1,36 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Content from '~/components/widgets/Content.astro';
+import EventsTimeline from '~/components/widgets/EventsTimeline.astro';
+import { getPermalink } from '~/utils/permalinks';
+import { events } from '~/data/events.js';
+
+const metadata = {
+  title: 'Outreach',
+  description: 'Public talks, school visits and science festivals by Oliver Newton.',
+};
+
+const outreachEvents = events.filter((event) => event.category === 'outreach');
+---
+
+<Layout metadata={metadata}>
+  <Content id="outreach-intro" title="Outreach" tagline="Sharing the science">
+    <Fragment slot="content">
+      <div class="rich-text space-y-4 hyphens-auto md:text-justify">
+        <p>
+          I give public talks about dark matter, galaxies and the cosmic web, from school visits to science festivals
+          and public lectures. During my PhD in Durham I helped develop <em>Galaxy Makers</em>, an exhibit shown at the
+          Royal Society Summer Science Exhibition and at Durham's science festivals: I contributed design ideas and ran
+          the EAGLE simulation volumes it visualised.
+        </p>
+        <p>
+          If you would like me to speak at your school or event, please <a href={getPermalink('/contact')}
+            >get in touch</a
+          >.
+        </p>
+      </div>
+    </Fragment>
+  </Content>
+
+  <EventsTimeline title="Talks and events" items={outreachEvents} classes={{ container: 'pt-0! md:pt-0!' }} />
+</Layout>

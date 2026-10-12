@@ -18,6 +18,10 @@ export const headerData = {
           text: "CV",
           href: getPermalink("cv"),
         },
+        {
+          text: "Outreach",
+          href: getPermalink("outreach"),
+        },
         // {
         //   text: 'Mobile App',
         //   href: getPermalink('/homes/mobile-app'),
@@ -121,6 +125,7 @@ export const getFooterData = (personal: {
           { text: "About", href: "/#about" },
           { text: "News", href: getBlogPermalink() },
           { text: "CV", href: "/cv" },
+          { text: "Outreach", href: "/outreach" },
           // { text: 'Team', href: '#' },
           // { text: 'Enterprise', href: '#' },
           // { text: 'Customer stories', href: '#' },

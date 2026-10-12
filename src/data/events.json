@@ -1,0 +1,122 @@
+{
+  "events": [
+    {
+      "title": "Royal Society Summer Science Exhibition",
+      "category": "outreach",
+      "start_date": "2016-07-01",
+      "month_only": true,
+      "location": "London, UK",
+      "description": "Galaxy Makers exhibit."
+    },
+    {
+      "title": "Schools Science Festival",
+      "category": "outreach",
+      "start_date": "2017-04-01",
+      "month_only": true,
+      "location": "Durham, UK",
+      "description": "Galaxy Makers exhibit."
+    },
+    {
+      "title": "Celebrate Science",
+      "category": "outreach",
+      "start_date": "2017-10-01",
+      "month_only": true,
+      "location": "Durham, UK",
+      "description": "Galaxy Makers exhibit."
+    },
+    {
+      "title": "Schools Science Festival",
+      "category": "outreach",
+      "start_date": "2018-04-01",
+      "month_only": true,
+      "location": "Durham, UK",
+      "description": "Galaxy Makers exhibit."
+    },
+    {
+      "title": "Celebrate Science",
+      "category": "outreach",
+      "start_date": "2018-10-01",
+      "month_only": true,
+      "location": "Durham, UK",
+      "description": "Galaxy Makers exhibit."
+    },
+    {
+      "title": "Caterham School",
+      "category": "outreach",
+      "start_date": "2023-05-01",
+      "month_only": true,
+      "location": "Online",
+      "description": "Invited talk: Introduction to dark matter."
+    },
+    {
+      "title": "Stonyhurst International School Penang",
+      "category": "outreach",
+      "start_date": "2026-02-23",
+      "start_time": "09:00",
+      "end_time": "12:00",
+      "timezone": "Asia/Kuala_Lumpur",
+      "month_only": false,
+      "location": "Penang, Malaysia",
+      "location_link": "https://maps.app.goo.gl/kedTXWopv5NB38Ce9",
+      "description": "Invited talk: Introduction to dark matter, and careers in scientific research."
+    },
+    {
+      "title": "Pint of Science",
+      "category": "outreach",
+      "start_date": "2026-05-20",
+      "start_time": "18:30",
+      "end_time": "21:30",
+      "month_only": false,
+      "location": "The Star Inn, Guildford, UK",
+      "location_link": "https://maps.app.goo.gl/LWri92ux6Mvrkncp9",
+      "description": "Caught in the cosmic web: A pint-sized guide to dark matter.",
+      "info_link": "https://pintofscience.co.uk/event/the-visible-sky-and-the-invisible-web-our-evolving-universe/"
+    },
+    {
+      "title": "Surrey Scholars",
+      "category": "outreach",
+      "start_date": "2026-07-08",
+      "start_time": "11:15",
+      "end_time": "12:00",
+      "month_only": false,
+      "location": "Surrey Space Centre, Guildford, UK",
+      "location_link": "https://maps.app.goo.gl/MWLDxwnaQhDwSEFD8",
+      "description": "Invited talk: Caught in the cosmic web: A pint-sized guide to dark matter."
+    },
+    {
+      "title": "Surrey stargazing lecture",
+      "category": "outreach",
+      "start_date": "2026-10-07",
+      "start_time": "19:00",
+      "end_time": "20:00",
+      "month_only": false,
+      "location": "University of Surrey, Guildford, UK",
+      "location_link": "https://maps.app.goo.gl/MWLDxwnaQhDwSEFD8",
+      "description": "Small galaxies, big mysteries: What dwarf galaxies reveal about dark matter and the cosmic web.",
+      "info_link": "https://www.surrey.ac.uk/events/20261007-surrey-and-gas-stargazing-october-2026"
+    },
+    {
+      "title": "World Space Week 2026",
+      "category": "outreach",
+      "start_date": "2026-10-10",
+      "start_time": "10:00",
+      "end_time": "16:00",
+      "month_only": false,
+      "location": "Guildford High Street, Guildford, UK",
+      "location_link": "https://maps.app.goo.gl/LR5kqx9in7ZmGsrH9",
+      "info_link": "https://www.surrey.ac.uk/events/20261010-world-space-week-guildford-high-street-takeover-2026"
+    },
+    {
+      "title": "IOP South Central Lecture",
+      "category": "outreach",
+      "start_date": "2027-03-09",
+      "start_time": "19:00",
+      "end_time": "20:00",
+      "month_only": false,
+      "location": "University of Surrey, Guildford, UK",
+      "location_link": "https://maps.app.goo.gl/MWLDxwnaQhDwSEFD8",
+      "description": "Caught in the cosmic web: A pint-sized guide to dark matter.",
+      "appear_days_before": 60
+    }
+  ]
+}
