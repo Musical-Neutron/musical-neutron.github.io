@@ -3,6 +3,7 @@ import { PERSONAL } from 'astrowind:config';
 import ContactUs from '~/components/widgets/Contact.astro';
 import Features2 from '~/components/widgets/Features2.astro';
 import Layout from '~/layouts/PageLayout.astro';
+import { getPermalink } from '~/utils/permalinks';
 
 const metadata = {
   title: 'Contact',
@@ -82,8 +83,7 @@ const metadata = {
       placeholder: 'Message body',
     }}
     disclaimer={{
-      label:
-        'By submitting this contact form you acknowledge and agree to the collection of your personal information.',
+      label: `By submitting this contact form you acknowledge and agree to the collection of your personal information, as described in the <a href="${getPermalink('/privacy')}" class="underline">privacy notice</a>.`,
     }}
     description="I will respond as soon as I can."
   >
