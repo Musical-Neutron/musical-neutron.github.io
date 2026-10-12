@@ -14,21 +14,24 @@ const metadata = {
   description: 'Curriculum Vitae and selected professional information for Oliver Newton.',
 };
 
-// Path to the PDF in the repo; adjust if your path is different
-let lastUpdated: string;
-
+// "Last updated" comes from the modification date stored inside CV.pdf (its /ModDate,
+// which LaTeX sets when the PDF is made). The file's own timestamp can't be used: a fresh
+// checkout on GitHub Actions gives every file the time of the build.
+let lastUpdated: string | undefined;
 try {
-  // Resolve CV path from the project root (both dev and CI)
   const cvPath = path.join(process.cwd(), 'public', 'cv', 'CV.pdf');
-  const stat = fs.statSync(cvPath);
-  lastUpdated = stat.mtime.toLocaleDateString('en-GB', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  const match = fs.readFileSync(cvPath, 'latin1').match(/\/ModDate\s*\(D:(\d{4})(\d{2})(\d{2})/);
+  if (match) {
+    const [, year, month, day] = match;
+    lastUpdated = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day))).toLocaleDateString('en-GB', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'UTC',
+    });
+  }
 } catch {
-  // Fallback; you can also use PERSONAL.cvLastUpdated if you add it to config.yaml
-  lastUpdated = 'Unknown';
+  // Leave the date out if the PDF can't be read.
 }
 
 // Identifier panels
@@ -67,7 +70,7 @@ const identifierItems = [
   <WidgetWrapper id="cv" containerClass="max-w-7xl mx-auto">
     <Headline
       title="Curriculum Vitae"
-      subtitle={`Last updated: ${lastUpdated}`}
+      subtitle={lastUpdated ? `Last updated: ${lastUpdated}` : undefined}
       classes={{
         container: 'max-w-xl sm:mx-auto lg:max-w-2xl',
         title: 'text-3xl sm:text-4xl font-bold tracking-tight mb-1',
