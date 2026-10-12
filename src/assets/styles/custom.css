@@ -4,7 +4,7 @@
     transition: color 0.2s ease;
   }
   .rich-text a:hover {
-    color: var(--aw-color-accent);
+    color: var(--aw-color-link-hover);
     /* text-decoration-color: var(--aw-color-accent); */
   }
   .rich-text h1 {
