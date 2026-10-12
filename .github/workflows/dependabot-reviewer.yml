@@ -1,0 +1,42 @@
+name: Dependabot reviewer
+
+# pull_request_target runs this file from the default branch with a write
+# token. It never checks out or runs code from the pull request.
+on: pull_request_target
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write # to create the requires-manual-qa label
+
+jobs:
+  review-dependabot-pr:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    env:
+      PR_URL: ${{ github.event.pull_request.html_url }}
+      GH_REPO: ${{ github.repository }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v3
+
+      # Patch and minor updates merge by themselves once the required CI
+      # checks (build and check) pass. For grouped PRs, update-type is the
+      # largest change in the group, so a group containing a major update
+      # is handled by the next step instead.
+      - name: Enable auto-merge for patch and minor updates
+        if: >-
+          steps.metadata.outputs.update-type == 'version-update:semver-patch' ||
+          steps.metadata.outputs.update-type == 'version-update:semver-minor'
+        run: gh pr merge --auto --squash "$PR_URL"
+
+      - name: Flag major updates for manual review
+        if: >-
+          steps.metadata.outputs.update-type == 'version-update:semver-major' &&
+          !contains(github.event.pull_request.labels.*.name, 'requires-manual-qa')
+        run: |
+          gh label create requires-manual-qa --color D93F0B --description "Check the built site before merging" --force
+          gh pr edit "$PR_URL" --add-label requires-manual-qa
+          gh pr comment "$PR_URL" --body "Not merging automatically: this PR includes a **major** update. Check the build and the site before merging."
