@@ -1,0 +1,133 @@
+# Settings for the site editor (Sveltia CMS, https://sveltiacms.app).
+#
+# To edit events:
+#   1. Run `npm run dev`.
+#   2. Open http://localhost:4321/admin/index.html in Chrome or Edge.
+#   3. Choose "Work with Local Repository" and select this repository's folder.
+# Saving writes the changes straight into src/data/events.json. Nothing is committed or
+# pushed: check the changes with `git diff` and commit them as usual.
+#
+# Events in the "outreach" category appear on the Outreach page.
+
+backend:
+  name: github
+  repo: Musical-Neutron/musical-neutron.github.io
+  branch: master
+
+media_folder: public/images
+public_folder: /images
+
+output:
+  omit_empty_optional_fields: true
+  json:
+    indent_style: space
+    indent_size: 2
+
+collections:
+  - name: data
+    label: Site data
+    files:
+      - name: events
+        label: Events
+        file: src/data/events.json
+        format: json
+        fields:
+          - name: events
+            label: Events
+            label_singular: Event
+            widget: list
+            add_to_top: true
+            collapsed: true
+            summary: "{{fields.start_date}}: {{fields.title}}"
+            fields:
+              - { name: title, label: Title, widget: string }
+              - name: category
+                label: Category
+                widget: select
+                default: conference
+                options:
+                  - { label: Conference, value: conference }
+                  - { label: Seminar, value: seminar }
+                  - { label: Outreach, value: outreach }
+                  - { label: Milestone, value: milestone }
+              - name: eventID
+                label: Link name
+                widget: string
+                required: false
+                hint: 'Optional. Lets other pages link straight to this event, e.g. "launch" for /events#launch.'
+              - name: start_date
+                label: Start date
+                widget: datetime
+                time_format: false
+                format: YYYY-MM-DD
+              - name: start_time
+                label: Start time
+                widget: string
+                required: false
+                pattern:
+                  [
+                    "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+                    "Use 24-hour time, e.g. 15:00",
+                  ]
+                hint: "Local time where the event happens. Leave empty for an all-day event."
+              - name: end_date
+                label: End date
+                widget: datetime
+                required: false
+                time_format: false
+                format: YYYY-MM-DD
+                hint: "Leave empty if the event ends on the start date."
+              - name: end_time
+                label: End time
+                widget: string
+                required: false
+                pattern:
+                  [
+                    "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+                    "Use 24-hour time, e.g. 16:00",
+                  ]
+              - name: timezone
+                label: Time zone
+                widget: string
+                required: false
+                hint: "Leave empty for UK time. Otherwise a time zone name such as Europe/Madrid or Asia/Kuala_Lumpur."
+              - name: month_only
+                label: Only the month is known
+                widget: boolean
+                required: false
+                hint: 'Shows just the month and year, e.g. "October 2018". Pick any day in that month as the start date.'
+              - {
+                  name: location,
+                  label: Location,
+                  widget: string,
+                  required: false,
+                }
+              - {
+                  name: location_link,
+                  label: Map link,
+                  widget: string,
+                  required: false,
+                }
+              - {
+                  name: description,
+                  label: Description,
+                  widget: text,
+                  required: false,
+                }
+              - {
+                  name: info_link,
+                  label: Event web page,
+                  widget: string,
+                  required: false,
+                }
+              - name: icon
+                label: Icon
+                widget: string
+                required: false
+                hint: "Optional Tabler icon such as tabler:sunrise. Leave empty to use the category's icon."
+              - name: appear_days_before
+                label: Show in upcoming events this many days ahead
+                widget: number
+                value_type: int
+                required: false
+                min: 0
