@@ -200,6 +200,7 @@ export interface PersonalConfig {
   contactEmail: string;
   projectNumber: string;
   projectAcronym: string;
+  projectURL: string;
   institutionGroup: string;
   institutionURL: string;
   university: string;

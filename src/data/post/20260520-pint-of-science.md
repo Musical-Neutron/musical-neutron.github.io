@@ -3,7 +3,7 @@ publishDate: 2026-05-13T19:00:00Z
 author: Oliver Newton
 title: Pint of Science
 excerpt: Discussing the cosmic web over a pint.
-image: /images/pint_of_science_logo_colour.svg
+image: ~/assets/images/news/pint-of-science-logo.png
 category: Outreach
 tags:
   - outreach

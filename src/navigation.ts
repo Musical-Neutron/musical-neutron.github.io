@@ -61,6 +61,12 @@ export const headerData = {
         {
           text: "Galaxy-environment connection",
           href: "/research#galaxy-environment",
+          links: [
+            {
+              text: "CWEBDWARFS project",
+              href: "https://oliver-newton.com/cwebdwarfs-sitefiles",
+            },
+          ],
         },
         { text: "Warm dark matter", href: "/research#warm-dark-matter" },
         { text: "The Local Group", href: "/research#local-group" },
@@ -90,8 +96,14 @@ export const headerData = {
   // actions: [{ text: 'Download', href: 'https://github.com/arthelokyo/astrowind', target: '_blank' }],
 };
 
-const researchLinks =
-  headerData.links.find((link) => link.text === "Research")?.links ?? [];
+// The footer lists the Research links flat, including any nested a level deeper in the menu.
+const researchLinks = (
+  headerData.links.find((link) => link.text === "Research")?.links ?? []
+).flatMap((link) =>
+  "links" in link && link.links
+    ? [{ text: link.text, href: link.href }, ...link.links]
+    : [link],
+);
 
 export const getFooterData = (personal: {
   myName: string;
@@ -171,7 +183,7 @@ export const getFooterData = (personal: {
     ],
     footNote: `
     <img class="h-5 w-auto md:h-6 md:w-auto md:-mt-0.5 mr-1.5 rtl:mr-0 rtl:ml-1.5 float-left rtl:float-right shrink-0" src="${getAsset("/images/eu_flag_colour.png")}" alt="European Union emblem" loading="lazy"></img>
-    Financially supported by the <a href="https://marie-sklodowska-curie-actions.ec.europa.eu/">European Union</a>. &copy; <a href=${personal.mySite}>${personal.myName}</a> ${personal.copyYear}. All rights reserved.
+    Funded by the <a href="https://marie-sklodowska-curie-actions.ec.europa.eu/">European Union</a>. &copy; <a href=${personal.mySite}>${personal.myName}</a> ${personal.copyYear}. All rights reserved.
   `,
   };
 };

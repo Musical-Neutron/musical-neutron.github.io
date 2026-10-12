@@ -10,7 +10,7 @@ metadata:
   title:
     default: Oliver Newton
     template: "%s — Oliver Newton"
-  description: "Astrophysicist | Dr Oliver Newton"
+  description: "Oliver Newton is a Marie Skłodowska-Curie Fellow at the University of Surrey, UK, researching dwarf galaxies as probes of dark matter and the cosmic web."
   robots:
     index: true
     follow: true
@@ -19,7 +19,7 @@ metadata:
     images:
       - url: "~/assets/images/default.png"
         width: 1200
-        height: 628
+        height: 630
     type: website
   # twitter:
   #   handle: '@arthelokyo'
@@ -91,6 +91,7 @@ personal:
   contactPhone: "+44 (#####) ### ###"
   projectNumber: "101209580"
   projectAcronym: "CWEBDWARFS"
+  projectURL: "https://oliver-newton.com/cwebdwarfs-sitefiles"
   copyYear: "2018—2026"
   recaptchaSiteKey: "6Le3yUwtAAAAAPH4CA_CHSSd59bVG7gk1jnpehWB"
 

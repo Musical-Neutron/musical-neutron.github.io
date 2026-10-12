@@ -1,4 +1,5 @@
 ---
+import { PERSONAL } from 'astrowind:config';
 import Layout from '~/layouts/PageLayout.astro';
 import Content from '~/components/widgets/Content.astro';
 import Features from '~/components/widgets/Features.astro';
@@ -14,13 +15,19 @@ const metadata = {
   {/* Intro / overview */}
   <Content id="research-intro" title="Research" tagline="Dwarf galaxies, dark matter, and the cosmic web">
     <Fragment slot="content">
-      <div class="rich-text space-y-4 text-justify hyphens-auto">
+      <div class="rich-text space-y-4 hyphens-auto md:text-justify">
         <p>
           Primarily, my research relates to dwarf galaxies as visible probes of dark matter structure. In the standard
           cosmological model (ΛCDM) dark matter is hugely influential in shaping the evolution of the Universe; indeed,
           it comprises <a href="https://map.gsfc.nasa.gov/news/">as much as 85%</a> of all matter. However, we still don't
           know what it is. No dark matter particle has been seen directly in any detectors, so we are left to infer its properties
           from a mix of astrophysical observations of galaxies and advanced computer simulations.
+        </p>
+        <p>
+          At the University of Surrey I lead
+          <a href={PERSONAL.projectURL}>Dwarf galaxies in context (CWEBDWARFS)</a>, a Marie
+          Sk&lstrok;odowska&ndash;Curie project connecting the physical mechanisms underpinning galaxy evolution with
+          their large-scale cosmological environments.
         </p>
         <p>
           Below are selected research themes and representative publications. For a complete list, see my
