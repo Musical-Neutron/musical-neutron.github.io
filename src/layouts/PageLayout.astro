@@ -22,14 +22,14 @@ const footerData = getFooterData(PERSONAL);
   <slot name="announcement">
     <Announcement />
   </slot>
-  <!-- Header: hamburger on small screens, sidebar on md+ -->
+  {/* Header: hamburger on small screens, sidebar on md+ */}
   <slot name="header">
-    <!-- Mobile / small screens: original horizontal Header with ToggleMenu -->
+    {/* Mobile / small screens: original horizontal Header with ToggleMenu */}
     <div class="md:hidden">
       <Header {...headerData} showRssFeed showToggleTheme />
     </div>
 
-    <!-- Desktop / md+ screens: vertical sidebar -->
+    {/* Desktop / md+ screens: vertical sidebar */}
     <div class="hidden md:block">
       <SidebarHeader {...headerData} showRssFeed showToggleTheme />
     </div>

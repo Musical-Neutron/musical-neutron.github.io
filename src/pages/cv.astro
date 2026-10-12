@@ -78,9 +78,9 @@ const identifierItems = [
     <Content id="cv-intro">
       <Fragment slot="content">
         <div class="mx-auto max-w-7xl p-0 md:px-0 py-0 rich-text text-justify">
-          <!-- Quick summary -->
-          <!-- <section class="rich-text space-y-3 mb-0"> -->
-          <!-- <h2 class="text-xl font-semibold">Summary</h2> -->
+          {/* Quick summary */}
+          {/* <section class="rich-text space-y-3 mb-0"> */}
+          {/* <h2 class="text-xl font-semibold">Summary</h2> */}
           <p>
             I am a Marie Sk&lstrok;odowska&ndash;Curie Fellow in the
             <a href={PERSONAL.institutionURL}> {PERSONAL.institutionGroup}</a>
@@ -89,7 +89,7 @@ const identifierItems = [
             probes of dark matter and the cosmic web, combining cosmological simulations with statistical inference from
             galaxy surveys.
           </p>
-          <!-- </section> -->
+          {/* </section> */}
         </div>
       </Fragment>
     </Content>
@@ -109,12 +109,15 @@ const identifierItems = [
         },
       ]}
     >
-      <!-- <Fragment slot="bg">
+      {
+        /* <Fragment slot="bg">
         <div class="absolute inset-0 page-fade-light"></div>
-      </Fragment> -->
+      </Fragment> */
+      }
     </Features>
 
-    <!-- <Features2
+    {
+      /* <Features2
       id="identifiers"
       title="Professional identifiers"
       columns={2}
@@ -127,15 +130,19 @@ const identifierItems = [
             icon: 'rich-text', // text colour for <i> or Icon
           }}
       items={identifierItems}
-    > -->
-    <!-- <Fragment slot="bg">
+    > */
+    }
+    {
+      /* <Fragment slot="bg">
         <div class="absolute inset-0 page-fade-light"></div>
-      </Fragment> -->
-    <!-- </Features2> -->
+      </Fragment> */
+    }
+    {/* </Features2> */}
 
     <div class="mx-auto max-w-7xl p-4 md:px-8">
-      <!-- Current position & contact -->
-      <!-- <section class="rich-text grid gap-4 md:grid-cols-2 mb-6">
+      {/* Current position & contact */}
+      {
+        /* <section class="rich-text grid gap-4 md:grid-cols-2 mb-6">
         <div>
           <h2 class="text-xl font-semibold">Current position</h2>
           <p class="mt-1">
@@ -151,9 +158,10 @@ const identifierItems = [
             <a href="mailto:o.newton@surrey.ac.uk">o.newton@surrey.ac.uk</a>
           </p>
         </div>
-      </section> -->
+      </section> */
+      }
 
-      <!-- Professional identifiers as AstroWind panels -->
+      {/* Professional identifiers as AstroWind panels */}
       <section class="mb-8">
         <h2 class="text-xl font-semibold mb-2 rich-text">Professional identifiers</h2>
         <ItemGrid
@@ -171,7 +179,7 @@ const identifierItems = [
         />
       </section>
 
-      <!-- Selected highlights -->
+      {/* Selected highlights */}
       <Content id="research-highlights" classes={{ container: 'rich-text' }}>
         <Fragment slot="content">
           <h2 class="text-3xl font-semibold mb-2">Selected highlights</h2>
@@ -193,7 +201,7 @@ const identifierItems = [
         </Fragment>
       </Content>
 
-      <!-- Download + embedded PDF -->
+      {/* Download + embedded PDF */}
       <section class="mb-4">
         <a href="/cv/CV.pdf" download="Oliver_Newton_CV.pdf" class="btn-secondary"> Download CV (PDF) </a>
       </section>

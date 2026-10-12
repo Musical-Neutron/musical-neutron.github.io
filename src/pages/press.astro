@@ -36,13 +36,15 @@ const coverageItems = pressItems
   }));
 ---
 
-<!-- image={{
+{
+  /* image={{
       src: '~/assets/images/cosmic_web.png',
       alt: 'Cosmic web visualisation',
       class: 'bg-transparent',
-    }} -->
+    }} */
+}
 <Layout metadata={metadata}>
-  <!-- Media contact + press kit -->
+  {/* Media contact + press kit */}
   <Content id="media-contact" image="">
     <Fragment slot="content">
       <h2 class="mb-2 text-2xl font-bold tracking-tight sm:text-3xl">Press &amp; Media</h2>
@@ -73,7 +75,7 @@ const coverageItems = pressItems
     </Fragment>
   </Content>
 
-  <!-- Press kit downloads -->
+  {/* Press kit downloads */}
   <Features
     id="press-kit"
     tagline="Press kit"
@@ -122,7 +124,7 @@ const coverageItems = pressItems
     </Fragment>
   </Features>
 
-  <!-- Media coverage -->
+  {/* Media coverage */}
   {
     coverageItems.length > 0 && (
       <Content id="coverage" title="Media coverage" subtitle="Articles, interviews, and mentions." items={[]}>

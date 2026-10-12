@@ -10,10 +10,10 @@ import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
 import icon from "astro-icon";
-import compress from "astro-compress";
 import type { AstroIntegration } from "astro";
 
 import astrowind from "./vendor/integration";
+import typographyCheck from "./src/integrations/typography-check";
 
 import {
   readingTimeRemarkPlugin,
@@ -63,22 +63,11 @@ export default defineConfig({
       }),
     ),
 
-    compress({
-      CSS: true,
-      HTML: {
-        "html-minifier-terser": {
-          removeAttributeQuotes: false,
-        },
-      },
-      Image: false,
-      JavaScript: true,
-      SVG: false,
-      Logger: 1,
-    }),
-
     astrowind({
       config: "./src/config.yaml",
     }),
+
+    typographyCheck(),
   ],
 
   image: {

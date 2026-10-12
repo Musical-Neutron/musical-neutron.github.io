@@ -167,20 +167,21 @@ if (APP_BLOG.isEnabled) {
 // }
 ---
 
-<!-- class="fixed left-0 top-0 z-40 h-screen w-64 bg-page border-(--aw-color-primary) border-r flex flex-col" -->
+{/* class="fixed left-0 top-0 z-40 h-screen w-64 bg-page border-(--aw-color-primary) border-r flex flex-col" */}
 <aside
   class="fixed left-0 top-0 bottom-0 z-40 w-[var(--aw-sidebar-width)] bg-page border-r border-t border-b border-(--aw-color-primary)
          rounded-r-3xl sidebar-panel flex flex-col text-default overflow-hidden"
 >
-  <!-- Logo -->
+  {/* Logo */}
   <div class="flex items-center px-4 py-4 sidebar-head-background">
     <a href={getHomePermalink()} class="flex items-center gap-2">
       <Logo />
     </a>
   </div>
 
-  <!-- Navigation -->
-  <!-- <nav class="sidebar-nav-background flex-1 overflow-y-auto mt-2" aria-label="Main navigation">
+  {/* Navigation */}
+  {
+    /* <nav class="sidebar-nav-background flex-1 overflow-y-auto mt-2" aria-label="Main navigation">
     <ul class="flex flex-col px-2">
       {navLinks.map((item) => (
         <li
@@ -188,9 +189,11 @@ if (APP_BLOG.isEnabled) {
           data-sidebar-dropdown
         >
           {item.links?.length ? (
-            <> -->
-  <!-- Top-level link (clickable, bold) -->
-  <!-- <a
+            <> */
+  }
+  {/* Top-level link (clickable, bold) */}
+  {
+    /* <a
                 href={item.href ?? '#'}
                 data-sidebar-toggle
                 class:list={[
@@ -203,10 +206,12 @@ if (APP_BLOG.isEnabled) {
                   name="tabler:chevron-right"
                   class="w-3.5 h-3.5 ml-1 text-muted"
                 />
-              </a> -->
+              </a> */
+  }
 
-  <!-- Pop-out submenu: positioned via JS (fixed, high z-index) -->
-  <!-- <ul
+  {/* Pop-out submenu: positioned via JS (fixed, high z-index) */}
+  {
+    /* <ul
                 class="sidebar-submenu hidden fixed bg-page rounded shadow-lg py-2 px-2 space-y-1 z-[9999]"
               >
                 {item.links.map((child) => (
@@ -238,9 +243,10 @@ if (APP_BLOG.isEnabled) {
         </li>
       ))}
     </ul>
-  </nav> -->
+  </nav> */
+  }
 
-  <!-- Navigation -->
+  {/* Navigation */}
   <nav class="sidebar-nav-background flex-1 overflow-y-auto mt-2" aria-label="Main navigation">
     <ul class="flex flex-col px-2">
       {
@@ -287,7 +293,7 @@ if (APP_BLOG.isEnabled) {
     </ul>
   </nav>
 
-  <!-- Bottom: theme toggle, RSS, actions -->
+  {/* Bottom: theme toggle, RSS, actions */}
   <div class="px-4 py-3 sidebar-foot-background">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
@@ -319,7 +325,8 @@ if (APP_BLOG.isEnabled) {
   </div>
 </aside>
 
-<!-- <script is:inline>
+{
+  /* <script is:inline>
   (function () {
     if (typeof window === 'undefined') return;
 
@@ -344,4 +351,5 @@ if (APP_BLOG.isEnabled) {
       });
     });
   })();
-</script> -->
+</script> */
+}

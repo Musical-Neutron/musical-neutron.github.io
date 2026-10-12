@@ -10,7 +10,7 @@ const { class: className = 'w-full h-full' } = Astro.props;
   <title id="title">Job / Country Move</title>
   <desc id="desc">Stylized city skyline with a location marker.</desc>
 
-  <!-- Background gradient uses CSS variables -->
+  {/* Background gradient uses CSS variables */}
   <defs>
     <linearGradient id="bgGradient" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="var(--press-highlight-1)"></stop>
@@ -20,10 +20,10 @@ const { class: className = 'w-full h-full' } = Astro.props;
 
   <rect x="0" y="0" width="800" height="450" fill="url(#bgGradient)"></rect>
 
-  <!-- Horizon line -->
+  {/* Horizon line */}
   <rect x="0" y="290" width="800" height="160" fill="var(--press-highlight-3)"></rect>
 
-  <!-- Simplified skyline -->
+  {/* Simplified skyline */}
   <g fill="var(--aw-color-text-heading)">
     <rect x="80" y="210" width="80" height="80" rx="4"></rect>
     <rect x="180" y="190" width="70" height="100" rx="4"></rect>
@@ -33,9 +33,9 @@ const { class: className = 'w-full h-full' } = Astro.props;
     <rect x="620" y="190" width="60" height="100" rx="4"></rect>
   </g>
 
-  <!-- Location marker -->
+  {/* Location marker */}
   <g transform="translate(400,150)">
-    <!-- Outer marker -->
+    {/* Outer marker */}
     <path
       d="M0 0
          C -40 0 -70 30 -70 70
@@ -44,7 +44,7 @@ const { class: className = 'w-full h-full' } = Astro.props;
          C 70 30 40 0 0 0 Z"
       fill="var(--aw-color-accent)"
       opacity="0.9"></path>
-    <!-- Inner circle -->
+    {/* Inner circle */}
     <circle cx="0" cy="60" r="24" fill="var(--aw-color-text-heading)"></circle>
   </g>
 </svg>

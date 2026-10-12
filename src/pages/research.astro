@@ -11,7 +11,7 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <!-- Intro / overview -->
+  {/* Intro / overview */}
   <Content id="research-intro" title="Research" tagline="Dwarf galaxies, dark matter, and the cosmic web">
     <Fragment slot="content">
       <div class="rich-text space-y-4 text-justify hyphens-auto">
@@ -35,12 +35,14 @@ const metadata = {
       </div>
     </Fragment>
 
-    <!-- <Fragment slot="bg">
+    {
+      /* <Fragment slot="bg">
       <div class="absolute inset-0 page-fade-dark"></div>
-    </Fragment> -->
+    </Fragment> */
+    }
   </Content>
 
-  <!-- Topics overview -->
+  {/* Topics overview */}
   <Features
     id="research-topics"
     title="Research themes"
@@ -52,12 +54,14 @@ const metadata = {
       icon: 'tabler:planet',
     }))}
   >
-    <!-- <Fragment slot="bg">
+    {
+      /* <Fragment slot="bg">
       <div class="absolute inset-0 page-fade-light"></div>
-    </Fragment> -->
+    </Fragment> */
+    }
   </Features>
 
-  <!-- Per-topic sections with individual papers -->
+  {/* Per-topic sections with individual papers */}
   {
     researchTopics.map((topic) => (
       <ResearchSection id={topic.id} title={topic.title} description={topic.description} papers={topic.papers}>

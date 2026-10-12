@@ -83,12 +83,12 @@ const sortedPapers = papers.slice().sort((a, b) => {
   />
 
   <div class="mx-auto max-w-7xl p-4 md:px-8">
-    <!-- Full-width topic summary -->
+    {/* Full-width topic summary */}
     <div class="rich-text space-y-4 text-justify hyphens-auto mb-6">
       <p>{description}</p>
     </div>
 
-    <!-- Two-column grid of papers -->
+    {/* Two-column grid of papers */}
     <div class="grid gap-6 md:grid-cols-2 md:grid-flow-row">
       {
         sortedPapers.map((paper) => (
