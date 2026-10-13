@@ -136,6 +136,8 @@ export interface Item {
   end_time_flag?: boolean;
   timezone?: string;
   month_only?: boolean;
+  start_ms?: number;
+  end_ms?: number;
   location?: string;
   info_link?: string;
   location_link?: string;
