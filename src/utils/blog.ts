@@ -98,7 +98,8 @@ const getNormalizedPost = async (
 
     title: title,
     excerpt: excerpt,
-    image: image,
+    // The site editor writes images it uploads as "/~/assets/..."; the site expects "~/assets/...".
+    image: image?.replace(/^\/~\//, "~/"),
 
     category: category,
     tags: tags,

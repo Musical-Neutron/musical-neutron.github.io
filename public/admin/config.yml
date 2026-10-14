@@ -1,10 +1,11 @@
 # Settings for the site editor (Sveltia CMS, https://sveltiacms.app).
 #
-# To edit events or research:
+# To edit events, research or news posts:
 #   1. Run `npm run dev`.
 #   2. Open http://localhost:4321/admin/index.html in Chrome or Edge.
 #   3. Choose "Work with Local Repository" and select this repository's folder.
-# Saving writes the changes straight into src/data/events.json or src/data/research.json.
+# Saving writes the changes straight into src/data/events.json, src/data/research.json or the
+# post files in src/data/post/ (pictures for posts go in src/assets/images/news/).
 # Nothing is committed or pushed: check the changes with `git diff` and commit them as usual.
 #
 # Events in the "outreach" category appear on the Outreach page.
@@ -847,16 +848,64 @@ collections:
                         widget: string
                         required: false
                         hint: "Leave empty to use the type's name (Journal, arXiv, …)."
-  # The news posts, listed here only so an event's Write-up field can offer them. Hidden from
-  # the editor's menu: posts are still written as Markdown files in src/data/post/.
+  # News posts: one Markdown file each in src/data/post/, named by date and title
+  # (e.g. 20260520-pint-of-science.md). Events can link to a post as their write-up.
   - name: posts
-    label: News posts
+    label: News
+    label_singular: News post
     folder: src/data/post
     extension: md
     format: frontmatter
-    hide: true
-    create: false
-    delete: false
+    create: true
+    slug: "{{year}}{{month}}{{day}}-{{slug}}"
+    summary: "{{publishDate | date('YYYY-MM-DD')}}: {{title}}"
+    sortable_fields: [publishDate, title]
+    media_folder: /src/assets/images/news
+    public_folder: ~/assets/images/news
     fields:
+      - name: publishDate
+        label: Date
+        widget: datetime
+        default: "{{now}}"
+        output_utc: true
+        hint: "Posts are listed newest first. A post less than 90 days old also appears on the home page."
+      - {
+          name: author,
+          label: Author,
+          widget: string,
+          default: Oliver Newton,
+          required: false,
+        }
       - { name: title, label: Title, widget: string }
-      - { name: publishDate, label: Date, widget: datetime }
+      - name: excerpt
+        label: Summary
+        widget: text
+        required: false
+        hint: "One or two sentences, shown in post lists and link previews."
+      - { name: image, label: Image, widget: image, required: false }
+      - {
+          name: category,
+          label: Category,
+          widget: string,
+          required: false,
+          hint: "e.g. Outreach, Press, Jobs, Grants",
+        }
+      - name: tags
+        label: Tags
+        widget: list
+        required: false
+        hint: "Lower-case words such as outreach or local-group; each tag gets its own page."
+      - name: isJobMove
+        label: Job move
+        widget: boolean
+        required: false
+        hint: "For posts about starting a new position: without an image, the post shows the job-move picture instead of a plain placeholder."
+      - name: draft
+        label: Draft
+        widget: boolean
+        required: false
+        hint: "Drafts are kept out of the site."
+      - name: body
+        label: Text
+        widget: markdown
+        hint: "Use the toolbar for formatting, or switch to Markdown to type it (HTML works there too)."
