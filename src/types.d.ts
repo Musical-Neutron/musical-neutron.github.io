@@ -136,6 +136,8 @@ export interface Item {
   end_time_flag?: boolean;
   timezone?: string;
   month_only?: boolean;
+  // Slug of a news post about the event (e.g. "20260520-pint-of-science")
+  writeup?: string;
   start_ms?: number;
   end_ms?: number;
   location?: string;

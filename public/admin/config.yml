@@ -666,6 +666,15 @@ collections:
                   widget: string,
                   required: false,
                 }
+              - name: writeup
+                label: Write-up
+                widget: relation
+                collection: posts
+                value_field: "{{slug}}"
+                search_fields: [title]
+                display_fields: [title]
+                required: false
+                hint: 'Optional. A news post about this event; the Outreach page links to it as "Read the write-up".'
               - name: icon
                 label: Icon
                 widget: select
@@ -838,3 +847,16 @@ collections:
                         widget: string
                         required: false
                         hint: "Leave empty to use the type's name (Journal, arXiv, …)."
+  # The news posts, listed here only so an event's Write-up field can offer them. Hidden from
+  # the editor's menu: posts are still written as Markdown files in src/data/post/.
+  - name: posts
+    label: News posts
+    folder: src/data/post
+    extension: md
+    format: frontmatter
+    hide: true
+    create: false
+    delete: false
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: publishDate, label: Date, widget: datetime }

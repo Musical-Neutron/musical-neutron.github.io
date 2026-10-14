@@ -2,7 +2,9 @@
 import { Icon } from 'astro-icon/components';
 import { twMerge } from 'tailwind-merge';
 import type { Item } from '~/types';
+import { fetchPosts } from '~/utils/blog';
 import { formatDateRange } from '~/utils/dateUtils';
+import { getPermalink } from '~/utils/permalinks';
 
 export interface Props {
   items?: Array<Item>;
@@ -21,6 +23,16 @@ const {
   description: descriptionClass = '',
   icon: defaultIconClass = 'text-primary border-primary',
 } = classes;
+
+// Addresses of the news posts, so an event's Write-up (a post's slug) can link to it.
+const postLinks = new Map((await fetchPosts()).map((post) => [post.slug, getPermalink(post.permalink, 'post')]));
+const writeupLink = (writeup?: string) => {
+  if (!writeup) return undefined;
+  const link = postLinks.get(writeup);
+  if (!link) console.warn(`Event write-up "${writeup}" doesn't match any news post; the link is left out.`);
+  return link;
+};
+const timelineItems = items.map((item) => ({ ...item, writeup_link: writeupLink(item.writeup) }));
 
 const categoryBadgeStyles: Record<string, string> = {
   conference: 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-200',
@@ -41,7 +53,7 @@ const categoryLabels: Record<string, string> = {
 {/* Always rendered, even when empty, so the script in EventsTimeline.astro can move events into it. */}
 <div class={containerClass} data-events-list>
   {
-    items.map(
+    timelineItems.map(
       ({
         eventID,
         title,
@@ -56,6 +68,7 @@ const categoryLabels: Record<string, string> = {
         month_only,
         location,
         info_link,
+        writeup_link,
         location_link,
         start_ms,
         end_ms,
@@ -144,12 +157,15 @@ const categoryLabels: Record<string, string> = {
               />
             )}
 
-            {/* Display Info Link if Provided */}
-            {info_link && (
-              <p class="mt-2 rich-text">
-                <a href={info_link} target="_blank" rel="noopener noreferrer">
-                  More information
-                </a>
+            {/* The event's own web page and/or a news post about it */}
+            {(info_link || writeup_link) && (
+              <p class="mt-2 rich-text flex flex-wrap gap-x-6">
+                {info_link && (
+                  <a href={info_link} target="_blank" rel="noopener noreferrer">
+                    More information
+                  </a>
+                )}
+                {writeup_link && <a href={writeup_link}>Read the write-up</a>}
               </p>
             )}
           </div>
