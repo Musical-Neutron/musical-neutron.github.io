@@ -46,7 +46,7 @@ const {
 
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 
-// News goes first in the menu while there is recent news, otherwise under Home (see utils/newsDisplay.ts)
+// News sits under Home: first while there is recent news, last otherwise (see utils/newsDisplay.ts)
 const enhancedLinks = arrangeNewsMenu(links, await getNewsDisplayState());
 ---
 

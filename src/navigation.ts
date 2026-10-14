@@ -34,32 +34,6 @@ export const headerData = {
       ],
     },
     {
-      text: "News",
-      href: getBlogPermalink(),
-      links: [
-        // {
-        //   text: 'News List',
-        //   href: getBlogPermalink(),
-        // },
-        // {
-        //   text: 'Article',
-        //   href: getPermalink('20260112-marie-curie', 'post'),
-        // },
-        // {
-        //   text: 'Article (with MDX)',
-        //   href: getPermalink('markdown-elements-demo-post', 'post'),
-        // },
-        // {
-        //   text: 'Category Page',
-        //   href: getPermalink('tutorials', 'category'),
-        // },
-        // {
-        //   text: 'Tag Page',
-        //   href: getPermalink('astro', 'tag'),
-        // },
-      ],
-    },
-    {
       text: "Research",
       href: getPermalink("/research"),
       // One link per research topic (edited at /admin/), with any extra links shown under it.

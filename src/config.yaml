@@ -64,10 +64,9 @@ apps:
 
     # When news appears on the home page and in the menus (see src/utils/newsDisplay.ts)
     latest:
-      freshnessDays: 90 # while a post is newer than this: Latest news section, News button, News first in the menus
-      maxAgeDays: 365 # posts older than this aren't listed on the home page or in the menus
+      freshnessDays: 90 # while a post is newer than this: Latest news section, News button, News first under Home in the menus
+      maxAgeDays: 365 # posts older than this aren't listed in the Latest news section
       minCount: 4 # number of posts in the Latest news section
-      sidebarCount: 3 # number of posts listed under News in the menus
 
 analytics:
   vendors:
