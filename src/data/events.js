@@ -10,6 +10,16 @@ const categoryDefaults = {
   seminar: { icon: "tabler:presentation" },
 };
 
+// Every event gets an anchor on its page (e.g. /outreach#2026-05-20-pint-of-science), so links,
+// including those in the RSS feed, can point straight at it. A "Link name" set in the editor wins.
+const slugify = (text) =>
+  text
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
 export const events = data.events.map((entry) => {
   // Treat fields left empty in the editor as missing.
   const e = /** @type {typeof entry} */ (
@@ -35,6 +45,7 @@ export const events = data.events.map((entry) => {
       ? toZonedISOString(e.end_date || e.start_date, e.end_time, timezone)
       : undefined,
     icon: e.icon ?? defaults.icon ?? "tabler:calendar",
+    eventID: e.eventID || slugify(`${e.start_date}-${e.title}`),
   };
 });
 
