@@ -7,6 +7,8 @@ import ImageCarousel from '~/components/ImageCarousel.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import Content from '~/components/widgets/Content.astro';
 import Hero from '~/components/widgets/Hero.astro';
+import NextTimelineEvent from '~/components/widgets/NextTimelineEvent.astro';
+import { events } from '~/data/events.js';
 import Image from '~/components/common/Image.astro';
 import headshot from '~/assets/images/oliver_newton.png';
 import AboutMe from '~/content/about_me.md';
@@ -56,6 +58,19 @@ const heroActions = [
 ---
 
 <Layout metadata={metadata}>
+  {/* Events happening now or in the next two weeks; hidden when there are none */}
+  <NextTimelineEvent
+    title="Events"
+    items={events}
+    appearanceDelay={14}
+    eventsPageLink={'/outreach'}
+    classes={{ container: 'py-4! md:py-8! lg:py-10! mb-6!' }}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-(--aw-color-bg-alt) border-b border-(--aw-color-bg-page-dark)"></div>
+    </Fragment>
+  </NextTimelineEvent>
+
   {/* Hero Widget ******************* */}
 
   <Hero actions={heroActions} image="">

@@ -1,0 +1,225 @@
+---
+import Headline from '~/components/ui/Headline.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import type { Steps } from '~/types';
+import { formatDateRange } from '~/utils/dateUtils';
+import { categorizeEvents } from '~/utils/eventUtils';
+import { getPermalink } from '~/utils/permalinks';
+
+export interface Props extends Steps {
+  // Page with the full list of events, linked from the banner.
+  eventsPageLink?: string;
+  // Show upcoming events starting within this many days.
+  appearanceDelay?: number;
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle: subtitleOverride,
+  tagline = await Astro.slots.render('tagline'),
+  items = [],
+  appearanceDelay = 30, // Default to showing events within the next 30 days
+  eventsPageLink,
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+
+const currentDate = new Date();
+
+// Categorize events
+const { ongoingEvents, upcomingEvents } = categorizeEvents(items, {
+  currentDate,
+  maximumDaysBefore: appearanceDelay,
+});
+
+// Get all relevant events (ongoing first, then upcoming within maxDays)
+const filteredUpcoming = upcomingEvents.filter((event) => {
+  const timeDiff = event.start_date.getTime() - currentDate.getTime();
+  const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+  return dayDiff <= appearanceDelay;
+});
+// Ongoing events first (earliest start first), then upcoming ones (soonest first). Each group gets
+// its own label in the banner, so it's clear which events are happening now.
+const byStart = (a: { start_ms: number }, b: { start_ms: number }) => a.start_ms - b.start_ms;
+const groups = [
+  { status: 'ongoing', label: 'Happening now', events: [...ongoingEvents].sort(byStart) },
+  { status: 'upcoming', label: 'Coming up', events: [...filteredUpcoming].sort(byStart) },
+];
+const eventCount = ongoingEvents.length + filteredUpcoming.length;
+const subtitle = subtitleOverride ?? (await Astro.slots.render('subtitle'));
+---
+
+{
+  eventCount > 0 ? (
+    <WidgetWrapper
+      id={id}
+      isDark={isDark}
+      containerClass={`max-w-full px-4 sm:px-6 z-10 ${classes?.container ?? ''}`}
+      bg={bg}
+    >
+      <div class="flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-center" data-next-events>
+        <div class="w-full md:w-[200px] lg:w-[240px] shrink-0 text-center md:text-left">
+          <Headline
+            title={title}
+            subtitle={subtitle}
+            tagline={tagline}
+            classes={{
+              container: 'mb-0 md:mb-0 text-center md:text-left',
+              title: 'text-xl lg:text-2xl line-clamp-2',
+              subtitle: 'mt-2 text-sm',
+              tagline: 'text-xs',
+              ...((classes?.headline as object) ?? {}),
+            }}
+          />
+          {eventsPageLink && (
+            <a
+              href={getPermalink(eventsPageLink)}
+              class="mt-2 text-sm text-primary hover:text-accent hidden md:inline-block"
+            >
+              View all events →
+            </a>
+          )}
+        </div>
+
+        {/* Compact events scroller: "Happening now" and "Coming up", side by side */}
+        <div class="flex-1 w-full overflow-x-auto pb-2">
+          <div class="flex gap-6 w-max min-w-full pr-4">
+            {groups.map(({ status, label, events }) => (
+              <div
+                class="shrink-0 [:not([hidden])~&]:border-l [:not([hidden])~&]:pl-6 border-black/10 dark:border-white/15"
+                data-next-events-group={status}
+                hidden={events.length === 0}
+              >
+                <p class="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-muted">
+                  {status === 'ongoing' && (
+                    <span class="relative flex h-2 w-2" aria-hidden="true">
+                      <span class="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 motion-safe:animate-ping" />
+                      <span class="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+                    </span>
+                  )}
+                  {label}
+                </p>
+                <div class="flex gap-3" data-next-events-list>
+                  {events.map((event) => (
+                    <div
+                      class="bg-page p-3 rounded-lg shadow-xs border border-black/5 dark:border-white/10 min-w-[200px] max-w-[260px]"
+                      data-next-event
+                      data-start={event.start_ms}
+                      data-end={event.end_ms}
+                    >
+                      <div class="flex flex-col gap-1.5">
+                        {/* Event Title with Truncation */}
+                        <div class="flex justify-between items-start gap-2">
+                          <h4 class="text-sm font-semibold truncate" title={event.title}>
+                            {event.title}
+                          </h4>
+                          {event.info_link && (
+                            <a
+                              href={event.info_link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="text-xs text-primary hover:text-accent shrink-0"
+                            >
+                              Details
+                            </a>
+                          )}
+                        </div>
+
+                        {/* Compact Date/Location */}
+                        <div class="text-xs text-muted space-y-1">
+                          <div class="flex items-center gap-1.5 truncate">
+                            <span class="truncate">
+                              {formatDateRange(
+                                event.start_date,
+                                event.end_date,
+                                event.start_time_flag,
+                                event.end_time_flag,
+                                event.timezone,
+                                'en-GB',
+                                event.month_only
+                              )}
+                            </span>
+                          </div>
+
+                          {event.location && (
+                            <div class="flex items-center gap-1.5 truncate">
+                              {event.location_link ? (
+                                <a href={event.location_link} class="hover:text-accent truncate" title={event.location}>
+                                  {event.location}
+                                </a>
+                              ) : (
+                                <span class="truncate" title={event.location}>
+                                  {event.location}
+                                </span>
+                              )}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Truncated Description */}
+                        {event.description && (
+                          <p
+                            class="text-xs text-default mt-1 line-clamp-2"
+                            title={event.description.replace(/<[^>]*>/g, '')}
+                            set:html={event.description}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile "View All" link */}
+        {eventsPageLink && (
+          <a
+            href={getPermalink(eventsPageLink)}
+            class="text-sm text-primary hover:text-accent md:hidden w-full text-center"
+          >
+            View all events →
+          </a>
+        )}
+      </div>
+    </WidgetWrapper>
+  ) : (
+    <Fragment />
+  )
+}
+
+<script>
+  // The site is rebuilt every few hours, so an event in this banner can start or finish after the
+  // page was built. When the page loads, move events that have started into "Happening now", hide
+  // events that are over, and hide the banner if nothing is left.
+  const refreshNextEvents = () => {
+    const now = Date.now();
+    document.querySelectorAll<HTMLElement>('[data-next-events]').forEach((banner) => {
+      const lists: Record<string, HTMLElement | null> = {};
+      for (const status of ['ongoing', 'upcoming']) {
+        lists[status] = banner.querySelector(`[data-next-events-group="${status}"] [data-next-events-list]`);
+      }
+      const cards = [...banner.querySelectorAll<HTMLElement>('[data-next-event]')];
+      for (const card of cards) {
+        card.hidden = now >= Number(card.dataset.end);
+        const list = lists[now >= Number(card.dataset.start) ? 'ongoing' : 'upcoming'];
+        if (!card.hidden && list && card.parentElement !== list) list.append(card);
+      }
+      for (const list of Object.values(lists)) {
+        if (!list) continue;
+        const items = [...list.children] as HTMLElement[];
+        items.sort((a, b) => Number(a.dataset.start) - Number(b.dataset.start));
+        list.append(...items);
+        const group = list.closest<HTMLElement>('[data-next-events-group]');
+        if (group) group.hidden = !items.some((card) => !card.hidden);
+      }
+      const section = banner.closest('section');
+      if (section) section.hidden = !cards.some((card) => !card.hidden);
+    });
+  };
+  refreshNextEvents();
+  document.addEventListener('astro:page-load', refreshNextEvents);
+</script>
