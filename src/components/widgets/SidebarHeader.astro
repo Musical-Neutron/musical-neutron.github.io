@@ -4,10 +4,9 @@ import Logo from '~/components/Logo.astro';
 import ToggleTheme from '~/components/common/ToggleTheme.astro';
 import Button from '~/components/ui/Button.astro';
 
-import { APP_BLOG } from 'astrowind:config';
 import type { CallToAction } from '~/types';
-import { fetchPosts } from '~/utils/blog';
-import { getAsset, getBlogPermalink, getHomePermalink, getPermalink, trimSlash } from '~/utils/permalinks';
+import { arrangeNewsMenu, getNewsDisplayState } from '~/utils/newsDisplay';
+import { getAsset, getHomePermalink, trimSlash } from '~/utils/permalinks';
 
 interface Link {
   text?: string;
@@ -28,143 +27,8 @@ const { links: navLinks = [], actions = [], showToggleTheme = false, showRssFeed
 
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 
-// Same display criteria as index.astro / BlogLatestPosts
-const freshnessDays = APP_BLOG.latest?.freshnessDays ?? 30;
-const maxAgeDays = APP_BLOG.latest?.maxAgeDays ?? 365;
-const sidebarCount = APP_BLOG.latest?.sidebarCount ?? 3;
-const dayMs = 1000 * 60 * 60 * 24;
-
-let enhancedNavLinks = navLinks;
-
-if (APP_BLOG.isEnabled) {
-  const now = new Date();
-  const allPosts = await fetchPosts();
-
-  const freshPosts = allPosts.filter((post) => now.getTime() - post.publishDate.getTime() <= freshnessDays * dayMs);
-  const hasFreshPosts = freshPosts.length > 0;
-  const hideNewsTopLevel = !hasFreshPosts;
-
-  // Build latest posts for sidebar when we *do* show News
-  const ageFilteredPosts = allPosts.filter((post) => now.getTime() - post.publishDate.getTime() <= maxAgeDays * dayMs);
-  const latestPosts = ageFilteredPosts.slice(0, sidebarCount);
-
-  enhancedNavLinks = navLinks
-    .map((item) => {
-      // Handle News section
-      if (item.text === 'News') {
-        if (hideNewsTopLevel) {
-          // Remove News as a top-level section in sidebar
-          return null;
-        }
-
-        // Show latest posts under News
-        const topPostLinks: Link[] = latestPosts.map((post) => ({
-          text: post.title,
-          href: getPermalink(post.permalink, 'post'),
-        }));
-
-        return {
-          ...item,
-          links: topPostLinks,
-        };
-      }
-
-      // Handle Home section: add News link under Home when News is hidden
-      if (item.text === 'Home' && hideNewsTopLevel) {
-        const existingChildren = item.links ?? [];
-        const hasNewsChild = existingChildren.some((child) => child.text === 'News');
-        const newsChild: Link = {
-          text: 'News',
-          href: getBlogPermalink(),
-        };
-
-        return {
-          ...item,
-          links: hasNewsChild ? existingChildren : [...existingChildren, newsChild],
-        };
-      }
-
-      return item;
-    })
-    .filter((item): item is Link => item !== null);
-
-  // If no fresh posts, leave navLinks as originally defined (News section just shows static children)
-}
-
-//////////
-
-// const latestCfg = APP_BLOG.latest ?? {};
-// const freshnessDays = latestCfg.freshnessDays ?? 90;
-// const maxAgeDays = latestCfg.maxAgeDays ?? 365;
-// const sidebarCount = latestCfg.sidebarCount ?? 3;
-// const newsButtonMaxAgeDays = 730; // Y: same as index.astro
-// const dayMs = 1000 * 60 * 60 * 24;
-
-// let enhancedNavLinks = navLinks;
-
-// if (APP_BLOG.isEnabled) {
-//   const now = new Date();
-//   const allPosts = await fetchPosts();
-//   const hasAnyPosts = allPosts.length > 0;
-
-//   const freshPosts = allPosts.filter(
-//     (post) => now.getTime() - post.publishDate.getTime() <= freshnessDays * dayMs
-//   );
-//   const hasFreshPosts = freshPosts.length > 0;
-
-//   const newestAgeDays =
-//     hasAnyPosts ? (now.getTime() - allPosts[0].publishDate.getTime()) / dayMs : Infinity;
-
-//   // Same condition as "no News button on index"
-//   const hideNewsTopLevel =
-//     !hasFreshPosts && (!hasAnyPosts || newestAgeDays > newsButtonMaxAgeDays);
-
-//   // Build latest posts for sidebar when we *do* show News
-//   const ageFilteredPosts = allPosts.filter(
-//     (post) => now.getTime() - post.publishDate.getTime() <= maxAgeDays * dayMs
-//   );
-//   const latestPosts = ageFilteredPosts.slice(0, sidebarCount);
-
-//   enhancedNavLinks = navLinks
-//     .map((item) => {
-//       // Handle News section
-//       if (item.text === 'News') {
-//         if (hideNewsTopLevel) {
-//           // Remove News as a top-level section in sidebar
-//           return null;
-//         }
-
-//         // Show latest posts under News
-//         const topPostLinks: Link[] = latestPosts.map((post) => ({
-//           text: post.title,
-//           href: getPermalink(post.permalink, 'post'),
-//         }));
-
-//         return {
-//           ...item,
-//           links: topPostLinks,
-//         };
-//       }
-
-//       // Handle Home section: add News link under Home when News is hidden
-//       if (item.text === 'Home' && hideNewsTopLevel && hasAnyPosts) {
-//         const existingChildren = item.links ?? [];
-//         const hasNewsChild = existingChildren.some((child) => child.text === 'News');
-//         const newsChild: Link = {
-//           text: 'News',
-//           href: getBlogPermalink(),
-//         };
-
-//         return {
-//           ...item,
-//           links: hasNewsChild ? existingChildren : [...existingChildren, newsChild],
-//         };
-//       }
-
-//       return item;
-//     })
-//     .filter((item): item is Link => item !== null);
-// }
+// News sits under Home: first while there is recent news, last otherwise (see utils/newsDisplay.ts)
+const enhancedNavLinks = arrangeNewsMenu(navLinks, await getNewsDisplayState());
 ---
 
 {/* class="fixed left-0 top-0 z-40 h-screen w-64 bg-page border-(--aw-color-primary) border-r flex flex-col" */}

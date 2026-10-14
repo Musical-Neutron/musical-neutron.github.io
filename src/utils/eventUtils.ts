@@ -1,4 +1,9 @@
-import { calendarDay, DEFAULT_TIMEZONE, parseDate } from "./dateUtils";
+import {
+  calendarDay,
+  DEFAULT_TIMEZONE,
+  parseDate,
+  toZonedISOString,
+} from "./dateUtils";
 
 export interface CategorizedEvents<T> {
   ongoingEvents: T[];
@@ -26,6 +31,8 @@ export const categorizeEvents = <
     start_time_flag: boolean;
     end_date: Date;
     end_time_flag: boolean;
+    start_ms: number;
+    end_ms: number;
   }
 > => {
   const {
@@ -42,6 +49,8 @@ export const categorizeEvents = <
           start_time_flag: boolean;
           end_date: Date;
           end_time_flag: boolean;
+          start_ms: number;
+          end_ms: number;
         }
       >,
       item,
@@ -75,6 +84,22 @@ export const categorizeEvents = <
       const appearDateOnly = new Date(startDateOnly);
       appearDateOnly.setUTCDate(appearDateOnly.getUTCDate() - daysBefore);
 
+      // The exact moments the event starts and is over. Times given in the data are used as they
+      // are. Without a start time the event starts at midnight on its first day, and without an end
+      // time it lasts until midnight at the end of its last day, both in the event's time zone.
+      const dayStartMs = (day: Date) =>
+        new Date(
+          toZonedISOString(day.toISOString().slice(0, 10), "00:00", timeZone),
+        ).getTime();
+      const startMs = hasStartTime
+        ? startDate.getTime()
+        : dayStartMs(startDateOnly);
+      const hasTimedEnd = Boolean(item.end_date) && hasEndTime;
+      const endMs = hasTimedEnd
+        ? validEndDate.getTime()
+        : dayStartMs(new Date(endDateOnly.getTime() + 86400000));
+      const nowMs = currentDate.getTime();
+
       // Categorize
       const enhancedItem = {
         ...item,
@@ -82,9 +107,15 @@ export const categorizeEvents = <
         start_time_flag: hasStartTime,
         end_date: validEndDate,
         end_time_flag: hasEndTime,
+        start_ms: startMs,
+        end_ms: endMs,
       };
 
-      if (startDateOnly > currentDateOnly) {
+      if (nowMs >= endMs) {
+        acc.pastEvents.push(enhancedItem);
+      } else if (nowMs >= startMs) {
+        acc.ongoingEvents.push(enhancedItem);
+      } else {
         // Upcoming events checks
         const shouldShow = currentDateOnly >= appearDateOnly;
         const withinMaxWindow =
@@ -94,13 +125,6 @@ export const categorizeEvents = <
         if (shouldShow && withinMaxWindow) {
           acc.upcomingEvents.push(enhancedItem);
         }
-      } else if (
-        startDateOnly <= currentDateOnly &&
-        endDateOnly >= currentDateOnly
-      ) {
-        acc.ongoingEvents.push(enhancedItem);
-      } else {
-        acc.pastEvents.push(enhancedItem);
       }
 
       return acc;

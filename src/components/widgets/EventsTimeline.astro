@@ -51,47 +51,41 @@ pastEvents.sort((a, b) => b.start_date.getTime() - a.start_date.getTime());
         }}
       />
 
-      {/* Ongoing Events */}
-      {
-        ongoingEvents.length > 0 && (
-          <div class="mb-8">
-            <h3 class="text-2xl font-bold mb-4">Ongoing Events</h3>
-            <Timeline
-              items={ongoingEvents}
-              classes={classes?.items as Record<string, never>}
-              showCategory={showCategory}
-            />
-          </div>
-        )
-      }
+      <div data-events-timeline>
+        {/* Happening now */}
+        <div class="mb-8" data-events-section="ongoing" hidden={ongoingEvents.length === 0}>
+          <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
+            <span class="relative flex h-3 w-3" aria-hidden="true">
+              <span
+                class="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 motion-safe:animate-ping"
+              ></span>
+              <span class="relative inline-flex h-3 w-3 rounded-full bg-primary"></span>
+            </span>
+            Happening now
+          </h3>
+          <Timeline
+            items={ongoingEvents}
+            classes={classes?.items as Record<string, never>}
+            showCategory={showCategory}
+          />
+        </div>
 
-      {/* Upcoming Events */}
-      {
-        upcomingEvents.length > 0 && (
-          <div class="mb-8">
-            <h3 class="text-2xl font-bold mb-4">Upcoming Events</h3>
-            <Timeline
-              items={upcomingEvents}
-              classes={classes?.items as Record<string, never>}
-              showCategory={showCategory}
-            />
-          </div>
-        )
-      }
+        {/* Coming up */}
+        <div class="mb-8" data-events-section="upcoming" hidden={upcomingEvents.length === 0}>
+          <h3 class="text-2xl font-bold mb-4">Coming up</h3>
+          <Timeline
+            items={upcomingEvents}
+            classes={classes?.items as Record<string, never>}
+            showCategory={showCategory}
+          />
+        </div>
 
-      {/* Past Events */}
-      {
-        pastEvents.length > 0 && (
-          <div>
-            <h3 class="text-2xl font-bold mb-4">Past Events</h3>
-            <Timeline
-              items={pastEvents}
-              classes={classes?.items as Record<string, never>}
-              showCategory={showCategory}
-            />
-          </div>
-        )
-      }
+        {/* Past events */}
+        <div data-events-section="past" hidden={pastEvents.length === 0}>
+          <h3 class="text-2xl font-bold mb-4">Past events</h3>
+          <Timeline items={pastEvents} classes={classes?.items as Record<string, never>} showCategory={showCategory} />
+        </div>
+      </div>
     </div>
 
     {/* Optional Image */}
@@ -117,3 +111,40 @@ pastEvents.sort((a, b) => b.start_date.getTime() - a.start_date.getTime());
     }
   </div>
 </WidgetWrapper>
+
+<script>
+  // The site is rebuilt every few hours, so an event can start or finish after the page was built.
+  // When the page loads, move each event into the section that matches the current time.
+  const refreshEventSections = () => {
+    const now = Date.now();
+    document.querySelectorAll<HTMLElement>('[data-events-timeline]').forEach((timeline) => {
+      const lists: Record<string, HTMLElement | null> = {};
+      for (const status of ['ongoing', 'upcoming', 'past']) {
+        lists[status] = timeline.querySelector(`[data-events-section="${status}"] [data-events-list]`);
+      }
+      let moved = false;
+      timeline.querySelectorAll<HTMLElement>('[data-event-item]').forEach((item) => {
+        const start = Number(item.dataset.start);
+        const end = Number(item.dataset.end);
+        const status = now >= end ? 'past' : now >= start ? 'ongoing' : 'upcoming';
+        const list = lists[status];
+        if (list && item.parentElement !== list) {
+          list.append(item);
+          moved = true;
+        }
+      });
+      if (!moved) return;
+      for (const [status, list] of Object.entries(lists)) {
+        if (!list) continue;
+        // Upcoming: soonest first. Ongoing and past: most recent first.
+        const items = [...list.children] as HTMLElement[];
+        items.sort((a, b) => (Number(a.dataset.start) - Number(b.dataset.start)) * (status === 'upcoming' ? 1 : -1));
+        list.append(...items);
+        const section = list.closest<HTMLElement>('[data-events-section]');
+        if (section) section.hidden = items.length === 0;
+      }
+    });
+  };
+  refreshEventSections();
+  document.addEventListener('astro:page-load', refreshEventSections);
+</script>

@@ -38,7 +38,8 @@ export default defineConfig({
   site: "https://oliver-newton.com",
 
   integrations: [
-    sitemap(),
+    // The editor and its helper pages under /admin/ are not for search engines.
+    sitemap({ filter: (page) => !page.includes("/admin/") }),
     mdx(),
     icon({
       include: {

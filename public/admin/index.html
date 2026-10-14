@@ -8,5 +8,29 @@
   </head>
   <body>
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+    <script>
+      // Links in field hints (such as the icon sheet) open in a new tab, so unsaved edits aren't lost.
+      // Relative links are resolved against this folder, however the editor's address was typed.
+      document.addEventListener(
+        "click",
+        (event) => {
+          const link =
+            event.target.closest &&
+            event.target.closest("[data-field-type] a[href]");
+          if (!link) return;
+          event.preventDefault();
+          const folder = new URL(
+            location.pathname.replace(/(\/index\.html)?\/?$/, "/"),
+            location.origin,
+          );
+          window.open(
+            new URL(link.getAttribute("href"), folder),
+            "_blank",
+            "noopener",
+          );
+        },
+        true,
+      );
+    </script>
   </body>
 </html>

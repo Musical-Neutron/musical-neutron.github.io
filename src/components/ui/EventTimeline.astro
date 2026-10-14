@@ -2,7 +2,9 @@
 import { Icon } from 'astro-icon/components';
 import { twMerge } from 'tailwind-merge';
 import type { Item } from '~/types';
+import { fetchPosts } from '~/utils/blog';
 import { formatDateRange } from '~/utils/dateUtils';
+import { getPermalink } from '~/utils/permalinks';
 
 export interface Props {
   items?: Array<Item>;
@@ -22,6 +24,16 @@ const {
   icon: defaultIconClass = 'text-primary border-primary',
 } = classes;
 
+// Addresses of the news posts, so an event's Write-up (a post's slug) can link to it.
+const postLinks = new Map((await fetchPosts()).map((post) => [post.slug, getPermalink(post.permalink, 'post')]));
+const writeupLink = (writeup?: string) => {
+  if (!writeup) return undefined;
+  const link = postLinks.get(writeup);
+  if (!link) console.warn(`Event write-up "${writeup}" doesn't match any news post; the link is left out.`);
+  return link;
+};
+const timelineItems = items.map((item) => ({ ...item, writeup_link: writeupLink(item.writeup) }));
+
 const categoryBadgeStyles: Record<string, string> = {
   conference: 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-200',
   outreach: 'bg-(--aw-color-bg-page-dark) text-default dark:bg-green-900 dark:text-green-300',
@@ -38,122 +50,127 @@ const categoryLabels: Record<string, string> = {
 };
 ---
 
-{
-  items && items.length && (
-    <div class={containerClass}>
-      {items.map(
-        (
-          {
-            eventID,
-            title,
-            category,
-            description,
-            icon,
-            start_date,
-            end_date,
-            start_time_flag,
-            end_time_flag,
-            timezone,
-            month_only,
-            location,
-            info_link,
-            location_link,
-            classes: itemClasses = {},
-          },
-          index = 0
-        ) => (
-          <div
-            class={twMerge(
-              'flex intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade',
-              panelClass,
-              itemClasses?.panel
+{/* Always rendered, even when empty, so the script in EventsTimeline.astro can move events into it. */}
+<div class={containerClass} data-events-list>
+  {
+    timelineItems.map(
+      ({
+        eventID,
+        title,
+        category,
+        description,
+        icon,
+        start_date,
+        end_date,
+        start_time_flag,
+        end_time_flag,
+        timezone,
+        month_only,
+        location,
+        info_link,
+        writeup_link,
+        location_link,
+        start_ms,
+        end_ms,
+        classes: itemClasses = {},
+      }) => (
+        <div
+          data-event-item
+          data-start={start_ms}
+          data-end={end_ms}
+          class={twMerge(
+            'group/event flex intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade',
+            panelClass,
+            itemClasses?.panel
+          )}
+        >
+          {eventID && (
+            <div
+              id={eventID}
+              class="relative -top-24 pointer-events-none invisible"
+              style="height: 0; z-index: -1;"
+              aria-hidden="true"
+            />
+          )}
+          <div class="flex flex-col items-center mr-4 rtl:mr-0 rtl:ml-4">
+            <div>
+              <div class="flex items-center justify-center">
+                {(icon || defaultIcon) && (
+                  <Icon
+                    name={icon || defaultIcon}
+                    class={twMerge('w-10 h-10 p-2 rounded-full border-2', defaultIconClass, itemClasses?.icon)}
+                  />
+                )}
+              </div>
+            </div>
+            <div class="w-px h-full bg-primary group-last/event:hidden" />
+          </div>
+          <div class="pt-1 pb-8 group-last/event:pb-0">
+            {title && <p class={twMerge('text-xl font-bold', titleClass, itemClasses?.title)} set:html={title} />}
+            {showCategory && category && (
+              <span
+                class={twMerge(
+                  'text-xs font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full',
+                  categoryBadgeStyles[category] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-200'
+                )}
+              >
+                {categoryLabels[category] ?? category}
+              </span>
             )}
-          >
-            {eventID && (
-              <div
-                id={eventID}
-                class="relative -top-24 pointer-events-none invisible"
-                style="height: 0; z-index: -1;"
-                aria-hidden="true"
+            {/* Display Date and Location */}
+            {(start_date || location) && (
+              <p class={twMerge('text-sm text-muted mt-1', itemClasses?.description)}>
+                {start_date && (
+                  <span>
+                    {formatDateRange(
+                      start_date,
+                      end_date,
+                      start_time_flag,
+                      end_time_flag,
+                      timezone,
+                      'en-GB',
+                      month_only
+                    )}
+                  </span>
+                )}
+                {start_date && location && <span class="mx-2">•</span>}
+                {location &&
+                  (location_link ? (
+                    <a
+                      href={location_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="hover:text-accent transition-colors"
+                    >
+                      {location}
+                    </a>
+                  ) : (
+                    <span>{location}</span>
+                  ))}
+              </p>
+            )}
+
+            {description && (
+              <p
+                class={twMerge('text-default mt-2', descriptionClass, itemClasses?.description)}
+                set:html={description}
               />
             )}
-            <div class="flex flex-col items-center mr-4 rtl:mr-0 rtl:ml-4">
-              <div>
-                <div class="flex items-center justify-center">
-                  {(icon || defaultIcon) && (
-                    <Icon
-                      name={icon || defaultIcon}
-                      class={twMerge('w-10 h-10 p-2 rounded-full border-2', defaultIconClass, itemClasses?.icon)}
-                    />
-                  )}
-                </div>
-              </div>
-              {index !== items.length - 1 && <div class="w-px h-full bg-black/10 dark:bg-slate-400/50" />}
-            </div>
-            <div class={`pt-1 ${index !== items.length - 1 ? 'pb-8' : ''}`}>
-              {title && <p class={twMerge('text-xl font-bold', titleClass, itemClasses?.title)} set:html={title} />}
-              {showCategory && category && (
-                <span
-                  class={twMerge(
-                    'text-xs font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full',
-                    categoryBadgeStyles[category] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-200'
-                  )}
-                >
-                  {categoryLabels[category] ?? category}
-                </span>
-              )}
-              {/* Display Date and Location */}
-              {(start_date || location) && (
-                <p class={twMerge('text-sm text-muted mt-1', itemClasses?.description)}>
-                  {start_date && (
-                    <span>
-                      {formatDateRange(
-                        start_date,
-                        end_date,
-                        start_time_flag,
-                        end_time_flag,
-                        timezone,
-                        'en-GB',
-                        month_only
-                      )}
-                    </span>
-                  )}
-                  {start_date && location && <span class="mx-2">•</span>}
-                  {location &&
-                    (location_link ? (
-                      <a
-                        href={location_link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="hover:underline hover:text-accent"
-                      >
-                        {location}
-                      </a>
-                    ) : (
-                      <span>{location}</span>
-                    ))}
-                </p>
-              )}
 
-              {description && (
-                <p
-                  class={twMerge('text-default mt-2', descriptionClass, itemClasses?.description)}
-                  set:html={description}
-                />
-              )}
-
-              {/* Display Info Link if Provided */}
-              {info_link && (
-                <p class="mt-2 rich-text">
+            {/* The event's own web page and/or a news post about it */}
+            {(info_link || writeup_link) && (
+              <p class="mt-2 rich-text flex flex-wrap gap-x-6">
+                {info_link && (
                   <a href={info_link} target="_blank" rel="noopener noreferrer">
                     More information
                   </a>
-                </p>
-              )}
-            </div>
+                )}
+                {writeup_link && <a href={writeup_link}>Read the write-up</a>}
+              </p>
+            )}
           </div>
-        )
-      )}
-    </div>
-  )
-}
+        </div>
+      )
+    )
+  }
+</div>

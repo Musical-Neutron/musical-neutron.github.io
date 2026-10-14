@@ -3,14 +3,12 @@ import Layout from '~/layouts/PageLayout.astro';
 import Content from '~/components/widgets/Content.astro';
 import EventsTimeline from '~/components/widgets/EventsTimeline.astro';
 import { getPermalink } from '~/utils/permalinks';
-import { events } from '~/data/events.js';
+import { outreachEvents } from '~/data/events.js';
 
 const metadata = {
   title: 'Outreach',
   description: 'Public talks, school visits and science festivals by Oliver Newton.',
 };
-
-const outreachEvents = events.filter((event) => event.category === 'outreach');
 ---
 
 <Layout metadata={metadata}>

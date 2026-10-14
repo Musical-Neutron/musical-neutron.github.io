@@ -1,0 +1,55 @@
+---
+// A sheet of the icons offered in the editor's Icon field for events, so you can see what each
+// one looks like. The list comes from public/admin/config.yml, so it always matches the editor.
+import fs from 'node:fs';
+import path from 'node:path';
+import { Icon } from 'astro-icon/components';
+import { load } from 'js-yaml';
+import Layout from '~/layouts/Layout.astro';
+
+type Option = { label: string; value: string };
+
+// Find the first field called "icon" that has a list of options, wherever it is in the config.
+const findIconOptions = (node: unknown): Option[] | undefined => {
+  if (Array.isArray(node)) {
+    for (const child of node) {
+      const found = findIconOptions(child);
+      if (found) return found;
+    }
+  } else if (node && typeof node === 'object') {
+    const field = node as Record<string, unknown>;
+    if (field.name === 'icon' && Array.isArray(field.options)) return field.options as Option[];
+    for (const child of Object.values(field)) {
+      const found = findIconOptions(child);
+      if (found) return found;
+    }
+  }
+  return undefined;
+};
+
+const config = load(fs.readFileSync(path.join(process.cwd(), 'public/admin/config.yml'), 'utf8'));
+const icons = findIconOptions(config) ?? [];
+---
+
+<Layout metadata={{ title: 'Event icons', robots: { index: false, follow: false } }}>
+  <main class="mx-auto max-w-5xl px-4 py-10">
+    <h1 class="text-3xl font-bold font-heading text-heading">Event icons</h1>
+    <p class="mt-2 text-muted">
+      These are the icons you can pick in the editor's Icon fields. For events, leaving the field as (None) uses the
+      icon for the event's category.
+    </p>
+    <ul class="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+      {
+        icons.map(({ label, value }) => (
+          <li class="flex items-center gap-3">
+            <Icon name={value} class="w-10 h-10 p-2 rounded-full border-2 text-primary border-primary shrink-0" />
+            <span>
+              <span class="block text-sm font-semibold">{label}</span>
+              <span class="block text-xs text-muted">{value}</span>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>

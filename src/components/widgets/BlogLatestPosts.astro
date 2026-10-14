@@ -4,7 +4,7 @@ import { APP_BLOG } from 'astrowind:config';
 import Grid from '~/components/blog/Grid.astro';
 
 import { getBlogPermalink } from '~/utils/permalinks';
-import { fetchPosts } from '~/utils/blog';
+import { getNewsDisplayState } from '~/utils/newsDisplay';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
 import type { Widget } from '~/types';
 import Button from '~/components/ui/Button.astro';
@@ -15,8 +15,6 @@ export interface Props extends Widget {
   linkUrl?: string | URL;
   information?: string;
   count?: number;
-  freshnessDays?: number;
-  maxAgeDays?: number;
 }
 
 const {
@@ -24,9 +22,7 @@ const {
   linkText = 'View all news',
   linkUrl = getBlogPermalink(),
   information = await Astro.slots.render('information'),
-  count = APP_BLOG.latest?.minCount ?? 4,
-  freshnessDays = APP_BLOG.latest?.freshnessDays ?? 30,
-  maxAgeDays = APP_BLOG.latest?.maxAgeDays ?? 365,
+  count,
 
   id,
   isDark = false,
@@ -34,20 +30,9 @@ const {
   bg = await Astro.slots.render('bg'),
 } = Astro.props;
 
-const allPosts = APP_BLOG.isEnabled ? await fetchPosts() : [];
-const now = new Date();
-const dayMs = 1000 * 60 * 60 * 24;
-
-// Posts newer than freshnessDays (X)
-const freshPosts = allPosts.filter((post) => now.getTime() - post.publishDate.getTime() <= freshnessDays * dayMs);
-
-// If no fresh posts, hide the widget (posts = [])
-const ageFilteredPosts =
-  freshPosts.length > 0
-    ? allPosts.filter((post) => now.getTime() - post.publishDate.getTime() <= maxAgeDays * dayMs)
-    : [];
-
-const posts = ageFilteredPosts.slice(0, count);
+// Shown only while there is recent news (see utils/newsDisplay.ts)
+const { homePosts } = await getNewsDisplayState();
+const posts = count ? homePosts.slice(0, count) : homePosts;
 ---
 
 {

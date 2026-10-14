@@ -1,61 +1,50 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import { getBlogPermalink } from '../utils/permalinks';
 
-import { APP_BLOG, PERSONAL } from 'astrowind:config';
+import { PERSONAL } from 'astrowind:config';
 import ImageCarousel from '~/components/ImageCarousel.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import Content from '~/components/widgets/Content.astro';
 import Hero from '~/components/widgets/Hero.astro';
+import NextTimelineEvent from '~/components/widgets/NextTimelineEvent.astro';
+import { outreachEvents } from '~/data/events.js';
 import Image from '~/components/common/Image.astro';
 import headshot from '~/assets/images/oliver_newton.png';
 import AboutMe from '~/content/about_me.md';
-import { fetchPosts } from '~/utils/blog';
+import { getNewsDisplayState } from '~/utils/newsDisplay';
 
 const metadata = {
   title: 'Astrophysicist | Oliver Newton',
   ignoreTitleTemplate: true,
 };
 
-// Same thresholds as Latest news section
-const freshnessDays = APP_BLOG.latest?.freshnessDays ?? 30;
-const maxAgeDays = APP_BLOG.latest?.maxAgeDays ?? 365;
-const newsButtonMaxAgeDays = 425;
-const dayMs = 1000 * 60 * 60 * 24;
-const now = new Date();
-
-const allPosts = APP_BLOG.isEnabled ? await fetchPosts() : [];
-const hasAnyPosts = allPosts.length > 0;
-
-// Posts newer than X days (freshnessDays)
-const freshPosts = allPosts.filter((post) => now.getTime() - post.publishDate.getTime() <= freshnessDays * dayMs);
-const hasFreshPosts = freshPosts.length > 0;
-
-// Age of the most recent post, in days
-const newestAgeDays = hasAnyPosts ? (now.getTime() - allPosts[0].publishDate.getTime()) / dayMs : Infinity;
-
-// Decide News button behaviour
+// While there is recent news, the "Latest news" section appears above About and the News
+// button scrolls to it; otherwise both are hidden (see utils/newsDisplay.ts).
 const latestNewsSectionId = 'latest-news';
-
-let newsHref: string | undefined;
-
-if (hasFreshPosts) {
-  // Case 1: at least one post within X days → scroll to Latest news section
-  newsHref = `#${latestNewsSectionId}`;
-} else if (hasAnyPosts && newestAgeDays > maxAgeDays && newestAgeDays <= newsButtonMaxAgeDays) {
-  // Case 2: no fresh posts; most recent is older than Z but fresher than Y → link to news page
-  newsHref = getBlogPermalink();
-}
+const news = await getNewsDisplayState();
 
 const heroActions = [
   { text: 'About me', href: '#about' },
-  ...(newsHref ? [{ text: 'News', href: newsHref }] : []),
+  ...(news.isFresh ? [{ text: 'News', href: `#${latestNewsSectionId}` }] : []),
   { text: 'Research', href: '/research' },
   { text: 'Contact', href: '/contact' },
 ];
 ---
 
 <Layout metadata={metadata}>
+  {/* Outreach events happening now or in the next two weeks; hidden when there are none */}
+  <NextTimelineEvent
+    title="Events"
+    items={outreachEvents}
+    appearanceDelay={14}
+    eventsPageLink={'/outreach'}
+    classes={{ container: 'py-4! md:py-8! lg:py-10! mb-6!' }}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-(--aw-color-bg-alt) border-b border-(--aw-color-bg-page-dark)"></div>
+    </Fragment>
+  </NextTimelineEvent>
+
   {/* Hero Widget ******************* */}
 
   <Hero actions={heroActions} image="">
@@ -94,6 +83,18 @@ const heroActions = [
     }
   </Hero>
 
+  {/* Latest news: only while there is recent news (see utils/newsDisplay.ts) */}
+
+  <BlogLatestPosts
+    id={latestNewsSectionId}
+    title="Latest news"
+    information={`Latest articles and announcements relating to my research and outreach.`}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 page-fade-dark"></div>
+    </Fragment>
+  </BlogLatestPosts>
+
   {/* Content Widget **************** */}
 
   <Content id="about" isReversed tagline="" title="About" items={[]}>
@@ -119,16 +120,4 @@ const heroActions = [
     </Fragment> */
     }
   </Content>
-
-  {/* HighlightedPosts Widget ******* */}
-
-  <BlogLatestPosts
-    id={latestNewsSectionId}
-    title="Latest news"
-    information={`Latest articles and announcements relating to my research and outreach.`}
-  >
-    <Fragment slot="bg">
-      <div class="absolute inset-0 page-fade-dark"></div>
-    </Fragment>
-  </BlogLatestPosts>
 </Layout>
