@@ -62,13 +62,10 @@ collections:
                 format: YYYY-MM-DD
               - name: start_time
                 label: Start time
-                widget: string
+                widget: datetime
+                date_format: false
+                format: "HH:mm"
                 required: false
-                pattern:
-                  [
-                    "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-                    "Use 24-hour time, e.g. 15:00",
-                  ]
                 hint: "Local time where the event happens. Leave empty for an all-day event."
               - name: end_date
                 label: End date
@@ -79,13 +76,10 @@ collections:
                 hint: "Leave empty if the event ends on the start date."
               - name: end_time
                 label: End time
-                widget: string
+                widget: datetime
+                date_format: false
+                format: "HH:mm"
                 required: false
-                pattern:
-                  [
-                    "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-                    "Use 24-hour time, e.g. 16:00",
-                  ]
               - name: timezone
                 label: Time zone
                 widget: string
