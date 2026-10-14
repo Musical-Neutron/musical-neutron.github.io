@@ -669,7 +669,7 @@ collections:
                 label: Icon
                 widget: select
                 required: false
-                hint: "Leave as (None) to use the category's icon. [See what the icons look like](icons/)."
+                hint: "Leave as (None) to use the category's icon. [See what the icons look like](icons)."
                 options:
                   - {
                       label: "Microphone (outreach default)",
