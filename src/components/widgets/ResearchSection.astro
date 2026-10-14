@@ -55,11 +55,11 @@ const getPubTime = (paper: Paper): number => {
   return paper.year ?? 0;
 };
 
-// Helper: extract first author surname from title
+// Helper: extract first author surname from the citation
 // e.g. "Newton et al., 2018, MNRAS..." -> "Newton"
 //      "Enzi, Murgia, Newton et al., 2021..." -> "Enzi"
-const getFirstAuthorSurname = (title: string): string => {
-  const firstPart = title.split(',')[0]; // "Newton et al." or "Enzi"
+const getFirstAuthorSurname = (citation: string): string => {
+  const firstPart = citation.split(',')[0]; // "Newton et al." or "Enzi"
   const surname = firstPart.split(/\s+/)[0]; // "Newton" or "Enzi"
   return surname.replace(/[^A-Za-z'-]/g, ''); // strip punctuation
 };
@@ -70,8 +70,8 @@ const sortedPapers = papers.slice().sort((a, b) => {
   const ta = getPubTime(a);
   if (tb !== ta) return tb - ta; // descending by publication time
 
-  const nameA = getFirstAuthorSurname(a.title).toLowerCase();
-  const nameB = getFirstAuthorSurname(b.title).toLowerCase();
+  const nameA = getFirstAuthorSurname(a.citation ?? a.title).toLowerCase();
+  const nameB = getFirstAuthorSurname(b.citation ?? b.title).toLowerCase();
   return nameA.localeCompare(nameB);
 });
 ---

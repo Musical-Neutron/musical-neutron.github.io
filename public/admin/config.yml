@@ -1,11 +1,11 @@
 # Settings for the site editor (Sveltia CMS, https://sveltiacms.app).
 #
-# To edit events:
+# To edit events or research:
 #   1. Run `npm run dev`.
 #   2. Open http://localhost:4321/admin/index.html in Chrome or Edge.
 #   3. Choose "Work with Local Repository" and select this repository's folder.
-# Saving writes the changes straight into src/data/events.json. Nothing is committed or
-# pushed: check the changes with `git diff` and commit them as usual.
+# Saving writes the changes straight into src/data/events.json or src/data/research.json.
+# Nothing is committed or pushed: check the changes with `git diff` and commit them as usual.
 #
 # Events in the "outreach" category appear on the Outreach page.
 
@@ -670,7 +670,8 @@ collections:
                 widget: select
                 required: false
                 hint: "Leave as (None) to use the category's icon. [See what the icons look like](icons)."
-                options:
+                # This list is reused for research topics (*icon_options below).
+                options: &icon_options
                   - {
                       label: "Microphone (outreach default)",
                       value: "tabler:microphone",
@@ -735,9 +736,104 @@ collections:
                   - { label: "Plane", value: "tabler:plane" }
                   - { label: "Beer", value: "tabler:beer" }
                   - { label: "Coffee", value: "tabler:coffee" }
+                  - { label: "Network", value: "tabler:topology-star-3" }
+                  - { label: "Thermometer", value: "tabler:temperature" }
+                  - { label: "Orbit", value: "tabler:orbit" }
               - name: appear_days_before
                 label: Show in upcoming events this many days ahead
                 widget: number
                 value_type: int
                 required: false
                 min: 0
+      - name: research
+        label: Research
+        file: src/data/research.json
+        format: json
+        fields:
+          - name: topics
+            label: Research topics
+            label_singular: Topic
+            widget: list
+            collapsed: true
+            summary: "{{fields.title}}"
+            hint: "Topics appear on the Research page and in the menu in this order. Drag to reorder."
+            fields:
+              - { name: title, label: Title, widget: string }
+              - name: id
+                label: Link name
+                widget: string
+                pattern:
+                  [
+                    "^[a-z0-9-]+$",
+                    "Use lower-case letters, numbers and dashes only",
+                  ]
+                hint: "Used in links to this topic, e.g. /research#warm-dark-matter. Changing it breaks existing links to the topic."
+              - name: menu_title
+                label: Name in the menu
+                widget: string
+                required: false
+                hint: "Leave empty to use the title."
+              - name: icon
+                label: Icon
+                widget: select
+                hint: "[See what the icons look like](icons)."
+                options: *icon_options
+              - { name: description, label: Description, widget: text }
+              - name: menu_links
+                label: Extra menu links
+                label_singular: Link
+                widget: list
+                required: false
+                collapsed: true
+                summary: "{{fields.text}}"
+                hint: "Links shown under this topic in the menu, e.g. a project website."
+                fields:
+                  - { name: text, label: Text, widget: string }
+                  - { name: href, label: Address, widget: string }
+              - name: papers
+                label: Papers
+                label_singular: Paper
+                widget: list
+                collapsed: true
+                summary: "{{fields.date}}: {{fields.citation}}"
+                hint: "Shown newest first on the page, whatever the order here."
+                fields:
+                  - name: title
+                    label: Title
+                    widget: string
+                    hint: "For italics or superscripts use <i>…</i> and <sup>…</sup>, e.g. <i>L</i><sup>*</sup>."
+                  - name: citation
+                    label: Citation
+                    widget: string
+                    hint: "e.g. Newton et al., 2025, MNRAS, 542(2), 591-607"
+                  - name: date
+                    label: Publication date
+                    widget: datetime
+                    time_format: false
+                    format: YYYY-MM-DD
+                    hint: "Used to put the papers in order."
+                  - { name: summary, label: Summary, widget: text }
+                  - name: links
+                    label: Links
+                    label_singular: Link
+                    widget: list
+                    required: false
+                    summary: "{{fields.type}}: {{fields.href}}"
+                    fields:
+                      - name: type
+                        label: Type
+                        widget: select
+                        default: journal
+                        options:
+                          - { label: "Journal", value: journal }
+                          - { label: "arXiv", value: arxiv }
+                          - { label: "ADS", value: ads }
+                          - { label: "Zenodo", value: zenodo }
+                          - { label: "GitHub", value: github }
+                          - { label: "Other", value: other }
+                      - { name: href, label: Address, widget: string }
+                      - name: label
+                        label: Link text
+                        widget: string
+                        required: false
+                        hint: "Leave empty to use the type's name (Journal, arXiv, …)."

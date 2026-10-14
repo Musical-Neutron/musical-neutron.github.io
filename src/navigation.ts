@@ -1,3 +1,4 @@
+import { researchTopics } from "./data/research.js";
 import { getPermalink, getBlogPermalink, getAsset } from "./utils/permalinks";
 
 export const headerData = {
@@ -61,22 +62,12 @@ export const headerData = {
     {
       text: "Research",
       href: getPermalink("/research"),
-      links: [
-        {
-          text: "Galaxy-environment connection",
-          href: "/research#galaxy-environment",
-          links: [
-            {
-              text: "CWEBDWARFS project",
-              href: "https://oliver-newton.com/cwebdwarfs-sitefiles",
-            },
-          ],
-        },
-        { text: "Warm dark matter", href: "/research#warm-dark-matter" },
-        { text: "The Local Group", href: "/research#local-group" },
-        { text: "Satellite galaxies", href: "/research#satellite-galaxies" },
-        // { text: 'UDGs in the Local Group', href: '/research#udgs-local-group' },
-      ],
+      // One link per research topic (edited at /admin/), with any extra links shown under it.
+      links: researchTopics.map((topic) => ({
+        text: topic.menu_title || topic.title,
+        href: `/research#${topic.id}`,
+        ...(topic.menu_links.length ? { links: topic.menu_links } : {}),
+      })),
     },
     {
       text: "Contact",
