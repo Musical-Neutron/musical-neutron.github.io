@@ -8,7 +8,7 @@ import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import Content from '~/components/widgets/Content.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import NextTimelineEvent from '~/components/widgets/NextTimelineEvent.astro';
-import { events } from '~/data/events.js';
+import { outreachEvents } from '~/data/events.js';
 import Image from '~/components/common/Image.astro';
 import headshot from '~/assets/images/oliver_newton.png';
 import AboutMe from '~/content/about_me.md';
@@ -58,10 +58,10 @@ const heroActions = [
 ---
 
 <Layout metadata={metadata}>
-  {/* Events happening now or in the next two weeks; hidden when there are none */}
+  {/* Outreach events happening now or in the next two weeks; hidden when there are none */}
   <NextTimelineEvent
     title="Events"
-    items={events}
+    items={outreachEvents}
     appearanceDelay={14}
     eventsPageLink={'/outreach'}
     classes={{ container: 'py-4! md:py-8! lg:py-10! mb-6!' }}

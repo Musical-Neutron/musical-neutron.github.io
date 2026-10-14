@@ -37,3 +37,10 @@ export const events = data.events.map((entry) => {
     icon: e.icon ?? defaults.icon ?? "tabler:calendar",
   };
 });
+
+// The events the site shows: for now only outreach events, on the Outreach page and in the
+// home-page banner. To show other categories later, widen this filter, or add a page that
+// lists all `events` and point the banner's eventsPageLink at it.
+export const outreachEvents = events.filter(
+  (event) => event.category === "outreach",
+);

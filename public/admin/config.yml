@@ -44,7 +44,8 @@ collections:
               - name: category
                 label: Category
                 widget: select
-                default: conference
+                default: outreach
+                hint: "Only Outreach events appear on the site for now (the Outreach page and the home-page banner). Events in other categories are kept but not shown."
                 options:
                   - { label: Conference, value: conference }
                   - { label: Seminar, value: seminar }
@@ -54,7 +55,7 @@ collections:
                 label: Link name
                 widget: string
                 required: false
-                hint: 'Optional. Lets other pages link straight to this event, e.g. "launch" for /events#launch.'
+                hint: 'Optional. Lets other pages link straight to this event, e.g. "pint-of-science" for /outreach#pint-of-science.'
               - name: start_date
                 label: Start date
                 widget: datetime
