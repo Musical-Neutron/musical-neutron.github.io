@@ -146,7 +146,11 @@ const subtitle = subtitleOverride ?? (await Astro.slots.render('subtitle'));
                           {event.location && (
                             <div class="flex items-center gap-1.5 truncate">
                               {event.location_link ? (
-                                <a href={event.location_link} class="hover:text-accent truncate" title={event.location}>
+                                <a
+                                  href={event.location_link}
+                                  class="text-primary hover:text-accent transition-colors truncate"
+                                  title={event.location}
+                                >
                                   {event.location}
                                 </a>
                               ) : (
