@@ -46,7 +46,8 @@
       "start_date": "2023-05-01",
       "month_only": true,
       "location": "Online",
-      "description": "Invited talk: Introduction to dark matter."
+      "description": "Invited talk: Introduction to dark matter.",
+      "icon": "tabler:school"
     },
     {
       "title": "Stonyhurst International School Penang",
@@ -58,7 +59,8 @@
       "month_only": false,
       "location": "Penang, Malaysia",
       "location_link": "https://maps.app.goo.gl/kedTXWopv5NB38Ce9",
-      "description": "Invited talk: Introduction to dark matter, and careers in scientific research."
+      "description": "Invited talk: Introduction to dark matter, and careers in scientific research.",
+      "icon": "tabler:school"
     },
     {
       "title": "Pint of Science",
@@ -70,7 +72,9 @@
       "location": "The Star Inn, Guildford, UK",
       "location_link": "https://maps.app.goo.gl/LWri92ux6Mvrkncp9",
       "description": "Caught in the cosmic web: A pint-sized guide to dark matter.",
-      "info_link": "https://pintofscience.co.uk/event/the-visible-sky-and-the-invisible-web-our-evolving-universe/"
+      "info_link": "https://pintofscience.co.uk/event/the-visible-sky-and-the-invisible-web-our-evolving-universe/",
+      "writeup": "20260520-pint-of-science",
+      "icon": "tabler:beer"
     },
     {
       "title": "Surrey Scholars",
@@ -81,7 +85,8 @@
       "month_only": false,
       "location": "Surrey Space Centre, Guildford, UK",
       "location_link": "https://maps.app.goo.gl/MWLDxwnaQhDwSEFD8",
-      "description": "Invited talk: Caught in the cosmic web: A pint-sized guide to dark matter."
+      "description": "Invited talk: Caught in the cosmic web: A pint-sized guide to dark matter.",
+      "icon": "tabler:school"
     },
     {
       "title": "Surrey stargazing lecture",
@@ -93,7 +98,8 @@
       "location": "University of Surrey, Guildford, UK",
       "location_link": "https://maps.app.goo.gl/MWLDxwnaQhDwSEFD8",
       "description": "Small galaxies, big mysteries: What dwarf galaxies reveal about dark matter and the cosmic web.",
-      "info_link": "https://www.surrey.ac.uk/events/20261007-surrey-and-gas-stargazing-october-2026"
+      "info_link": "https://www.surrey.ac.uk/events/20261007-surrey-and-gas-stargazing-october-2026",
+      "icon": "tabler:telescope"
     },
     {
       "title": "World Space Week 2026",
@@ -104,7 +110,8 @@
       "month_only": false,
       "location": "Guildford High Street, Guildford, UK",
       "location_link": "https://maps.app.goo.gl/LR5kqx9in7ZmGsrH9",
-      "info_link": "https://www.surrey.ac.uk/events/20261010-world-space-week-guildford-high-street-takeover-2026"
+      "info_link": "https://www.surrey.ac.uk/events/20261010-world-space-week-guildford-high-street-takeover-2026",
+      "icon": "tabler:moon-stars"
     },
     {
       "title": "IOP South Central Lecture",

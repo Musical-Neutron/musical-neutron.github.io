@@ -1,7 +1,7 @@
 {
   "topics": [
     {
-      "title": "Galaxy-environment connection",
+      "title": "Galaxy–environment connection",
       "id": "galaxy-environment",
       "icon": "tabler:topology-star-3",
       "description": "Observations show that galaxy properties are sensitive to their environment; however, its precise role in their evolution remains unclear. Globular clusters, ancient star clusters formed very early in the Universe, probe conditions shortly after the onset of star formation. At the same time, the cosmic web begins to affect the evolution of early low-mass galaxies. Thus, globular clusters and satellite galaxies are intrinsically connected to the large-scale environment we observe today.",
@@ -14,7 +14,7 @@
       "papers": [
         {
           "title": "The formation and disruption of globular cluster populations in simulations of present-day <i>L</i><sup>*</sup> galaxies with controlled assembly histories",
-          "citation": "Newton et al., 2025, MNRAS, 542(2), 591-607",
+          "citation": "Newton et al., 2025, MNRAS, 542(2), 591–607",
           "date": "2025-09-11",
           "summary": "Study of globular cluster populations in massive galaxies as tracers of merger ratios and host galaxy properties.",
           "links": [
@@ -66,11 +66,11 @@
       "title": "Warm dark matter",
       "id": "warm-dark-matter",
       "icon": "tabler:temperature",
-      "description": "Although extremely successful, ΛCDM is not the only viable description of the Universe. Warm dark matter models predict that dark matter particles have higher thermal velocities, preventing halo formation below a characteristic mass scale. In some models this cut-off lies at dwarf-galaxy scales, making the Milky Way satellite system a powerful probe of dark matter properties.",
+      "description": "Although extremely successful, ΛCDM is not the only viable description of the Universe. Warm dark matter models predict that dark matter particles have higher thermal velocities, preventing halo formation below a characteristic mass scale. In some models this cut-off lies at dwarf galaxy scales, making the Milky Way satellite system a powerful probe of dark matter properties.",
       "papers": [
         {
           "title": "Constraints on the properties of νMSM dark matter using the satellite galaxies of the Milky Way",
-          "citation": "Newton et al., 2025, MNRAS, 541(4), 3713-3727",
+          "citation": "Newton et al., 2025, MNRAS, 541(4), 3713–3727",
           "date": "2025-08-21",
           "summary": "Constraints on warm dark matter models from the abundance and properties of Milky Way satellite galaxies.",
           "links": [
@@ -110,7 +110,7 @@
         },
         {
           "title": "Joint constraints on thermal relic dark matter from strong gravitational lensing, the Lyα forest, and Milky Way satellites",
-          "citation": "Enzi, Murgia, Newton et al., 2021, MNRAS, 506(4), 5848-5862",
+          "citation": "Enzi, Murgia, Newton et al., 2021, MNRAS, 506(4), 5848–5862",
           "date": "2021-10-01",
           "summary": "Joint analysis of satellite populations and warm dark matter, exploring viable particle masses and halo suppression scales.",
           "links": [
@@ -158,7 +158,7 @@
         },
         {
           "title": "Hermeian haloes: Field haloes that interacted with both the Milky Way and M31",
-          "citation": "Newton et al., 2022, MNRAS, 514(3), 3612-3625",
+          "citation": "Newton et al., 2022, MNRAS, 514(3), 3612–3625",
           "date": "2022-08-11",
           "summary": "Introduction of Hermeian haloes and a study of tidally processed field haloes and their role in the Milky Way-Andromeda system.",
           "links": [
@@ -215,11 +215,11 @@
       "id": "satellite-galaxies",
       "menu_title": "Satellite galaxies",
       "icon": "tabler:orbit",
-      "description": "One major prediction of ΛCDM is that the present-day Milky Way is embedded in a dark matter halo rich with thousands of smaller substructures. Many — but not all — of these are expected to host faint satellite galaxies. Observational campaigns to detect some of these elusive objects have been carried out already and are currently ongoing, with further surveys planned to commence operations in the next few years. While this work is being undertaken, we can use observations from partial surveys of the sky to infer the total number and luminosity function of satellite galaxies around the Milky Way.",
+      "description": "One major prediction of ΛCDM is that the present-day Milky Way is embedded in a dark matter halo rich with thousands of smaller substructures. Many, but not all, of these are expected to host faint satellite galaxies. Observational campaigns to detect some of these elusive objects have been carried out already and are currently ongoing, with further surveys planned to commence operations in the next few years. While this work is being undertaken, we can use observations from partial surveys of the sky to infer the total number and luminosity function of satellite galaxies around the Milky Way.",
       "papers": [
         {
           "title": "The total satellite population of the Milky Way",
-          "citation": "Newton et al., 2018, MNRAS, 479(3), 2853-2870",
+          "citation": "Newton et al., 2018, MNRAS, 479(3), 2853–2870",
           "date": "2018-09-21",
           "summary": "Uses partial surveys of the sky to infer the total number and luminosity function of satellite galaxies around the Milky Way assuming ΛCDM.",
           "links": [
@@ -243,7 +243,7 @@
         },
         {
           "title": "The spatial distribution of Milky Way satellites, gaps in streams, and the nature of dark matter",
-          "citation": "Lovell et al., 2021, MNRAS, 507(4), 4826-4839",
+          "citation": "Lovell et al., 2021, MNRAS, 507(4), 4826–4839",
           "date": "2018-11-11",
           "summary": "Uses advanced numerical simulations to understand how the distribution of dark matter subhaloes, which host satellite galaxies in the Milky Way, are affected by the properties of the dark matter. Also aims to understand how this, in turn, affects visible tracers of the underlying matter distribution such as stellar streams.",
           "links": [
