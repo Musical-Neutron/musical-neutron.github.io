@@ -5,10 +5,9 @@ import ToggleMenu from '~/components/common/ToggleMenu.astro';
 import ToggleTheme from '~/components/common/ToggleTheme.astro';
 import Button from '~/components/ui/Button.astro';
 
-import { APP_BLOG } from 'astrowind:config';
 import type { CallToAction } from '~/types';
-import { fetchPosts } from '~/utils/blog';
-import { getAsset, getHomePermalink, getPermalink, trimSlash } from '~/utils/permalinks';
+import { arrangeNewsMenu, getNewsDisplayState } from '~/utils/newsDisplay';
+import { getAsset, getHomePermalink, trimSlash } from '~/utils/permalinks';
 
 interface Link {
   text?: string;
@@ -47,52 +46,8 @@ const {
 
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 
-// Enhance "News" section links using the same criteria as sidebar / Latest news
-const latestCfg = APP_BLOG.latest ?? {};
-const freshnessDays = latestCfg.freshnessDays ?? 90;
-const maxAgeDays = latestCfg.maxAgeDays ?? 365;
-const sidebarCount = latestCfg.sidebarCount ?? 3;
-const dayMs = 1000 * 60 * 60 * 24;
-
-let enhancedLinks = links;
-
-if (APP_BLOG.isEnabled) {
-  const now = new Date();
-  const allPosts = await fetchPosts();
-
-  const freshPosts = allPosts.filter((post) => now.getTime() - post.publishDate.getTime() <= freshnessDays * dayMs);
-
-  if (freshPosts.length > 0) {
-    const ageFilteredPosts = allPosts.filter(
-      (post) => now.getTime() - post.publishDate.getTime() <= maxAgeDays * dayMs
-    );
-
-    const latestPosts = ageFilteredPosts.slice(0, sidebarCount);
-
-    enhancedLinks = links.map((item) => {
-      if (item.text === 'News') {
-        const baseLinks: MenuLink[] = [
-          // {
-          //   text: 'News List',
-          //   href: getBlogPermalink(),
-          // },
-        ];
-
-        const topPostLinks: MenuLink[] = latestPosts.map((post) => ({
-          text: post.title,
-          href: getPermalink(post.permalink, 'post'),
-        }));
-
-        return {
-          ...item,
-          links: [...baseLinks, ...topPostLinks],
-        };
-      }
-      return item;
-    });
-  }
-  // If no fresh posts, leave "News" links as originally defined
-}
+// News goes first in the menu while there is recent news, otherwise under Home (see utils/newsDisplay.ts)
+const enhancedLinks = arrangeNewsMenu(links, await getNewsDisplayState());
 ---
 
 <header

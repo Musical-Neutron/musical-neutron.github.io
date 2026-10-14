@@ -62,12 +62,12 @@ apps:
     isRelatedPostsEnabled: true
     relatedPostsCount: 4
 
+    # When news appears on the home page and in the menus (see src/utils/newsDisplay.ts)
     latest:
-      freshnessDays: 90 # X: at least one post newer than this to show Latest news
-      maxAgeDays: 365 # Z: don't show posts older than this in Latest news/sidebar
-      minCount: 4 # Y: target number of posts for Latest news on index
-      sidebarCount: 3 # number of latest posts to show under "News" in sidebar
-      newsButtonMaxAgeDays: 425
+      freshnessDays: 90 # while a post is newer than this: Latest news section, News button, News first in the menus
+      maxAgeDays: 365 # posts older than this aren't listed on the home page or in the menus
+      minCount: 4 # number of posts in the Latest news section
+      sidebarCount: 3 # number of posts listed under News in the menus
 
 analytics:
   vendors:
