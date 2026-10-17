@@ -176,6 +176,14 @@ import '@fontsource-variable/inter';
     background: linear-gradient(to bottom, var(--aw-color-bg-alt), var(--aw-color-bg-page));
   }
 
+  /* What shows when a page is pulled past its top or bottom (on a Mac trackpad or a phone): the
+     colour of the top of the page above, and the footer's colour below, instead of white. The
+     page's own fade (page-fade-dark, on <body>) is a gradient, which browsers don't extend there. */
+  html {
+    background: linear-gradient(to bottom, var(--aw-color-bg-alt) 50%, var(--aw-color-bg-page-dark) 50%) fixed no-repeat;
+    background-color: var(--aw-color-bg-alt);
+  }
+
   .announcement-bar {
     background: linear-gradient(to bottom, var(--aw-color-sidebar-head), var(--aw-color-bg-page-dark));
     color: var(--aw-color-text-muted);
