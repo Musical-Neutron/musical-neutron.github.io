@@ -28,7 +28,7 @@ menu.
 
 ### In the site editor
 
-Events, research topics and papers, and news posts can be edited in a form-based editor
+Events, research topics and papers, news posts and the announcement bar can be edited in a form-based editor
 ([Sveltia CMS](https://sveltiacms.app)) that runs on your own computer:
 
 1. Start the local preview with `npm run dev`.
@@ -43,21 +43,22 @@ The icons offered for events and research topics are shown at <http://localhost:
 
 ### Where everything lives
 
-| Content                                         | File                                | In the editor |
-| :---------------------------------------------- | :---------------------------------- | :-----------: |
-| Events                                          | `src/data/events.json`              |      Yes      |
-| Research topics and papers                      | `src/data/research.json`            |      Yes      |
-| News posts                                      | `src/data/post/`                    |      Yes      |
-| Pictures in news posts                          | `src/assets/images/news/`           |      Yes      |
-| CV (replace the file to update it)              | `public/cv/CV.pdf`                  |      No       |
-| CV highlights                                   | `src/pages/cv.astro`                |      No       |
-| Media coverage on the Press page                | `src/data/press.js`                 |      No       |
-| Press kit downloads                             | `public/press-kit/`                 |      No       |
-| Menus and footer links                          | `src/navigation.ts`                 |      No       |
-| Personal details, announcement bar, news timing | `src/config.yaml`                   |      No       |
-| Colours                                         | `src/components/CustomStyles.astro` |      No       |
-| Page text                                       | `src/pages/`                        |      No       |
-| Editor settings                                 | `public/admin/config.yml`           |      No       |
+| Content                            | File                                | In the editor |
+| :--------------------------------- | :---------------------------------- | :-----------: |
+| Events                             | `src/data/events.json`              |      Yes      |
+| Research topics and papers         | `src/data/research.json`            |      Yes      |
+| News posts                         | `src/data/post/`                    |      Yes      |
+| Pictures in news posts             | `src/assets/images/news/`           |      Yes      |
+| Announcement bar                   | `src/data/announcement.json`        |      Yes      |
+| CV (replace the file to update it) | `public/cv/CV.pdf`                  |      No       |
+| CV highlights                      | `src/pages/cv.astro`                |      No       |
+| Media coverage on the Press page   | `src/data/press.js`                 |      No       |
+| Press kit downloads                | `public/press-kit/`                 |      No       |
+| Menus and footer links             | `src/navigation.ts`                 |      No       |
+| Personal details, news timing      | `src/config.yaml`                   |      No       |
+| Colours                            | `src/components/CustomStyles.astro` |      No       |
+| Page text                          | `src/pages/`                        |      No       |
+| Editor settings                    | `public/admin/config.yml`           |      No       |
 
 ## How parts of the site behave
 
@@ -73,8 +74,8 @@ and News is the first link under Home in the menus. Otherwise the section is hid
 Home. The timings are under `apps.blog.latest` in `src/config.yaml`, and the rules are in
 `src/utils/newsDisplay.ts`. A post marked _Job move_ shows the job-move graphic when it has no picture of its own.
 
-**Announcement bar.** The `announcement` settings in `src/config.yaml` turn a bar at the top of every page on or off,
-set its text and link, and hide it automatically after `expiresAt`.
+**Announcement bar.** An optional strip across the top of every page on tablets and computers, set in the site editor:
+switch it on or off, and give it a badge (such as NEW), its text, a link and a time after which it hides itself.
 
 **Menus.** On wide screens the menu is a sidebar on the left; on phones it is a header with a menu button. The
 Research menu is built from the topics in `src/data/research.json`.

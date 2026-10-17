@@ -1,27 +1,37 @@
 ---
-import { ANNOUNCEMENT } from 'astrowind:config';
-const { enabled, text, link, badgeText, expiresAt } = ANNOUNCEMENT;
+// The strip across the top of every page, set in the site editor (src/data/announcement.json)
+import announcement from '~/data/announcement.json';
+import { getPermalink } from '~/utils/permalinks';
 
-let isExpired = false;
-if (expiresAt) {
-  const now = new Date();
-  const expiryDate = new Date(expiresAt);
-  if (!Number.isNaN(expiryDate.getTime())) {
-    isExpired = expiryDate <= now;
-  }
-}
+const {
+  enabled = false,
+  badgeText = '',
+  text = '',
+  link = '',
+  expiresAt = '',
+}: { enabled?: boolean; badgeText?: string; text?: string; link?: string; expiresAt?: string } = announcement;
+
+// "Hide after": checked when the site is built, and again in the browser (the script below),
+// because the site is only rebuilt every few hours
+const parsed = expiresAt ? new Date(expiresAt) : null;
+const expiry = parsed && !Number.isNaN(parsed.getTime()) ? parsed : null;
+const isExpired = expiry !== null && expiry <= new Date();
+
+// A page on this site ("/outreach") is turned into a site link; a full web address is used as it is
+const href = link ? (link.startsWith('/') ? getPermalink(link) : link) : '';
 ---
 
 {
-  enabled && !isExpired && (
-    // <div class="announcement-bar text-muted  text-sm bg-(--aw-color-page-dark) border-b border-(--aw-color-primary) hidden md:flex gap-1 overflow-hidden px-3 py-2 relative text-ellipsis whitespace-nowrap">
-    <div class="announcement-bar">
+  enabled && text && !isExpired && (
+    <div class="announcement-bar" data-announcement data-expires={expiry?.toISOString()}>
       <div class="hidden md:flex sidebar-offset gap-1 overflow-hidden px-3 py-2 text-sm text-muted relative text-ellipsis whitespace-nowrap bg-(--aw-color-page-dark)">
-        <span class="announcement-badge font-semibold px-1 py-0.5 text-xs mr-0.5 rtl:mr-0 rtl:ml-0.5 inline-block">
-          {badgeText}
-        </span>
-        {link ? (
-          <a href={link} class="text-muted font-medium">
+        {badgeText && (
+          <span class="announcement-badge font-semibold px-1 py-0.5 text-xs mr-0.5 rtl:mr-0 rtl:ml-0.5 inline-block">
+            {badgeText}
+          </span>
+        )}
+        {href ? (
+          <a href={href} class="text-muted font-medium">
             {text}
           </a>
         ) : (
@@ -31,3 +41,9 @@ if (expiresAt) {
     </div>
   )
 }
+
+<script is:inline>
+  document.querySelectorAll('[data-announcement][data-expires]').forEach((bar) => {
+    if (new Date(bar.dataset.expires) <= new Date()) bar.remove();
+  });
+</script>
