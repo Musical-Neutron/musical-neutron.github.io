@@ -924,9 +924,15 @@ collections:
         }
       - name: tags
         label: Tags
-        widget: list
+        widget: relation
+        collection: news_tags
+        value_field: "{{slug}}"
+        search_fields: [name]
+        display_fields: [name]
+        multiple: true
+        dropdown_threshold: 0
         required: false
-        hint: "Lower-case words such as outreach or local-group; each tag gets its own page."
+        hint: "Pick tags already in use, or use Add Tag for a new one. Each tag gets its own page."
       - name: isJobMove
         label: Job move
         widget: boolean
@@ -941,3 +947,27 @@ collections:
         label: Text
         widget: markdown
         hint: "Use the toolbar for formatting, or switch to Markdown to type it (HTML works there too)."
+  # News tags: one small file per tag in src/data/tags, holding the tag's name. Posts store the file name, and the site
+  # looks the name up here, so renaming or deleting a tag changes it on every post.
+  - name: news_tags
+    label: News tags
+    label_singular: Tag
+    description: "The tags offered when tagging a news post; new ones can also be added from a post. Renaming a tag here renames it on every post, and deleting it removes it from every post."
+    folder: src/data/tags
+    extension: json
+    format: json
+    create: true
+    identifier_field: name
+    slug: "{{name}}"
+    summary: "{{name}}"
+    sortable_fields: [name]
+    fields:
+      - name: name
+        label: Tag
+        widget: string
+        pattern:
+          [
+            "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "Use lower-case letters and numbers, with hyphens between words.",
+          ]
+        hint: "Lower-case, with hyphens between words, e.g. local-group."

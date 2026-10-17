@@ -47,6 +47,31 @@ const generatePermalink = async ({
     .join("/");
 };
 
+// News tags come from the tag list in src/data/tags, kept in the site editor:
+// one file per tag, holding its name. A post stores the file name of each of
+// its tags, so renaming a tag on the list renames it on every post, and a tag
+// taken off the list disappears from every post.
+const tagFiles = import.meta.glob<{ name?: string }>("~/data/tags/*.json", {
+  eager: true,
+  import: "default",
+});
+const tagNames = new Map(
+  Object.entries(tagFiles).map(([path, tag]) => {
+    const id = path.replace(/^.*\/|\.json$/g, "");
+    return [id, tag.name?.trim() || id];
+  }),
+);
+
+const getPostTags = (ids: string[]): Taxonomy[] => {
+  const tags = new Map<string, Taxonomy>();
+  for (const id of ids) {
+    const name = tagNames.get(id);
+    if (name && !tags.has(cleanSlug(name)))
+      tags.set(cleanSlug(name), { slug: cleanSlug(name), title: name });
+  }
+  return [...tags.values()];
+};
+
 const getNormalizedPost = async (
   post: CollectionEntry<"post">,
 ): Promise<Post> => {
@@ -78,10 +103,7 @@ const getNormalizedPost = async (
       }
     : undefined;
 
-  const tags = rawTags.map((tag: string) => ({
-    slug: cleanSlug(tag),
-    title: tag,
-  }));
+  const tags = getPostTags(rawTags);
 
   return {
     id: id,
