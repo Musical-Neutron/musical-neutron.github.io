@@ -83,6 +83,7 @@ lists appear on the site.
 
 **Links.** Links that leave the site open in a new tab; links within it open in the same one. To keep a particular
 link in the same tab, give it `target="_self"` (the rule is at the end of `src/components/common/BasicScripts.astro`).
+A link to a place on the page you're already on, such as a research topic in the menu, scrolls there smoothly.
 
 **Announcement bar.** An optional strip across the top of every page on tablets and computers, set in the site editor:
 switch it on or off, and give it a badge (such as NEW), its text, a link and a time after which it hides itself.
