@@ -91,7 +91,7 @@ personal:
   projectNumber: "101209580"
   projectAcronym: "CWEBDWARFS"
   projectURL: "https://oliver-newton.com/cwebdwarfs-sitefiles"
-  copyYear: "2018—2026"
+  copyStartYear: "2018" # The footer's copyright runs from this year to the year the site is built
   recaptchaSiteKey: "6Le3yUwtAAAAAPH4CA_CHSSd59bVG7gk1jnpehWB"
 
 # The announcement bar is set in the site editor (src/data/announcement.json)
