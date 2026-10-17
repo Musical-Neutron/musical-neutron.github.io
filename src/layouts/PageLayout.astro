@@ -24,9 +24,9 @@ const footerData = getFooterData(PERSONAL);
   </slot>
   {/* Header: hamburger on small screens, sidebar on md+ */}
   <slot name="header">
-    {/* Mobile / small screens: original horizontal Header with ToggleMenu */}
-    <div class="md:hidden">
-      <Header {...headerData} showRssFeed showToggleTheme />
+    {/* Mobile / small screens: horizontal Header with ToggleMenu, pinned to the top while scrolling */}
+    <div class="md:hidden sticky top-0 z-40">
+      <Header {...headerData} isSticky showRssFeed showToggleTheme />
     </div>
 
     {/* Desktop / md+ screens: vertical sidebar */}
