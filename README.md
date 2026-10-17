@@ -1,302 +1,112 @@
-# 🚀 AstroWind
-
-<img src="https://raw.githubusercontent.com/arthelokyo/.github/main/resources/astrowind/lighthouse-score.png" align="right"
-     alt="AstroWind Lighthouse Score" width="100" height="358">
-
-🌟 _Most *starred* & *forked* Astro theme in 2022, 2023, 2024 & 2025_. 🌟
-
-**AstroWind** is a free and open-source template to make your website using **[Astro v6](https://astro.build/) + [Tailwind CSS v4](https://tailwindcss.com/)**. Ready to start a new project and designed taking into account web best practices.
-
-- ✅ **Production-ready** scores in **PageSpeed Insights** reports.
-- ✅ Integration with **Tailwind CSS v4** supporting **Dark mode** and **_RTL_**.
-- ✅ **Fast and SEO friendly blog** with automatic **RSS feed**, **MDX** support, **Categories & Tags**, **Social Share**, ...
-- ✅ **Image Optimization** (using new **Astro Assets** and **Unpic** for Universal image CDN).
-- ✅ Generation of **project sitemap** based on your routes.
-- ✅ **Open Graph tags** for social media sharing.
-- ✅ **Analytics** built-in Google Analytics, and Splitbee integration.
-
-<br>
-
-![AstroWind Theme Screenshot](https://raw.githubusercontent.com/arthelokyo/.github/main/resources/astrowind/screenshot-astrowind-readme-fina-v1.png)
-
-[![arthelokyo](https://custom-icon-badges.demolab.com/badge/made%20by%20-arthelokyo-556bf2?style=flat-square&logo=arthelokyo&logoColor=white&labelColor=101827)](https://github.com/arthelokyo)
-[![License](https://img.shields.io/github/license/arthelokyo/astrowind?style=flat-square&color=dddddd&labelColor=000000)](https://github.com/arthelokyo/astrowind/blob/main/LICENSE.md)
-[![Maintained](https://img.shields.io/badge/maintained%3F-yes-brightgreen.svg?style=flat-square)](https://github.com/arthelokyo)
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/arthelokyo/astrowind#contributing)
-[![Known Vulnerabilities](https://snyk.io/test/github/arthelokyo/astrowind/badge.svg?style=flat-square)](https://snyk.io/test/github/arthelokyo/astrowind)
-[![Stars](https://img.shields.io/github/stars/arthelokyo/astrowind.svg?style=social&label=stars&maxAge=86400&color=ff69b4)](https://github.com/arthelokyo/astrowind)
-[![Forks](https://img.shields.io/github/forks/arthelokyo/astrowind.svg?style=social&label=forks&maxAge=86400&color=ff69b4)](https://github.com/arthelokyo/astrowind)
-
-<br>
-
-<details open>
-<summary>Table of Contents</summary>
-
-- [Demo](#demo)
-- [Upcoming: AstroWind 2.0 – We Need Your Vision!](#-upcoming-astrowind-20--we-need-your-vision)
-- [TL;DR](#tldr)
-- [Getting started](#getting-started)
-  - [Project structure](#project-structure)
-  - [Commands](#commands)
-  - [Configuration](#configuration)
-  - [Deploy](#deploy)
-- [Frequently Asked Questions](#frequently-asked-questions)
-- [Contributing](#contributing)
-- [Acknowledgements](#acknowledgements)
-- [License](#license)
-
-</details>
-
-<br>
-
-## Demo
-
-📌 [https://astrowind.vercel.app/](https://astrowind.vercel.app/)
-
-<br>
-
-## 🔔 Upcoming: AstroWind 2.0 – We Need Your Vision!
-
-We're gearing up for **AstroWind 2.0**, and we want it to be shaped by you, our community. Join the discussion and share your ideas, suggestions, and feedback to help us make AstroWind even better.
-
-[Share Your Feedback in Our Discussion!](https://github.com/arthelokyo/astrowind/discussions/392)
-
-<br>
-
-## TL;DR
-
-```shell
-npm create astro@latest -- --template arthelokyo/astrowind
-```
-
-## Getting started
-
-**AstroWind** tries to give you quick access to creating a website using [Astro v6](https://astro.build/) + [Tailwind CSS v4](https://tailwindcss.com/). It's a free theme which focuses on simplicity, good practices and high performance.
-
-Very little vanilla javascript is used only to provide basic functionality so that each developer decides which framework (React, Vue, Svelte, Solid JS...) to use and how to approach their goals.
-
-> **Note:** Requires **Node.js >= 22.12.0**. The template currently uses `output: 'static'`, but the blog only works with `prerender = true`.
-
-### Project structure
-
-Inside **AstroWind** template, you'll see the following folders and files:
-
-```
-/
-├── public/
-│   ├── _headers
-│   └── robots.txt
-├── src/
-│   ├── assets/
-│   │   ├── favicons/
-│   │   ├── images/
-│   │   └── styles/
-│   │       └── tailwind.css
-│   ├── components/
-│   │   ├── blog/
-│   │   ├── common/
-│   │   ├── ui/
-│   │   ├── widgets/
-│   │   │   ├── Header.astro
-│   │   │   └── ...
-│   │   ├── CustomStyles.astro
-│   │   ├── Favicons.astro
-│   │   └── Logo.astro
-│   ├── content.config.ts
-│   ├── data/
-│   │   └── post/
-│   │       ├── post-slug-1.md
-│   │       ├── post-slug-2.mdx
-│   │       └── ...
-│   ├── layouts/
-│   │   ├── Layout.astro
-│   │   ├── MarkdownLayout.astro
-│   │   └── PageLayout.astro
-│   ├── pages/
-│   │   ├── [...blog]/
-│   │   │   ├── [category]/
-│   │   │   ├── [tag]/
-│   │   │   ├── [...page].astro
-│   │   │   └── index.astro
-│   │   ├── index.astro
-│   │   ├── 404.astro
-│   │   ├-- rss.xml.ts
-│   │   └── ...
-│   ├── utils/
-│   ├── config.yaml
-│   └── navigation.js
-├── package.json
-├── astro.config.ts
-└── ...
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory if they do not require any transformation or in the `assets/` directory if they are imported directly.
-
-[![Edit AstroWind on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://githubbox.com/arthelokyo/astrowind/tree/main) [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/arthelokyo/astrowind)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file `README.md`. Update `src/config.yaml` and contents. Have fun!
-
-<br>
-
-### Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command             | Action                                             |
-| :------------------ | :------------------------------------------------- |
-| `npm install`       | Installs dependencies                              |
-| `npm run dev`       | Starts local dev server at `localhost:4321`        |
-| `npm run build`     | Build your production site to `./dist/`            |
-| `npm run preview`   | Preview your build locally, before deploying       |
-| `npm run check`     | Check your project for errors                      |
-| `npm run fix`       | Run Eslint and format codes with Prettier          |
-| `npm run astro ...` | Run CLI commands like `astro add`, `astro preview` |
-
-<br>
-
-### Configuration
-
-Basic configuration file: `./src/config.yaml`
-
-```yaml
-site:
-  name: "Example"
-  site: "https://example.com"
-  base: "/" # Change this if you need to deploy to Github Pages, for example
-  trailingSlash: false # Generate permalinks with or without "/" at the end
-
-  googleSiteVerificationId: false # Or some value,
-
-# Default SEO metadata
-metadata:
-  title:
-    default: "Example"
-    template: "%s — Example"
-  description: "This is the default meta description of Example website"
-  robots:
-    index: true
-    follow: true
-  openGraph:
-    site_name: "Example"
-    images:
-      - url: "~/assets/images/default.png"
-        width: 1200
-        height: 628
-    type: website
-  twitter:
-    handle: "@twitter_user"
-    site: "@twitter_user"
-    cardType: summary_large_image
-
-i18n:
-  language: en
-  textDirection: ltr
-
-apps:
-  blog:
-    isEnabled: true # If the blog will be enabled
-    postsPerPage: 6 # Number of posts per page
-
-    post:
-      isEnabled: true
-      permalink: "/blog/%slug%" # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
-      robots:
-        index: true
-
-    list:
-      isEnabled: true
-      pathname: "blog" # Blog main path, you can change this to "articles" (/articles)
-      robots:
-        index: true
-
-    category:
-      isEnabled: true
-      pathname: "category" # Category main path /category/some-category, you can change this to "group" (/group/some-category)
-      robots:
-        index: true
-
-    tag:
-      isEnabled: true
-      pathname: "tag" # Tag main path /tag/some-tag, you can change this to "topics" (/topics/some-category)
-      robots:
-        index: false
-
-    isRelatedPostsEnabled: true # If a widget with related posts is to be displayed below each post
-    relatedPostsCount: 4 # Number of related posts to display
-
-analytics:
-  vendors:
-    googleAnalytics:
-      id: null # or "G-XXXXXXXXXX"
-
-ui:
-  theme: "system" # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
-```
-
-<br>
-
-#### Customize Design
-
-With Tailwind CSS v4, all configuration is CSS-first. To customize Font families, Colors or more Elements refer to the following files:
-
-- `src/components/CustomStyles.astro` — CSS variables for colors and fonts
-- `src/assets/styles/tailwind.css` — Tailwind theme tokens (`@theme`), custom utilities (`@utility`), and plugins
-
-### Deploy
-
-#### Deploy to production (manual)
-
-You can create an optimized production build with:
-
-```shell
-npm run build
-```
-
-Now, your website is ready to be deployed. All generated files are located at
-`dist` folder, which you can deploy the folder to any hosting service you
-prefer.
-
-#### Deploy to Netlify
-
-Clone this repository on your own GitHub account and deploy it to Netlify:
-
-[![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/arthelokyo/astrowind)
-
-#### Deploy to Vercel
-
-Clone this repository on your own GitHub account and deploy to Vercel:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Farthelokyo%2Fastrowind)
-
-#### Deploy to PandaStack
-
-Clone this repository on your own GitHub account and deploy to PandaStack:
-
-[![Deploy to PandaStack](https://dashboard.pandastack.io/deploy-button.svg)](https://dashboard.pandastack.io/deploy?repo=arthelokyo/astrowind&type=static&buildCmd=npm+run+build&outputDir=dist)
-
-<br>
-
-## Frequently Asked Questions
-
-- Why?
--
--
-
-<br>
-
-## Contributing
-
-If you have any ideas, suggestions or find any bugs, feel free to open a discussion, an issue or create a pull request.
-That would be very useful for all of us and we would be happy to listen and take action.
-
-## Acknowledgements
-
-Initially created by **Arthelokyo** and maintained by a community of [contributors](https://github.com/arthelokyo/astrowind/graphs/contributors).
-
-## License
-
-**AstroWind** is licensed under the MIT license — see the [LICENSE](./LICENSE.md) file for details.
+# Oliver Newton — personal website
+
+My personal website: research, CV, news, outreach and press.
+
+**Live site:** <https://oliver-newton.com>
+
+It is a static site built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/), starting
+from the [AstroWind](https://github.com/arthelokyo/astrowind) template, and published with GitHub Pages. The CWEBDWARFS
+project has its own site, in the
+[cwebdwarfs-sitefiles](https://github.com/Musical-Neutron/cwebdwarfs-sitefiles) repository, linked from the Research
+menu.
+
+## What's on the site
+
+| Page           | Address                 | Notes                                                                                      |
+| :------------- | :---------------------- | :----------------------------------------------------------------------------------------- |
+| Home           | `/`                     | About me, a banner of upcoming outreach events, and the latest news while it's fresh       |
+| CV             | `/cv`                   | Selected highlights and the full CV as a PDF; the "Last updated" date is read from the PDF |
+| Research       | `/research`             | Research topics and their papers; each topic is also a link in the Research menu           |
+| Outreach       | `/outreach`             | Outreach events, grouped into _Happening now_, _Coming up_ and _Past events_               |
+| News           | `/news`, `/<post-name>` |                                                                                            |
+| Press          | `/press`                | Media coverage and a press kit                                                             |
+| Contact        | `/contact`              | Contact details and a form (Formspree, with reCAPTCHA)                                     |
+| Privacy notice | `/privacy`              |                                                                                            |
+| RSS feed       | `/rss.xml`              | News posts and outreach events                                                             |
+
+## Editing the content
+
+### In the site editor
+
+Events, research topics and papers, and news posts can be edited in a form-based editor
+([Sveltia CMS](https://sveltiacms.app)) that runs on your own computer:
+
+1. Start the local preview with `npm run dev`.
+2. Open <http://localhost:4321/admin/index.html> in Chrome or Edge (other browsers can't open local folders).
+3. Choose **Work with Local Repository** and select this folder.
+
+Saving writes straight into the files listed below. Nothing is committed or pushed: check the changes with
+`git diff`, then commit and push as usual. News posts have a formatting toolbar, and an **Edit in Markdown** switch
+for anything it doesn't cover.
+
+The icons offered for events and research topics are shown at <http://localhost:4321/admin/icons>.
+
+### Where everything lives
+
+| Content                                         | File                                | In the editor |
+| :---------------------------------------------- | :---------------------------------- | :-----------: |
+| Events                                          | `src/data/events.json`              |      Yes      |
+| Research topics and papers                      | `src/data/research.json`            |      Yes      |
+| News posts                                      | `src/data/post/`                    |      Yes      |
+| Pictures in news posts                          | `src/assets/images/news/`           |      Yes      |
+| CV (replace the file to update it)              | `public/cv/CV.pdf`                  |      No       |
+| CV highlights                                   | `src/pages/cv.astro`                |      No       |
+| Media coverage on the Press page                | `src/data/press.js`                 |      No       |
+| Press kit downloads                             | `public/press-kit/`                 |      No       |
+| Menus and footer links                          | `src/navigation.ts`                 |      No       |
+| Personal details, announcement bar, news timing | `src/config.yaml`                   |      No       |
+| Colours                                         | `src/components/CustomStyles.astro` |      No       |
+| Page text                                       | `src/pages/`                        |      No       |
+| Editor settings                                 | `public/admin/config.yml`           |      No       |
+
+## How parts of the site behave
+
+**Events.** Only outreach events are shown on the site (see `outreachEvents` in `src/data/events.js`), so events in
+other categories can be kept in the file for later. Each event is timed in its own time zone, and an event whose day
+isn't known yet can be marked _Only the month is known_. The site works out what's happening now, coming up or past
+when it is built, and again in the visitor's browser, so the pages stay right between builds. The home page banner
+shows events that are happening now or start within the next 14 days; an event's _Show in upcoming events this many
+days ahead_ setting can shorten that. An event's _Write-up_ links it to a news post, shown as **Read the write-up**.
+
+**News.** While a post is less than 90 days old, the home page shows _Latest news_ above About, with a News button,
+and News is the first link under Home in the menus. Otherwise the section is hidden and News is the last link under
+Home. The timings are under `apps.blog.latest` in `src/config.yaml`, and the rules are in
+`src/utils/newsDisplay.ts`. A post marked _Job move_ shows the job-move graphic when it has no picture of its own.
+
+**Announcement bar.** The `announcement` settings in `src/config.yaml` turn a bar at the top of every page on or off,
+set its text and link, and hide it automatically after `expiresAt`.
+
+**Menus.** On wide screens the menu is a sidebar on the left; on phones it is a header with a menu button. The
+Research menu is built from the topics in `src/data/research.json`.
+
+**Colours.** All the site's colours, for light and dark mode, are set in `src/components/CustomStyles.astro`.
+
+## Working on the site
+
+Requires Node.js 22.12 or later. Run these from this folder:
+
+| Command           | Action                                                        |
+| :---------------- | :------------------------------------------------------------ |
+| `npm install`     | Install the dependencies (once, and after they change)        |
+| `npm run dev`     | Local preview at <http://localhost:4321/>                     |
+| `npm run build`   | Build the site into `dist/`                                   |
+| `npm run preview` | Preview the built site                                        |
+| `npm run check`   | Check for errors: Astro, ESLint and Prettier (as GitHub does) |
+| `npm run fix`     | Fix what ESLint and Prettier can fix by themselves            |
+
+## Publishing
+
+GitHub Actions does the publishing:
+
+- `deploy.yml` builds the site and publishes it to GitHub Pages on every push to `master`, every four hours from
+  Monday to Saturday (so event and news timings stay current without a push), and on demand from the Actions tab
+  (**Run workflow**).
+- `actions.yaml` builds and checks every pull request into `master`, and every push to it.
+- `dependabot-reviewer.yml` merges Dependabot's patch and minor updates once the checks pass, and labels major
+  updates `requires-manual-qa` for you to check first.
+- `merge-schedule.yml` merges a pull request on a chosen day: put `/schedule 2026-11-01` (with your date) in the pull
+  request's description. It checks every hour and only merges once the checks pass.
+
+## Licence
+
+The AstroWind template this site is built on is MIT-licensed; its licence is in [LICENSE.md](./LICENSE.md).
