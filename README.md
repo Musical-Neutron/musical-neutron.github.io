@@ -81,6 +81,9 @@ store the file names and the site looks the names up on the lists, so renaming a
 _News categories_ renames it everywhere, and deleting it removes it from every post. Only tags and categories on the
 lists appear on the site.
 
+**Links.** Links that leave the site open in a new tab; links within it open in the same one. To keep a particular
+link in the same tab, give it `target="_self"` (the rule is at the end of `src/components/common/BasicScripts.astro`).
+
 **Announcement bar.** An optional strip across the top of every page on tablets and computers, set in the site editor:
 switch it on or off, and give it a badge (such as NEW), its text, a link and a time after which it hides itself.
 
