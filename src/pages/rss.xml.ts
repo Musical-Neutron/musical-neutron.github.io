@@ -4,6 +4,7 @@ import { SITE, METADATA, APP_BLOG } from "astrowind:config";
 import { fetchPosts } from "~/utils/blog";
 import { getPermalink } from "~/utils/permalinks";
 import { outreachEvents } from "~/data/events.js";
+import { pressItems } from "~/data/press.js";
 
 export const GET = async () => {
   if (!APP_BLOG.isEnabled) {
@@ -38,8 +39,17 @@ export const GET = async () => {
     link: event.info_link || `${getPermalink("/outreach")}#${event.eventID}`,
   }));
 
+  // Press coverage (src/data/press.js), as on the CWEBDWARFS site: each links to the coverage itself
+  const pressFeedItems = pressItems.map((item) => ({
+    title: item.title,
+    description: `${item.outlet}: ${item.description}`,
+    pubDate: new Date(item.date),
+    link: item.link,
+    categories: ["Press"],
+  }));
+
   // Newest first; nothing dated in the future
-  const items = [...postItems, ...eventItems]
+  const items = [...postItems, ...eventItems, ...pressFeedItems]
     .filter((item) => item.pubDate <= now)
     .sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
 

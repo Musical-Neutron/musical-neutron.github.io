@@ -22,7 +22,7 @@ menu.
 | Press          | `/press`                | Media coverage and a press kit                                                             |
 | Contact        | `/contact`              | Contact details and a form (Formspree, with reCAPTCHA)                                     |
 | Privacy notice | `/privacy`              |                                                                                            |
-| RSS feed       | `/rss.xml`              | News posts and outreach events                                                             |
+| RSS feed       | `/rss.xml`              | News posts, outreach events and press coverage                                             |
 
 ## Editing the content
 
