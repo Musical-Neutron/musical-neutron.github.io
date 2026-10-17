@@ -1,7 +1,6 @@
 {
   "enabled": true,
   "badgeText": "NEW",
-  "text": "Website refreshed",
-  "link": "/events#launch",
-  "expiresAt": "2026-08-15T00:00:00Z"
+  "text": "Website updated",
+  "expiresAt": "2026-10-24T23:00:00Z"
 }
