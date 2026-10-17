@@ -74,13 +74,22 @@ const researchLinks = (
     : [link],
 );
 
+// The copyright years in the footer: from copyStartYear in src/config.yaml to the year the site is
+// built, e.g. "2018—2026". The site is rebuilt every few hours, so the new year appears by itself.
+const copyrightYears = (startYear: string) => {
+  const thisYear = String(new Date().getFullYear());
+  return !startYear || startYear === thisYear
+    ? thisYear
+    : `${startYear}—${thisYear}`;
+};
+
 export const getFooterData = (personal: {
   myName: string;
   mySite: string;
   contactEmail: string;
   projectNumber: string;
   projectAcronym: string;
-  copyYear: string;
+  copyStartYear: string;
 }) => {
   return {
     links: [
@@ -152,7 +161,7 @@ export const getFooterData = (personal: {
     ],
     footNote: `
     <img class="h-5 w-auto md:h-6 md:w-auto md:-mt-0.5 mr-1.5 rtl:mr-0 rtl:ml-1.5 float-left rtl:float-right shrink-0" src="${getAsset("/images/eu_flag_colour.png")}" alt="European Union emblem" loading="lazy"></img>
-    Funded by the <a href="https://marie-sklodowska-curie-actions.ec.europa.eu/">European Union</a>. &copy; <a href=${personal.mySite}>${personal.myName}</a> ${personal.copyYear}. All rights reserved.
+    Funded by the <a href="https://marie-sklodowska-curie-actions.ec.europa.eu/">European Union</a>. &copy; <a href=${personal.mySite}>${personal.myName}</a> ${copyrightYears(personal.copyStartYear)}. All rights reserved.
   `,
   };
 };
