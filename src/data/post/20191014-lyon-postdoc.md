@@ -4,7 +4,7 @@ author: Oliver Newton
 title: First postdoctoral position in Lyon
 excerpt: I moved to Lyon to work with Noam Libeskind and the CLUES collaboration on the HESTIA suite of Local Group simulations.
 # image: /images/job_move_placeholder.svg
-category: Jobs
+category: jobs
 tags:
   - jobs
   - research

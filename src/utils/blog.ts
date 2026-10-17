@@ -47,18 +47,28 @@ const generatePermalink = async ({
     .join("/");
 };
 
-// News tags come from the tag list in src/data/tags, kept in the site editor:
-// one file per tag, holding its name. A post stores the file name of each of
-// its tags, so renaming a tag on the list renames it on every post, and a tag
-// taken off the list disappears from every post.
-const tagFiles = import.meta.glob<{ name?: string }>("~/data/tags/*.json", {
-  eager: true,
-  import: "default",
-});
-const tagNames = new Map(
-  Object.entries(tagFiles).map(([path, tag]) => {
-    const id = path.replace(/^.*\/|\.json$/g, "");
-    return [id, tag.name?.trim() || id];
+// News tags and categories come from lists kept in the site editor, one small
+// file per entry holding its name (src/data/tags and src/data/categories). A
+// post stores the file names, and the site looks the names up here, so renaming
+// a tag or category on its list renames it on every post, and one taken off its
+// list disappears from them.
+const namesById = (files: Record<string, { name?: string }>) =>
+  new Map(
+    Object.entries(files).map(([path, entry]) => {
+      const id = path.replace(/^.*\/|\.json$/g, "");
+      return [id, entry.name?.trim() || id];
+    }),
+  );
+const tagNames = namesById(
+  import.meta.glob<{ name?: string }>("~/data/tags/*.json", {
+    eager: true,
+    import: "default",
+  }),
+);
+const categoryNames = namesById(
+  import.meta.glob<{ name?: string }>("~/data/categories/*.json", {
+    eager: true,
+    import: "default",
   }),
 );
 
@@ -70,6 +80,11 @@ const getPostTags = (ids: string[]): Taxonomy[] => {
       tags.set(cleanSlug(name), { slug: cleanSlug(name), title: name });
   }
   return [...tags.values()];
+};
+
+const getPostCategory = (id: string | undefined): Taxonomy | undefined => {
+  const name = id ? categoryNames.get(id) : undefined;
+  return name ? { slug: cleanSlug(name), title: name } : undefined;
 };
 
 const getNormalizedPost = async (
@@ -96,12 +111,7 @@ const getNormalizedPost = async (
   const publishDate = new Date(rawPublishDate);
   const updateDate = rawUpdateDate ? new Date(rawUpdateDate) : undefined;
 
-  const category = rawCategory
-    ? {
-        slug: cleanSlug(rawCategory),
-        title: rawCategory,
-      }
-    : undefined;
+  const category = getPostCategory(rawCategory);
 
   const tags = getPostTags(rawTags);
 

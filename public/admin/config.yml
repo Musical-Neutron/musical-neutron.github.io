@@ -915,13 +915,16 @@ collections:
         required: false
         hint: "One or two sentences, shown in post lists and link previews."
       - { name: image, label: Image, widget: image, required: false }
-      - {
-          name: category,
-          label: Category,
-          widget: string,
-          required: false,
-          hint: "e.g. Outreach, Press, Jobs, Grants",
-        }
+      - name: category
+        label: Category
+        widget: relation
+        collection: news_categories
+        value_field: "{{slug}}"
+        search_fields: [name]
+        display_fields: [name]
+        dropdown_threshold: 0
+        required: false
+        hint: "Pick a category, or use Add Category for a new one. Each category gets its own page."
       - name: tags
         label: Tags
         widget: relation
@@ -970,4 +973,24 @@ collections:
             "^[a-z0-9]+(-[a-z0-9]+)*$",
             "Use lower-case letters and numbers, with hyphens between words.",
           ]
+        unique: true
         hint: "Lower-case, with hyphens between words, e.g. local-group."
+  # News categories, set up like the tags: one small file per category in src/data/categories, holding its name.
+  - name: news_categories
+    label: News categories
+    label_singular: Category
+    description: "The categories offered for a news post; new ones can also be added from a post. Renaming a category here renames it on every post, and deleting it removes it from every post."
+    folder: src/data/categories
+    extension: json
+    format: json
+    create: true
+    identifier_field: name
+    slug: "{{name}}"
+    summary: "{{name}}"
+    sortable_fields: [name]
+    fields:
+      - name: name
+        label: Category
+        widget: string
+        unique: true
+        hint: "As it should appear on the site, e.g. Outreach or Press."

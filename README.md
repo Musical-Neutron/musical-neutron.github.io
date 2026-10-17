@@ -49,6 +49,7 @@ The icons offered for events and research topics are shown at <http://localhost:
 | Research topics and papers         | `src/data/research.json`            |      Yes      |
 | News posts                         | `src/data/post/`                    |      Yes      |
 | News tags                          | `src/data/tags/`                    |      Yes      |
+| News categories                    | `src/data/categories/`              |      Yes      |
 | Pictures in news posts             | `src/assets/images/news/`           |      Yes      |
 | Announcement bar                   | `src/data/announcement.json`        |      Yes      |
 | CV (replace the file to update it) | `public/cv/CV.pdf`                  |      No       |
@@ -74,10 +75,11 @@ days ahead_ setting can shorten that. An event's _Write-up_ links it to a news p
 and News is the first link under Home in the menus. Otherwise the section is hidden and News is the last link under
 Home. The timings are under `apps.blog.latest` in `src/config.yaml`, and the rules are in
 `src/utils/newsDisplay.ts`. A post marked _Job move_ shows the job-move graphic when it has no picture of its own.
-A post's tags are picked from a drop-down of the tags on the list (one small file per tag in `src/data/tags/`, holding
-its name), and **Add Tag** puts a new one on the list. Posts store each tag's file name and the site looks the name up
-on the list, so renaming a tag under _News tags_ renames it everywhere and deleting it removes it from every post.
-Only tags on the list appear on the site.
+A post's tags and category are picked from drop-downs of those on their lists (one small file each in `src/data/tags/`
+and `src/data/categories/`, holding the name), and **Add Tag** or **Add Category** puts a new one on the list. Posts
+store the file names and the site looks the names up on the lists, so renaming a tag or category under _News tags_ or
+_News categories_ renames it everywhere, and deleting it removes it from every post. Only tags and categories on the
+lists appear on the site.
 
 **Announcement bar.** An optional strip across the top of every page on tablets and computers, set in the site editor:
 switch it on or off, and give it a badge (such as NEW), its text, a link and a time after which it hides itself.
