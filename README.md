@@ -87,6 +87,13 @@ link in the same tab, give it `target="_self"` (the rule is at the end of `src/c
 **Announcement bar.** An optional strip across the top of every page on tablets and computers, set in the site editor:
 switch it on or off, and give it a badge (such as NEW), its text, a link and a time after which it hides itself.
 
+**Going live later.** Research topics, papers and news posts can be prepared ahead and kept off the site. _Draft_ keeps
+something hidden until you untick it; to schedule it instead, leave _Draft_ unticked and give a topic or paper a _Go
+live_ time or a post a future date (the announcement bar has a _Show from_ time too). A topic that isn't live is left
+out of the menu as well. Things go live at the first rebuild after their time, never before; the site rebuilds every
+four hours from Monday to Saturday, so to go live at an exact time, run the deploy from the Actions tab (**Run
+workflow**) at that time.
+
 **Menus.** On wide screens the menu is a sidebar on the left; on phones it is a header with a menu button. The
 Research menu is built from the topics in `src/data/research.json`.
 

@@ -8,8 +8,21 @@ const {
   badgeText = '',
   text = '',
   link = '',
+  startsAt = '',
   expiresAt = '',
-}: { enabled?: boolean; badgeText?: string; text?: string; link?: string; expiresAt?: string } = announcement;
+}: {
+  enabled?: boolean;
+  badgeText?: string;
+  text?: string;
+  link?: string;
+  startsAt?: string;
+  expiresAt?: string;
+} = announcement;
+
+// "Show from": the bar only goes into the site at the first build after this time, so an
+// announcement of something embargoed isn't in the pages early
+const startDate = startsAt ? new Date(startsAt) : null;
+const notStarted = startDate !== null && !Number.isNaN(startDate.getTime()) && startDate > new Date();
 
 // "Hide after": checked when the site is built, and again in the browser (the script below),
 // because the site is only rebuilt every few hours
@@ -22,7 +35,7 @@ const href = link ? (link.startsWith('/') ? getPermalink(link) : link) : '';
 ---
 
 {
-  enabled && text && !isExpired && (
+  enabled && text && !notStarted && !isExpired && (
     <div class="announcement-bar" data-announcement data-expires={expiry?.toISOString()}>
       <div class="hidden md:flex sidebar-offset gap-1 overflow-hidden px-3 py-2 text-sm text-muted relative text-ellipsis whitespace-nowrap bg-(--aw-color-page-dark)">
         {badgeText && (

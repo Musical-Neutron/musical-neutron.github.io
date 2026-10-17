@@ -785,6 +785,17 @@ collections:
                 widget: string
                 required: false
                 hint: "Leave empty to use the title."
+              - name: draft
+                label: Draft
+                widget: boolean
+                required: false
+                hint: "Drafts never appear on the site (nor do their papers or menu entry), whatever the go-live time. Untick when it is ready to publish or to schedule."
+              - name: go_live
+                label: Go live
+                widget: datetime
+                required: false
+                output_utc: true
+                hint: "Optional. The topic, its papers and its menu entry stay off the site until this time. The site rebuilds every few hours, so it appears at the first rebuild after this time, never before."
               - name: icon
                 label: Icon
                 widget: select
@@ -824,6 +835,17 @@ collections:
                     time_format: false
                     format: YYYY-MM-DD
                     hint: "Used to put the papers in order."
+                  - name: draft
+                    label: Draft
+                    widget: boolean
+                    required: false
+                    hint: "Drafts never appear on the site, whatever the go-live time. Untick when it is ready to publish or to schedule."
+                  - name: go_live
+                    label: Go live
+                    widget: datetime
+                    required: false
+                    output_utc: true
+                    hint: "Optional. The paper stays off the site until this time, e.g. while it is embargoed. The site rebuilds every few hours, so it appears at the first rebuild after this time, never before. Give any news post about it the same date and time."
                   - { name: summary, label: Summary, widget: text }
                   - name: links
                     label: Links
@@ -874,6 +896,12 @@ collections:
             widget: string
             required: false
             hint: "Where the text links to: a page on this site, such as /outreach or /cv, or a full web address. Leave empty for no link."
+          - name: startsAt
+            label: Show from
+            widget: datetime
+            required: false
+            output_utc: true
+            hint: "Optional. The bar stays off the site until this time, e.g. to announce an embargoed paper; it appears at the first rebuild after it."
           - name: expiresAt
             label: Hide after
             widget: datetime
@@ -900,7 +928,7 @@ collections:
         widget: datetime
         default: "{{now}}"
         output_utc: true
-        hint: "Posts are listed newest first. A post less than 90 days old also appears on the home page."
+        hint: "Posts are listed newest first. A post dated in the future stays off the site until then (it appears at the first rebuild after that time, never before). A post less than 90 days old also appears on the home page."
       - {
           name: author,
           label: Author,
