@@ -3,7 +3,7 @@ publishDate: 2022-09-14T00:00:00Z
 author: Oliver Newton
 title: Postdoctoral Fellowship at CFT Warsaw
 excerpt: I began a new position at the Center for Theoretical Physics of the Polish Academy of Sciences, working with Wojciech Hellwing on the cosmic web and small-scale structure.
-category: Jobs
+category: jobs
 tags:
   - jobs
   - research

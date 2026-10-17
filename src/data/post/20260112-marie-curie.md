@@ -4,7 +4,7 @@ author: Oliver Newton
 title: Marie Skłodowska–Curie Fellowship begins
 excerpt: The new year marks the start of my two-year fellowship embedded in the Astrophysics Group at the University of Surrey.
 image: /press-kit/stag-hill-lake-media.jpg
-category: Jobs
+category: jobs
 tags:
   - jobs
   - grants

@@ -4,7 +4,7 @@ author: Oliver Newton
 title: Pint of Science 2026
 excerpt: Discussing the cosmic web over a pint.
 image: ~/assets/images/news/pint-of-science-logo.png
-category: Outreach
+category: outreach
 tags:
   - outreach
   - msca

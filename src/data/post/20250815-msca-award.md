@@ -4,7 +4,7 @@ author: Oliver Newton
 title: Marie Skłodowska–Curie postdoctoral fellowship awarded
 excerpt: I was awarded an EU‑funded Marie Skłodowska–Curie Postdoctoral Fellowship for the project “Dwarf galaxies in context”.
 image: /images/eu_flag_colour.png
-category: Grants
+category: grants
 tags:
   - awards
   - grants

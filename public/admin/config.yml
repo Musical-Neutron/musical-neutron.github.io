@@ -915,18 +915,27 @@ collections:
         required: false
         hint: "One or two sentences, shown in post lists and link previews."
       - { name: image, label: Image, widget: image, required: false }
-      - {
-          name: category,
-          label: Category,
-          widget: string,
-          required: false,
-          hint: "e.g. Outreach, Press, Jobs, Grants",
-        }
+      - name: category
+        label: Category
+        widget: relation
+        collection: news_categories
+        value_field: "{{slug}}"
+        search_fields: [name]
+        display_fields: [name]
+        dropdown_threshold: 0
+        required: false
+        hint: "Pick a category, or use Add Category for a new one. Each category gets its own page."
       - name: tags
         label: Tags
-        widget: list
+        widget: relation
+        collection: news_tags
+        value_field: "{{slug}}"
+        search_fields: [name]
+        display_fields: [name]
+        multiple: true
+        dropdown_threshold: 0
         required: false
-        hint: "Lower-case words such as outreach or local-group; each tag gets its own page."
+        hint: "Pick tags already in use, or use Add Tag for a new one. Each tag gets its own page."
       - name: isJobMove
         label: Job move
         widget: boolean
@@ -941,3 +950,47 @@ collections:
         label: Text
         widget: markdown
         hint: "Use the toolbar for formatting, or switch to Markdown to type it (HTML works there too)."
+  # News tags: one small file per tag in src/data/tags, holding the tag's name. Posts store the file name, and the site
+  # looks the name up here, so renaming or deleting a tag changes it on every post.
+  - name: news_tags
+    label: News tags
+    label_singular: Tag
+    description: "The tags offered when tagging a news post; new ones can also be added from a post. Renaming a tag here renames it on every post, and deleting it removes it from every post."
+    folder: src/data/tags
+    extension: json
+    format: json
+    create: true
+    identifier_field: name
+    slug: "{{name}}"
+    summary: "{{name}}"
+    sortable_fields: [name]
+    fields:
+      - name: name
+        label: Tag
+        widget: string
+        pattern:
+          [
+            "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "Use lower-case letters and numbers, with hyphens between words.",
+          ]
+        unique: true
+        hint: "Lower-case, with hyphens between words, e.g. local-group."
+  # News categories, set up like the tags: one small file per category in src/data/categories, holding its name.
+  - name: news_categories
+    label: News categories
+    label_singular: Category
+    description: "The categories offered for a news post; new ones can also be added from a post. Renaming a category here renames it on every post, and deleting it removes it from every post."
+    folder: src/data/categories
+    extension: json
+    format: json
+    create: true
+    identifier_field: name
+    slug: "{{name}}"
+    summary: "{{name}}"
+    sortable_fields: [name]
+    fields:
+      - name: name
+        label: Category
+        widget: string
+        unique: true
+        hint: "As it should appear on the site, e.g. Outreach or Press."

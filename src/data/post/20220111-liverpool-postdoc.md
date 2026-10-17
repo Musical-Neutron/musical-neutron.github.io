@@ -4,7 +4,7 @@ author: Oliver Newton
 title: Short-term fellowship at Liverpool John Moores University
 excerpt: A brief return to the UK to work at the Astrophysics Research Institute in Liverpool with Rob Crain.
 # image: /images/job_move_placeholder.svg
-category: Jobs
+category: jobs
 tags:
   - jobs
   - research
