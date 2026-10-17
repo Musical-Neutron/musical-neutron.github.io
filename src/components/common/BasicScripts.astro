@@ -296,3 +296,30 @@ import { UI } from 'astrowind:config';
     Observer.start(true);
   });
 </script>
+
+<script is:inline define:vars={{ siteBase: import.meta.env.BASE_URL }}>
+  // Links that leave this site open in a new tab: any web link to another address, or to an address outside this site's
+  // base path. Links that set their own target (e.g. target="_self"), downloads, email and phone links are left alone.
+  (function () {
+    if (window.links_script) return;
+    window.links_script = true;
+
+    const basePath = siteBase.replace(/\/+$/, '');
+    const leavesSite = (url) =>
+      url.origin !== location.origin || !(url.pathname === basePath || url.pathname.startsWith(basePath + '/'));
+
+    const markLinks = () => {
+      document.querySelectorAll('a[href]').forEach((link) => {
+        if (link.hasAttribute('target') || link.hasAttribute('download')) return;
+        const url = new URL(link.href, location.href);
+        if (!/^https?:$/.test(url.protocol) || !leavesSite(url)) return;
+        link.target = '_blank';
+        link.rel = [...new Set([...link.rel.split(/\s+/).filter(Boolean), 'noopener', 'noreferrer'])].join(' ');
+      });
+    };
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', markLinks);
+    else markLinks();
+    document.addEventListener('astro:after-swap', markLinks);
+  })();
+</script>

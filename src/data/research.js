@@ -11,10 +11,16 @@ const linkLabels = {
   github: "GitHub",
 };
 
-export const researchTopics = data.topics.map((topic) => ({
+// Topics and papers that aren't live yet are left out everywhere (the Research page and the
+// menu): drafts, and those whose "Go live" time hasn't come (e.g. an embargoed paper).
+const builtAt = new Date();
+const isLive = (item) =>
+  !item.draft && !(item.go_live && new Date(item.go_live) > builtAt);
+
+export const researchTopics = data.topics.filter(isLive).map((topic) => ({
   ...topic,
   menu_links: topic.menu_links ?? [],
-  papers: (topic.papers ?? []).map((paper) => ({
+  papers: (topic.papers ?? []).filter(isLive).map((paper) => ({
     ...paper,
     links: (paper.links ?? []).map((link) => ({
       ...link,

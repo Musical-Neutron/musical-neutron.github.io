@@ -35,3 +35,24 @@ export const responsiveTablesRehypePlugin: RehypePlugin = () => {
     }
   };
 };
+
+// Pictures in news posts load as they come into view, not all with the page
+// (as on the CWEBDWARFS site).
+type HastNode = {
+  type: string;
+  tagName?: string;
+  properties?: Record<string, unknown>;
+  children?: HastNode[];
+};
+
+export const lazyImagesRehypePlugin: RehypePlugin = () => {
+  return function (tree) {
+    const visit = (node: HastNode) => {
+      if (node.type === "element" && node.tagName === "img") {
+        node.properties = { ...node.properties, loading: "lazy" };
+      }
+      node.children?.forEach(visit);
+    };
+    visit(tree as unknown as HastNode);
+  };
+};
