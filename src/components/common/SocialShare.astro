@@ -11,22 +11,15 @@ const { text, url, class: className = 'inline-block' } = Astro.props;
 ---
 
 <div class={className}>
-  {
-    /* Twitter/X share, currently disabled:
-  <button
+  <span class="align-super font-bold">Share:</span><button
     class="ml-2 rtl:ml-0 rtl:mr-2 social-button social-button-small"
-    title="Twitter Share"
-    data-aw-social-share="twitter"
+    title="Bluesky Share"
+    data-aw-social-share="bluesky"
     data-aw-url={url}
     data-aw-text={text}
-    ><Icon
-      name="tabler:brand-x"
-      class="w-6 h-6"
-    />
+    ><Icon name="tabler:brand-bluesky" class="w-6 h-6" />
   </button>
-  */
-  }
-  <span class="align-super font-bold">Share:</span><button
+  <button
     class="ml-2 rtl:ml-0 rtl:mr-2 social-button social-button-small"
     title="Facebook Share"
     data-aw-social-share="facebook"

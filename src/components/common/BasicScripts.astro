@@ -86,8 +86,8 @@ import { UI } from 'astrowind:config';
           case 'facebook':
             href = `https://www.facebook.com/sharer.php?u=${url}`;
             break;
-          case 'twitter':
-            href = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+          case 'bluesky':
+            href = `https://bsky.app/intent/compose?text=${text}%20${url}`;
             break;
           case 'linkedin':
             href = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${text}`;
