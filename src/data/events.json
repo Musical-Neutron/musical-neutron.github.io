@@ -116,13 +116,15 @@
     {
       "title": "IOP South Central Lecture",
       "category": "outreach",
+      "eventID": "iop-south-central-2027",
       "start_date": "2027-03-09",
       "start_time": "19:00",
       "end_time": "20:00",
       "month_only": false,
       "location": "University of Surrey, Guildford, UK",
       "location_link": "https://maps.app.goo.gl/MWLDxwnaQhDwSEFD8",
-      "description": "Caught in the cosmic web: A pint-sized guide to dark matter.",
+      "description": "Small galaxies, big mysteries: What dwarf galaxies reveal about dark matter and the cosmic web",
+      "info_link": "https://www.surrey.ac.uk/school-mathematics-and-physics/events/institute-physics-lectures",
       "appear_days_before": 60
     }
   ]
