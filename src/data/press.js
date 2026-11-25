@@ -1,3 +1,16 @@
+/**
+ * @typedef {object} PressItem
+ * @property {string} title
+ * @property {string} outlet
+ * @property {string} date Publication date, YYYY-MM-DD.
+ * @property {string} type "article" | "podcast" | "tv" | "interview"; picks the icon.
+ * @property {string} description
+ * @property {string} link
+ * @property {string} [icon] Iconify name to use instead of the type's icon.
+ * @property {{ src: string, alt?: string }} [image] Picture shown with the entry.
+ */
+
+/** @type {PressItem[]} */
 export const pressItems = [
   {
     title:
