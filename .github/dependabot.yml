@@ -12,6 +12,12 @@ updates:
       - dependency-name: prettier-plugin-astro
         update-types:
           - version-update:semver-major
+      # TypeScript 7 (the Go rewrite) has no programmatic API yet, so
+      # @astrojs/check only accepts TypeScript 5 or 6 and a bump to 7 breaks
+      # `npm ci`. Remove this once @astrojs/check supports TypeScript 7.
+      - dependency-name: typescript
+        versions:
+          - 7.x
     groups:
       # Astro and its official integrations must be upgraded together:
       # @astrojs/mdx and @astrojs/markdown-remark only accept a narrow range
